@@ -43,6 +43,7 @@ Patch3:		%{name}-mime-elf.patch
 Patch4:		%{name}-unicode.patch
 Patch5:		%{name}-readelf-fix.patch
 Patch6:		%{name}-dicom.patch
+Patch6:		%{name}-lmagic.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
