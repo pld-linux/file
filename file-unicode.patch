@@ -1,6 +1,7 @@
---- file-3.38/Magdir/unicode	Thu Jan  1 00:00:00 1970
-+++ file-3.38/Magdir/unicode.unicode	Tue Aug 22 08:21:52 2000
-1-------------------------------------------------------------------
+--- /dev/null	Tue May  5 22:32:27 1998
++++ file-3.38/Magdir/unicode	Thu May 23 19:59:50 2002
+@@ -0,0 +1,14 @@
++#---------------------------------------------------------------------------
 +# Unicode:  BOM prefixed text files - Adrian Havill <havill@turbolinux.co.jp>
 +#
 +0	string	+/v8			Unicode text, UTF-7
