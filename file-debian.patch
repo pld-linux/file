@@ -1,8 +1,8 @@
---- file-4.07.orig/doc/file.man
-+++ file-4.07/doc/file.man
+--- file-4.13.orig/doc/file.man
++++ file-4.13/doc/file.man
 @@ -1,4 +1,4 @@
 -.TH FILE __CSECTION__ "Copyright but distributable"
-+.TH FILE __CSECTION__ "January 2004" "Debian/GNU Linux" "Copyrighted but distributable"
++.TH FILE __CSECTION__ "January 2004" "Copyrighted but distributable"
  .\" $Id$
  .SH NAME
  file
