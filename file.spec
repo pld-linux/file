@@ -22,12 +22,12 @@ Summary(uk):	õÔÉÌ¦ÔÁ ÄÌÑ ×ÉÚÎÁŞÅÎÎÑ ÔÉĞ¦× ÆÁÊÌ¦×
 Summary(zh_CN):	ÅĞ¶¨ÎÄ¼şÀàĞÍµÄ¹¤¾ß¡£
 Summary(zh_TW):	¥Î©ó¨M©wÀÉ®×Ãş«¬ªº¤@­Ó¤u¨ãµ{¦¡¡C
 Name:		file
-Version:	4.07
-Release:	2
+Version:	4.08
+Release:	1
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/%{name}/%{name}-%{version}.tar.gz
-# Source0-md5:	ecfbf092c2c19119d9386e668f890954
+# Source0-md5:	fe7867fbdacee30b294cd8238008d92b
 Source1:	zisofs.magic
 Source2:	magic.mime
 Source3:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-non-english-man-pages.tar.bz2
@@ -36,10 +36,9 @@ Source4:	%{name}-magic.mscompress
 Patch0:		%{name}-debian.patch
 Patch1:		%{name}-sparc.patch
 Patch2:		%{name}-ia64.patch
-Patch3:		%{name}-palm.patch
-Patch4:		%{name}-mime-elf.patch
-Patch5:		%{name}-unicode.patch
-Patch6:		%{name}-readelf-fix.patch
+Patch3:		%{name}-mime-elf.patch
+Patch4:		%{name}-unicode.patch
+Patch5:		%{name}-readelf-fix.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
@@ -227,7 +226,6 @@ Ten pakiet zawiera statyczn± wersjê biblioteki.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
-%patch6 -p1
 
 %build
 %{__libtoolize}
