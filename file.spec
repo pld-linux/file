@@ -73,12 +73,12 @@ automake --copy --add-missing
 LDFLAGS="-s"; export LDFLAGS
 %configure
 	
-make LDFLAGS="-s"
+%{__make} LDFLAGS="-s"
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-make install DESTDIR=$RPM_BUILD_ROOT
+%{__make} install DESTDIR=$RPM_BUILD_ROOT
 
 gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man{1,4}/*
 
