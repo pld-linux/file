@@ -64,7 +64,7 @@ install %{SOURCE1} ./Magdir/gimp
 install %{SOURCE2} ./Magdir/xdelta
 
 %build
-CFLAGS="$RPM_OPT_FLAGS" \
+CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="-s" \
 ./configure \
 	--prefix=/usr
 make LDFLAGS="-s"
@@ -80,7 +80,7 @@ gzip -9nf $RPM_BUILD_ROOT/usr/man/man{1,4}/*
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%attr(644,root,root,755)
+%defattr(644,root,root,755)
 %attr(755,root,root) /usr/bin/file
 /usr/share/magic
 /usr/man/man[14]/*
