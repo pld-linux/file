@@ -12,7 +12,7 @@ Group(de):	Applikationen/Datei
 Group(pl):	Aplikacje/Pliki
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
 Source1:	zisofs.magic
-Source2:	mime.magic
+Source2:	magic.mime
 Source3:	file.1.pl
 Source4:	magic.5.pl
 Patch0:		%{name}-sparc.patch
