@@ -39,7 +39,6 @@ Patch2:		%{name}-ia64.patch
 Patch3:		%{name}-palm.patch
 Patch4:		%{name}-mime-elf.patch
 Patch5:		%{name}-unicode.patch
-Patch6:		%{name}-am_fix.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
@@ -227,10 +226,8 @@ Ten pakiet zawiera statyczn± wersjê biblioteki.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
-%patch6 -p1
 
 %build
-rm -f install-sh ltmain.sh missing mkinstalldirs
 %{__libtoolize}
 %{__aclocal}
 %{__autoheader}
@@ -246,6 +243,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
+
+install -D magic/magic.local $RPM_BUILD_ROOT%{_sysconfdir}/magic
 
 cat %{SOURCE1} %{SOURCE4} >>$RPM_BUILD_ROOT%{_datadir}/file/magic
 # install %{SOURCE2} $RPM_BUILD_ROOT%{_datadir}
@@ -270,6 +269,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/*
 %{_datadir}/file
+%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/magic
 %{_mandir}/man[15]/*
 %lang(de) %{_mandir}/de/man[15]/*
 %lang(es) %{_mandir}/es/man[15]/*
@@ -287,9 +287,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n libmagic-devel
 %defattr(644,root,root,755)
-%{_includedir}/magic.h
+%attr(755,root,root) %{_libdir}/lib*.so
 %{_libdir}/lib*.la
-%{_libdir}/lib*.so
+%{_includedir}/magic.h
 %{_mandir}/man3/*
 
 %files -n libmagic-static
