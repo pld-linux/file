@@ -5,7 +5,7 @@ Summary(pl):	komenda file(1)
 Summary(tr):	Dosya tipini belirleme aracý
 Name:		file
 Version:	3.36
-Release:	1
+Release:	2
 License:	Distributable
 Group:		Applications/File
 Group(de):	Applikationen/Datei
@@ -18,6 +18,7 @@ Source4:	magic.5.pl
 Patch0:		%{name}-sparc.patch
 Patch1:		%{name}-tfm.patch
 Patch2:		%{name}-ia64.patch
+Patch3:		%{name}-elf.patch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Conflicts:	xdelta < 1.0.0
 
@@ -69,6 +70,7 @@ kitaplýklarýný vs. tanýyabilir.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 aclocal
@@ -76,7 +78,6 @@ autoconf
 rm -f install-sh missing mkinstalldirs
 automake --copy --add-missing
 %configure \
-	--disable-elf \
 	--enable-fsect-man5
 	
 %{__make}
@@ -91,7 +92,7 @@ cat %{SOURCE1} >>$RPM_BUILD_ROOT%{_datadir}/magic
 install %{SOURCE3} $RPM_BUILD_ROOT%{_datadir}
 
 install %{SOURCE3} $RPM_BUILD_ROOT%{_mandir}/pl/man1/file.1
-install %{SOURCE4} $RPM_BUILD_ROOT%{_mandir}/pl/man5/magick.5
+install %{SOURCE4} $RPM_BUILD_ROOT%{_mandir}/pl/man5/magic.5
 
 ./file -m $RPM_BUILD_ROOT%{_datadir}/magic -c -C
 
