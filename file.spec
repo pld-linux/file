@@ -1,17 +1,29 @@
-Summary:	file(1) command
-Summary(de):	Befehl file(1)
-Summary(es):	Comando file
-Summary(fr):	Commande file(1)
-Summary(ja):	¥Õ¥¡¥¤¥ë¤Î¼ïÎà¤òÈ½ÊÌ¤¹¤ë¥æ¡¼¥Æ¥£¥ê¥Æ¥£¡¼
-Summary(ko):	ÆÄÀÏ Á¾·ù¸¦ ¾Ë¾Æ³»´Â µµ±¸
-Summary(pl):	Polecenie file(1)
+Summary:	A utility for determining file types
+Summary(cs):	Program pro zji¹»ování typu souborù
+Summary(da):	Et værktøj til bestemmelse af filtyper
+Summary(de):	Ein Befehl zur Bestimmung von Dateitypen
+Summary(es):	Utilidad para determinar el tipo de fichero
+Summary(fr):	Utilitaire permettant d'identifier des types de fichier
+Summary(id):	Utility untuk menentukan tipe file
+Summary(is):	Tól til şess ağ komast ağ tegund skráar
+Summary(it):	Utility per determinare il tipo di file
+Summary(ja):	¥Õ¥¡¥¤¥ë¤Î¼ïÎà¤òÈ½ÃÇ¤¹¤ë¤¿¤á¤Î¥æ¡¼¥Æ¥£¥ê¥Æ¥£
+Summary(ko):	ÆÄÀÏ Á¾·ù¸¦ °áÁ¤ÇÏ´Â À¯Æ¿¸®Æ¼
+Summary(no):	Et verktøy for å bestemme filtyper
+Summary(pl):	Polecenie okre¶laj±ce rodzaj pliku
+Summary(pt):	Um utilitário para determinar o tipo dos ficheiros
 Summary(pt_BR):	Um utilitário para determinar tipos de arquivos
 Summary(ru):	õÔÉÌÉÔÁ ÄÌÑ ÏĞÒÅÄÅÌÅÎÉÑ ÔÉĞÏ× ÆÁÊÌÏ×
-Summary(tr):	Dosya tipini belirleme aracı
+Summary(sk):	Pomocnı program pre urèenie typu súboru
+Summary(sl):	Pripomoèek za ugotavljanje vrste datotek
+Summary(sv):	Ett verktyg för att bestämma filtyper
+Summary(tr):	Dosya türünü öğrenmek için bir araç
 Summary(uk):	õÔÉÌ¦ÔÁ ÄÌÑ ×ÉÚÎÁŞÅÎÎÑ ÔÉĞ¦× ÆÁÊÌ¦×
+Summary(zh_CN):	ÅĞ¶¨ÎÄ¼şÀàĞÍµÄ¹¤¾ß¡£
+Summary(zh_TW):	¥Î©ó¨M©wÀÉ®×Ãş«¬ªº¤@­Ó¤u¨ãµ{¦¡¡C
 Name:		file
 Version:	4.03
-Release:	0.9
+Release:	1
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
@@ -41,6 +53,17 @@ safe to 'more' it or if it's a binary. It recognizes many file types,
 including ELF binaries, system libraries, RPM packages, and many
 different graphics formats.
 
+%description -l cs
+Pøíkaz file se pou¾ívá pro identifikaci zadaného souboru podle jeho
+obsahu. Je schopen identifikovat mno¾ství rùznıch typù souborù vèetnì
+binárních souborù ELF, systémovıch knihoven, RPM balíèkù a rùznıch
+grafickıch formátù.
+
+%description -l da
+Programmet "file" bruges til at identificere filer baseret på indhold.
+"file" kan identificere mange forskellige filtyper, inkl. ELF-filer,
+systembiblioteker, RPM-pakker og billedfiler i forskellige formater.
+
 %description -l de
 Sie können dieses Paket verwenden, um zu bestimmen, welches Format
 eine bestimmte Datei hat. Wird durch fsck eine Datei in lost+found
@@ -66,11 +89,27 @@ faire un more, ou s'il s'agit d'un binaire. Il reconnaît de nombreux
 types de fichiers dont les binaires ELF, les bibliothèques systèmes,
 les paquetages RPM et de nombreux formats graphiques différents.
 
+%description -l it
+Il comando file è utilizzato per identificare il tipo di file in base
+ai tipi di dati che contiene. File può identificare molti tipi di
+file, tra cui i binari ELF, le librerie di sistema, i pacchetti RPM e
+vari formati grafici.
+
 %description -l ja
 ¥Õ¥¡¥¤¥ë¥³¥Ş¥ó¥É¤Ï¥Õ¥¡¥¤¥ë¤Ë´Ş¤Ş¤ì¤ë¥Ç¡¼¥¿¤Î¼ïÎà¤Ë¤è¤ê¸Ä¡¹¤Î¥Õ¥¡¥¤¥ë¤ò
-¸«Ê¬¤±¤ë¤¿¤á¤Ë»È¤ï¤ì¤ë¡£file ¤Ï ELF ¥Ğ¥¤¥Ê¥ê¡¢¥·¥¹¥Æ¥à¥é¥¤¥Ö¥é¥ê¡¢
-RPM ¥Ñ¥Ã¥±¡¼¥¸¡¢¤½¤·¤Æ¼ï¡¹¤Î¥°¥é¥Õ¥£¥Ã¥¯¥Õ¥©¡¼¥Ş¥Ã¥È¤ò´Ş¤à¡¢Â¿¤¯¤Î°Û¤Ê¤ë
+¸«Ê¬¤±¤ë¤¿¤á¤Ë»È¤ï¤ì¤ë¡£file ¤Ï ELF ¥Ğ¥¤¥Ê¥ê¡¢¥·¥¹¥Æ¥à¥é¥¤¥Ö¥é¥ê¡¢ RPM
+¥Ñ¥Ã¥±¡¼¥¸¡¢¤½¤·¤Æ¼ï¡¹¤Î¥°¥é¥Õ¥£¥Ã¥¯¥Õ¥©¡¼¥Ş¥Ã¥È¤ò´Ş¤à¡¢Â¿¤¯¤Î°Û¤Ê¤ë
 ¥Õ¥¡¥¤¥ë¤Î¼ïÎà¤ò¸«Ê¬¤±¤ë¤³¤È¤¬²ÄÇ½¤Ç¤¢¤ë¡£
+
+%description -l ko
+ÆÄÀÏ¿¡ ÀúÀåµÈ ÀÚ·á À¯Çü¿¡ µû¶ó ÆÄÀÏÀ» ½Äº°ÇÏ´Â file ¸í·É. 
+FileÀº ELF ¹ÙÀÌ³Ê¸®, ½Ã½ºÅÛ ¶óÀÌºê·¯¸®, RPM ÆĞÅ°Áö¿Í 
+´Ù¸¥ ±×·¡ÇÈ À¯ÇüÀ» Æ÷ÇÔÇÑ ¿©·¯ ¸¹Àº ÆÄÀÏ À¯ÇüÀ» ½Äº° °¡´ÉÇÕ´Ï´Ù.
+
+%description -l no
+Programmet "file" brukes for å identifisere filer basert på innhold.
+"file" kan identifisere mange ulike filtyper, inkl. ELF-filer,
+systembibliotek, RPM-pakker og bildefiler i ulike formater.
 
 %description -l pl
 Pakiet ten jest przydatny je¿eli chcesz rozpoznaæ typ plików w twoim
@@ -80,6 +119,12 @@ jaki to jest typ pliku, jest to metoda bezpieczniejsza ni¿ 'more', ze
 wzglêdu na to, ¿e to mo¿e byæ plik binarny. File potrafi rozpoznaæ
 wiele typów plików np. binarny ELF, biblioteki systemowe, pakiety RPM
 oraz wiele ró¿nych formatów graficznych i d¼wiêkowych.
+
+%description -l pt
+O comando file é usado para identificar um ficheiro em particular de
+acordo com o tipo de dados que contém. O file pode identificar vários
+formatos de ficheiros, incluindo binários ELF, bibliotecas de sistema,
+pacotes RPM e vários formatos gráficos diferentes.
 
 %description -l pt_BR
 Este pacote é útil para descobrir que tipo de arquivo você está
@@ -96,6 +141,12 @@ diferentes.
 ÆÁÊÌÏ×, ×ËÌÀŞÁÑ ÂÉÎÁÒÎÙÅ ÆÁÊÌÙ ÆÏÒÍÁÔÁ ELF, ÓÉÓÔÅÍÎÙÅ ÂÉÂÌÉÏÔÅËÉ,
 ĞÁËÅÔÙ RPM, ÒÁÚÌÉŞÎÙÅ ÇÒÁÆÉŞÅÓËÉÅ ÆÏÒÍÁÔÙ É ÍÎÏÇÏ ÄÒÕÇÉÈ.
 
+%description -l sv
+Kommandot file används för att identifera en fil vad avser vilken typ
+av data filen innehåller.  File kan identifiera många olika filtyper,
+inklusive ELF-binärer, systembibliotek, RPM-paket och olika
+grafikformat.
+
 %description -l tr
 file, bir dosyayı inceleyerek ne tür bir dosya olduğu konusunda size
 bir fikir verebilir. Böylece uzantısından ve adından ne olduğunu
@@ -109,6 +160,17 @@ kitaplıklarını vs. tanıyabilir.
 ×¦Î Í¦ÓÔÉÔØ. ÷ÏÎÁ ÍÏÖÅ ×ÉÚÎÁŞÉÔÉ ×ÅÌÉËÕ Ë¦ÌØË¦ÓÔØ Ò¦ÚÎÏÍÁÎ¦ÔÎÉÈ ÔÉĞ¦×
 ÆÁÊÌ¦×, Õ ÔÏÍÕ ŞÉÓÌ¦ Â¦ÎÁÒÎ¦ ÆÁÊÌÉ ÆÏÒÍÁÔÕ ELF, ÓÉÓÔÅÍÎ¦ Â¦ÂÌ¦ÏÔÅËÉ,
 ĞÁËÅÔÉ RPM, Ò¦ÚÎÏÍÁÎ¦ÔÎ¦ ÇÒÁÆ¦ŞÎ¦ ÆÏÒÍÁÔÉ ÔÁ ÂÁÇÁÔÏ ¦ÎÛÉÈ.
+
+%description -l zh_CN
+file ÃüÁîÓÃÀ´¸ù¾İÎÄ¼şÖĞ°üº¬µÄÊı¾İÀàĞÍÀ´Ê¶±ğÎÄ¼şÀàĞÍ¡£
+file ¿ÉÒÔÊ¶±ğĞí¶à²»Í¬µÄÎÄ¼şÀàĞÍ£¬°üÀ¨ ELF ¶ş½øÖÆ¡¢ÏµÍ³
+¿â¡¢RPM Èí¼ş°ü¡¢ºÍ²»Í¬µÄÍ¼ĞÎ¸ñÊ½¡£
+
+%description -l zh_TW
+file «ü¥O¬O®Ú¾ÚÀÉ®×¥]§tªº¸ê®ÆÃş«¬¨Ó¿ë»{ÀÉ®×¡C
+File ¥i¥H¿ë»{³\¦h¤£¦PªºÀÉ®×Ãş«¬¡A
+¥]§t ELF binaries¡A¨t²Î¨ç¦¡®w¡ARPM ®M¥ó¡A¥H¤Î¤£¦Pªº
+¹Ï¹³®æ¦¡¡C
 
 %package -n libmagic
 Summary:	libmagic library
