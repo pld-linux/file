@@ -5,12 +5,13 @@ Summary(pl):	komenda file(1)
 Summary(tr):	Dosya tipini belirleme aracý
 Name:		file
 Version:	3.34
-Release:	3
+Release:	4
 License:	Distributable
 Group:		Applications/File
 Group(de):	Applikationen/Datei
 Group(pl):	Aplikacje/Pliki
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
+Source1:	zisofs.magic
 Patch0:		%{name}-sparc.patch
 Patch1:		%{name}-tfm.patch
 Patch2:		%{name}-ia64.patch
@@ -81,8 +82,10 @@ automake --copy --add-missing
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
-./file -m magic -c -C
-install magic.mgc $RPM_BUILD_ROOT%{_datadir}/
+
+cat %{SOURCE1} >>$RPM_BUILD_ROOT%{_datadir}/magic
+
+./file -m $RPM_BUILD_ROOT%{_datadir}/magic -c -C
 
 %clean
 rm -rf $RPM_BUILD_ROOT
