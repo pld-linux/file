@@ -1,0 +1,2079 @@
+--- file-4.04.orig/doc/Makefile.in
++++ file-4.04/doc/Makefile.in
+@@ -52,6 +52,7 @@
+ CYGPATH_W = @CYGPATH_W@
+ DEFS = @DEFS@
+ DEPDIR = @DEPDIR@
++ECHO = @ECHO@
+ ECHO_C = @ECHO_C@
+ ECHO_N = @ECHO_N@
+ ECHO_T = @ECHO_T@
+@@ -129,6 +130,7 @@
+ EXTRA_DIST = file.man magic.man libmagic.man
+ CLEANFILES = $(man_MANS)
+ subdir = doc
++ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
+ mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
+ CONFIG_HEADER = $(top_builddir)/config.h
+ CONFIG_CLEAN_FILES =
+@@ -387,7 +389,6 @@
+ 
+ installdirs:
+ 	$(mkinstalldirs) $(DESTDIR)$(man1dir) $(DESTDIR)$(man3dir) $(DESTDIR)$(man4dir) $(DESTDIR)$(man5dir)
+-
+ install: install-am
+ install-exec: install-exec-am
+ install-data: install-data-am
+--- file-4.04.orig/doc/file.man
++++ file-4.04/doc/file.man
+@@ -1,4 +1,4 @@
+-.TH FILE __CSECTION__ "Copyright but distributable"
++.TH FILE __CSECTION__ "July 2003" "Debian/GNU Linux" "Copyrighted but distributable"
+ .\" $Id$
+ .SH NAME
+ file
+@@ -56,10 +56,9 @@
+ meaning anything else (data is usually `binary' or non-printable).
+ Exceptions are well-known file formats (core files, tar archives)
+ that are known to contain binary data.
+-When modifying the file
+-.I __MAGIC__
+-or the program itself, 
+-.B "preserve these keywords" .
++When adding local definitions to
++.IR /etc/magic ,
++.BR "preserve these keywords" .
+ People depend on knowing that all the readable files in a directory
+ have the word ``text'' printed.
+ Don't do as Berkeley did and change ``shell commands text''
+@@ -98,7 +97,9 @@
+ The concept of `magic number' has been applied by extension to data files.
+ Any file with some invariant identifier at a small fixed
+ offset into the file can usually be described in this way.
+-The information identifying these files is read from the compiled
++The information identifying these files is read from
++.I /etc/magic
++and the compiled
+ magic file
+ .I __MAGIC__.mgc ,
+ or 
+@@ -330,12 +331,6 @@
+ The order of entries in the magic file is significant.
+ Depending on what system you are using, the order that
+ they are put together may be incorrect.
+-If your old
+-.B file
+-command uses a magic file,
+-keep the old magic file around for comparison purposes
+-(rename it to 
+-.IR __MAGIC__.orig ).
+ .SH EXAMPLES
+ .nf
+ $ file file.c file /dev/{wd0a,hda}
+@@ -489,3 +484,10 @@
+ .B ftp.astron.com
+ in the directory
+ .I /pub/file/file-X.YZ.tar.gz
++.PP
++This
++.B Debian
++version adds a number of new magix entries. It can be
++obtained from every site carrying a
++.B Debian
++distribution (ftp.debian.org and mirrors).
+--- file-4.04.orig/src/Makefile.am
++++ file-4.04/src/Makefile.am
+@@ -4,7 +4,7 @@
+ 
+ bin_PROGRAMS = file
+ 
+-AM_CPPFLAGS = -DMAGIC='"$(MAGIC)"'
++AM_CPPFLAGS = -DMAGIC='"/etc/magic:$(MAGIC)"'
+ 
+ libmagic_la_SOURCES = magic.c apprentice.c softmagic.c ascmagic.c \
+ 	compress.c is_tar.c readelf.c print.c fsmagic.c \
+--- file-4.04.orig/src/Makefile.in
++++ file-4.04/src/Makefile.in
+@@ -52,6 +52,7 @@
+ CYGPATH_W = @CYGPATH_W@
+ DEFS = @DEFS@
+ DEPDIR = @DEPDIR@
++ECHO = @ECHO@
+ ECHO_C = @ECHO_C@
+ ECHO_N = @ECHO_N@
+ ECHO_T = @ECHO_T@
+@@ -127,7 +128,7 @@
+ 
+ bin_PROGRAMS = file
+ 
+-AM_CPPFLAGS = -DMAGIC='"$(MAGIC)"'
++AM_CPPFLAGS = -DMAGIC='"/etc/magic:$(MAGIC)"'
+ 
+ libmagic_la_SOURCES = magic.c apprentice.c softmagic.c ascmagic.c \
+ 	compress.c is_tar.c readelf.c print.c fsmagic.c \
+@@ -138,6 +139,7 @@
+ file_SOURCES = file.c
+ file_LDFLAGS = -lmagic
+ subdir = src
++ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
+ mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
+ CONFIG_HEADER = $(top_builddir)/config.h
+ CONFIG_CLEAN_FILES =
+@@ -276,7 +278,7 @@
+ .c.o:
+ @am__fastdepCC_TRUE@	if $(COMPILE) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.Tpo" \
+ @am__fastdepCC_TRUE@	  -c -o $@ `test -f '$<' || echo '$(srcdir)/'`$<; \
+-@am__fastdepCC_TRUE@	then mv "$(DEPDIR)/$*.Tpo" "$(DEPDIR)/$*.Po"; \
++@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/$*.Tpo" "$(DEPDIR)/$*.Po"; \
+ @am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/$*.Tpo"; exit 1; \
+ @am__fastdepCC_TRUE@	fi
+ @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+@@ -287,7 +289,7 @@
+ .c.obj:
+ @am__fastdepCC_TRUE@	if $(COMPILE) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.Tpo" \
+ @am__fastdepCC_TRUE@	  -c -o $@ `if test -f '$<'; then $(CYGPATH_W) '$<'; else $(CYGPATH_W) '$(srcdir)/$<'; fi`; \
+-@am__fastdepCC_TRUE@	then mv "$(DEPDIR)/$*.Tpo" "$(DEPDIR)/$*.Po"; \
++@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/$*.Tpo" "$(DEPDIR)/$*.Po"; \
+ @am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/$*.Tpo"; exit 1; \
+ @am__fastdepCC_TRUE@	fi
+ @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+@@ -298,7 +300,7 @@
+ .c.lo:
+ @am__fastdepCC_TRUE@	if $(LTCOMPILE) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.Tpo" \
+ @am__fastdepCC_TRUE@	  -c -o $@ `test -f '$<' || echo '$(srcdir)/'`$<; \
+-@am__fastdepCC_TRUE@	then mv "$(DEPDIR)/$*.Tpo" "$(DEPDIR)/$*.Plo"; \
++@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/$*.Tpo" "$(DEPDIR)/$*.Plo"; \
+ @am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/$*.Tpo"; exit 1; \
+ @am__fastdepCC_TRUE@	fi
+ @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
+@@ -427,7 +429,6 @@
+ 
+ installdirs:
+ 	$(mkinstalldirs) $(DESTDIR)$(libdir) $(DESTDIR)$(bindir) $(DESTDIR)$(includedir)
+-
+ install: install-am
+ install-exec: install-exec-am
+ install-data: install-data-am
+--- file-4.04.orig/src/apprentice.c
++++ file-4.04/src/apprentice.c
+@@ -81,6 +81,10 @@
+   char PATHSEP=':';
+ #endif
+ 
++#ifndef MAXPATHLEN
++#define	MAXPATHLEN	512
++#endif
++
+ 
+ private int getvalue(struct magic_set *ms, struct magic *, char **);
+ private int hextoint(int);
+--- file-4.04.orig/src/ascmagic.c
++++ file-4.04/src/ascmagic.c
+@@ -41,8 +41,8 @@
+  * international characters, now subsumed into this file.
+  */
+ 
+-#include "magic.h"
+ #include "file.h"
++#include "magic.h"
+ #include <stdio.h>
+ #include <string.h>
+ #include <memory.h>
+--- file-4.04.orig/src/compress.c
++++ file-4.04/src/compress.c
+@@ -37,8 +37,8 @@
+  *	uncompress(method, old, n, newch) - uncompress old into new, 
+  *					    using method, return sizeof new
+  */
+-#include "magic.h"
+ #include "file.h"
++#include "magic.h"
+ #include <stdio.h>
+ #include <stdlib.h>
+ #ifdef HAVE_UNISTD_H
+@@ -360,9 +360,23 @@
+ 	default: /* parent */
+ 		(void) close(fdin[0]);
+ 		(void) close(fdout[1]);
+-		if (swrite(fdin[1], old, n) != (ssize_t)n) {
+-			n = 0;
+-			goto err;
++		/* fork again, to avoid blocking because both pipes filled */
++		switch (fork()) {
++		case 0: /* child */
++		    (void) close(fdout[0]);
++		    /*fprintf(stderr, "about to write %d bytes to pipe\n", n);*/
++		    if (swrite(fdin[1], old, n) != n) {
++			exit(1);
++		    }
++		    exit(0);
++		    /*NOTREACHED*/
++		case -1:
++		    error("could not fork (%s).\n", strerror(errno));
++		    /*NOTREACHED*/
++
++		/* default: // parent
++		     fall through */
++
+ 		}
+ 		(void) close(fdin[1]);
+ 		fdin[1] = -1;
+@@ -372,7 +386,8 @@
+ 		}
+ 		if ((r = sread(fdout[0], *newch, HOWMANY)) <= 0) {
+ 			free(*newch);
+-			r = 0;
++			*newch = NULL;
++			n = 0;
+ 			goto err;
+ 		} else {
+ 			n = r;
+@@ -383,7 +398,9 @@
+ 		if (fdin[1] != -1)
+ 			(void) close(fdin[1]);
+ 		(void) close(fdout[0]);
+-		(void) wait(NULL);
++		/*(void) wait(NULL);*/
++		/* reap any terminated children, but don't wait for them. */
++		while (waitpid(-1, NULL, WNOHANG) > 0);
+ 		return n;
+ 	}
+ }
+--- file-4.04.orig/src/file.c
++++ file-4.04/src/file.c
+@@ -34,8 +34,8 @@
+  * file - find type of a file or files - main program.
+  */
+ 
+-#include "magic.h"
+ #include "file.h"
++#include "magic.h"
+ 
+ #include <stdio.h>
+ #include <stdlib.h>
+@@ -62,6 +62,10 @@
+ #ifdef HAVE_LOCALE_H
+ #include <locale.h>
+ #endif
++#ifdef HAVE_WCHAR_H
++#include <wchar.h>
++#include <assert.h>
++#endif
+ 
+ #ifdef HAVE_GETOPT_H
+ #include <getopt.h>	/* for long options (is this portable?)*/
+@@ -256,9 +260,8 @@
+ 			flags |= MAGIC_DEVICES;
+ 			break;
+ 		case 'v':
+-			(void) fprintf(stdout, "%s-%d.%.2d\n", progname,
+-				       FILE_VERSION_MAJOR, patchlevel);
+-			(void) fprintf(stdout, "magic file from %s\n",
++			(void) fprintf(stdout, "%s-"VERSION"\n", progname);
++			(void) fprintf(stdout, "magic data from %s\n",
+ 				       magicfile);
+ 			return 1;
+ 		case 'z':
+@@ -304,7 +307,7 @@
+ 	else {
+ 		int i, wid, nw;
+ 		for (wid = 0, i = optind; i < argc; i++) {
+-			nw = strlen(argv[i]);
++			nw = file_mbswidth(argv[i]);
+ 			if (nw > wid)
+ 				wid = nw;
+ 		}
+@@ -354,7 +357,7 @@
+ 		}
+ 
+ 		while (fgets(buf, MAXPATHLEN, f) != NULL) {
+-			cwid = strlen(buf) - 1;
++			cwid = file_mbswidth(buf) - 1;
+ 			if (cwid > wid)
+ 				wid = cwid;
+ 		}
+@@ -380,7 +383,8 @@
+ 
+ 	if (wid > 0 && !bflag)
+ 		(void) printf("%s%s%*s ", std_in ? "/dev/stdin" : inname,
+-		    separator, (int) (nopad ? 0 : (wid - strlen(inname))), "");
++		    separator, (int) (nopad ? 0 : (wid - file_mbswidth(inname))), ""),
++		fflush(stdout);
+ 
+ 	type = magic_file(magic, std_in ? NULL : inname);
+ 	if (type == NULL)
+@@ -488,3 +492,39 @@
+ 	exit(0);
+ }
+ #endif
++
++/* Return the screen width of the given string.
++ * We assume it's multi-byte and in the current locale.
++ * If it's not, the value we get will be at least as good
++ * as the value you get by just calling strlen() */
++size_t
++file_mbswidth(const char *s)
++{
++#ifdef HAVE_WCHAR_H
++    size_t bytesconsumed, old_n, n, width = 0;
++    mbstate_t state;
++    wchar_t nextchar;
++    memset(&state, 0, sizeof(mbstate_t));
++    old_n = n = strlen(s);
++
++    while (n>0) {
++	bytesconsumed = mbrtowc(&nextchar, s, n, &state);
++	if (bytesconsumed == (size_t)(-1) || bytesconsumed == (size_t)(-2)) {
++	    /* Something went wrong, return something reasonable */
++	    return old_n;
++	}
++	if (s[0]=='\n')
++	    /* do what strlen() would do, so that caller is always right */
++	    width++;
++	else
++	    width += wcwidth(nextchar);
++
++	s += bytesconsumed, n -= bytesconsumed;
++    }
++    return width;
++
++#else
++    return strlen(s);
++#endif
++}
++
+--- file-4.04.orig/src/file.h
++++ file-4.04/src/file.h
+@@ -198,6 +198,7 @@
+ protected void file_magwarn(const char *, ...);
+ protected void file_mdump(struct magic *);
+ protected void file_showstr(FILE *, const char *, size_t);
++protected size_t file_mbswidth(const char *);
+ 
+ #ifndef HAVE_STRERROR
+ extern int sys_nerr;
+--- file-4.04.orig/src/funcs.c
++++ file-4.04/src/funcs.c
+@@ -26,8 +26,8 @@
+  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+  * SUCH DAMAGE.
+  */
+-#include "magic.h"
+ #include "file.h"
++#include "magic.h"
+ #include <stdarg.h>
+ #include <stdlib.h>
+ #include <string.h>
+--- file-4.04.orig/src/is_tar.c
++++ file-4.04/src/is_tar.c
+@@ -42,8 +42,8 @@
+  * for file command by Ian Darwin.
+  */
+ 
+-#include "magic.h"
+ #include "file.h"
++#include "magic.h"
+ #include <string.h>
+ #include <ctype.h>
+ #include <sys/types.h>
+--- file-4.04.orig/src/magic.c
++++ file-4.04/src/magic.c
+@@ -27,8 +27,8 @@
+  * SUCH DAMAGE.
+  */
+ 
+-#include "magic.h"
+ #include "file.h"
++#include "magic.h"
+ 
+ #include <stdio.h>
+ #include <stdlib.h>
+@@ -251,11 +251,24 @@
+ 	else if ((fd = open(inname, O_RDONLY)) < 0) {
+ 		/* We can't open it, but we were able to stat it. */
+ 		if (sb.st_mode & 0002)
+-			if (file_printf(ms, "writable, ") == -1)
++			if (file_printf(ms, "writable, ") == -1) {
++			        close(fd);
+ 				return NULL;
++			}
+ 		if (sb.st_mode & 0111)
+-			if (file_printf(ms, "executable, ") == -1)
++			if (file_printf(ms, "executable, ") == -1) {
++			        close(fd);
++				return NULL;
++			}
++		if (sb.st_mode & 0100000)
++			if (file_printf(ms, "regular file, ") == -1) {
++			        close(fd);
+ 				return NULL;
++			}
++		if (file_printf(ms, "no read permission") == -1) {
++			close(fd);
++			return NULL;
++		}
+ 		return ms->o.buf;
+ 	}
+ 
+@@ -273,6 +286,10 @@
+ 			(void)close(fd);
+ 		    goto done;
+ 		}
++	} else if (nbytes == 1) {
++		file_printf(ms, "very short file (no magic)");
++		(void)close(fd);
++		return ms->o.buf;
+ 	} else {
+ 		buf[nbytes++] = '\0';	/* null-terminate it */
+ #ifdef __EMX__
+--- file-4.04.orig/src/names.h
++++ file-4.04/src/names.h
+@@ -60,6 +60,7 @@
+ #define	L_HTML	11		/* HTML */
+ #define	L_BCPL	12		/* BCPL */
+ #define	L_M4	13		/* M4 */
++#define L_PO	14		/* PO */
+ 
+ static const struct {
+ 	const char *human;
+@@ -71,7 +72,7 @@
+ 	{ "make commands",				"text/x-makefile" },
+ 	{ "PL/1 program",				"text/x-pl1" },
+ 	{ "assembler program",				"text/x-asm" },
+-	{ "English",					"text/plain, English" },
++	{ "English",					"text/plain" },
+ 	{ "Pascal program",				"text/x-pascal" },
+ 	{ "mail",					"text/x-mail" },
+ 	{ "news",					"text/x-news" },
+@@ -79,6 +80,7 @@
+ 	{ "HTML document",				"text/html", },
+ 	{ "BCPL program",				"text/x-bcpl" },
+ 	{ "M4 macro language pre-processor",		"text/x-m4" },
++	{ "PO (gettext message catalogue)",		"text/x-po" },
+ 	{ "can't happen error on names.h/types",	"error/x-error" },
+ 	{ 0, 0}
+ };
+@@ -125,6 +127,7 @@
+ } names[] = {
+ 	/* These must be sorted by eye for optimal hit rate */
+ 	/* Add to this list only after substantial meditation */
++	{"msgid",	L_PO},
+ 	{"dnl",		L_M4},
+ 	{"import",	L_JAVA},
+ 	{"\"libhdr\"",	L_BCPL},
+--- file-4.04.orig/Makefile.in
++++ file-4.04/Makefile.in
+@@ -52,6 +52,7 @@
+ CYGPATH_W = @CYGPATH_W@
+ DEFS = @DEFS@
+ DEPDIR = @DEPDIR@
++ECHO = @ECHO@
+ ECHO_C = @ECHO_C@
+ ECHO_N = @ECHO_N@
+ ECHO_T = @ECHO_T@
+@@ -275,9 +276,15 @@
+ 		$(TAGS_FILES) $(LISP)
+ 	tags=; \
+ 	here=`pwd`; \
++	if (etags --etags-include --version) >/dev/null 2>&1; then \
++	  include_option=--etags-include; \
++	else \
++	  include_option=--include; \
++	fi; \
+ 	list='$(SUBDIRS)'; for subdir in $$list; do \
+ 	  if test "$$subdir" = .; then :; else \
+-	    test -f $$subdir/TAGS && tags="$$tags -i $$here/$$subdir/TAGS"; \
++	    test -f $$subdir/TAGS && \
++	      tags="$$tags $$include_option=$$here/$$subdir/TAGS"; \
+ 	  fi; \
+ 	done; \
+ 	list='$(SOURCES) $(HEADERS) config.h.in $(LISP) $(TAGS_FILES)'; \
+@@ -420,7 +427,7 @@
+ 	@echo "$(distdir).tar.gz is ready for distribution" | \
+ 	  sed 'h;s/./=/g;p;x;p;x'
+ distuninstallcheck:
+-	cd $(distuninstallcheck_dir) \
++	@cd $(distuninstallcheck_dir) \
+ 	&& test `$(distuninstallcheck_listfiles) | wc -l` -le 1 \
+ 	   || { echo "ERROR: files left after uninstall:" ; \
+ 	        if test -n "$(DESTDIR)"; then \
+@@ -429,11 +436,11 @@
+ 	        $(distuninstallcheck_listfiles) ; \
+ 	        exit 1; } >&2
+ distcleancheck: distclean
+-	if test '$(srcdir)' = . ; then \
++	@if test '$(srcdir)' = . ; then \
+ 	  echo "ERROR: distcleancheck can only run from a VPATH build" ; \
+ 	  exit 1 ; \
+ 	fi
+-	test `$(distcleancheck_listfiles) | wc -l` -eq 0 \
++	@test `$(distcleancheck_listfiles) | wc -l` -eq 0 \
+ 	  || { echo "ERROR: files left in build directory after distclean:" ; \
+ 	       $(distcleancheck_listfiles) ; \
+ 	       exit 1; } >&2
+@@ -496,7 +503,7 @@
+ 
+ maintainer-clean: maintainer-clean-recursive
+ 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
+-	-rm -rf autom4te.cache
++	-rm -rf $(top_srcdir)/autom4te.cache
+ maintainer-clean-am: distclean-am maintainer-clean-generic
+ 
+ mostlyclean: mostlyclean-recursive
+--- file-4.04.orig/magic/Header
++++ file-4.04/magic/Header
+@@ -1,5 +1,5 @@
+-# Magic
+ # Magic data for file(1) command.
+-# Machine-generated from src/cmd/file/magdir/*; edit there only!
+-# Format is described in magic(files), where:
+-# files is 5 on V7 and BSD, 4 on SV, and ?? in the SVID.
++# Format is described in magic(5).
++# Don't edit this file, edit /etc/magic or send your suggested inclusions to
++# this file as a wishlist bug against file (using the reportbug utility).
++
+--- file-4.04.orig/magic/Magdir/amigaos
++++ file-4.04/magic/Magdir/amigaos
+@@ -33,7 +33,8 @@
+ 0	string		ARP.		The Holy Noise Module sound file
+ 0	string		BeEp\0		JamCracker Module sound file
+ 0	string		COSO\0		Hippel-COSO Module sound file
+-26	string		V.3		Brian Postma's Soundmon Module sound file v3
+-26	string		BPSM		Brian Postma's Soundmon Module sound file v3
+-26	string		V.2		Brian Postma's Soundmon Module sound file v2
++# Too simple (short, pure ASCII, deep), MPi
++#26	string		V.3		Brian Postma's Soundmon Module sound file v3
++#26	string		BPSM		Brian Postma's Soundmon Module sound file v3
++#26	string		V.2		Brian Postma's Soundmon Module sound file v2
+ 
+--- file-4.04.orig/magic/Magdir/archive
++++ file-4.04/magic/Magdir/archive
+@@ -35,7 +35,7 @@
+ >68	string		>\0		(format %s)
+ >81	string		bz2		\b, uses bzip2 compression
+ >84	string		gz		\b, uses gzip compression
+->136	ledate		x		created: %s
++#>136	ledate		x		created: %s
+ 
+ # other archives
+ 0	long		0177555		very old archive
+--- file-4.04.orig/magic/Magdir/audio
++++ file-4.04/magic/Magdir/audio
+@@ -333,3 +333,6 @@
+ 0	string		A#S#C#S#S#L#V#3	    Synthesizer Generator or Kimwitu data
+ # Kimwitu++ uses a slightly different magic
+ 0	string		A#S#C#S#S#L#HUB	    Kimwitu++ data
++
++# From "Simon Hosie
++0       string  TFMX-SONG       TFMX module sound data
+--- file-4.04.orig/magic/Magdir/c-lang
++++ file-4.04/magic/Magdir/c-lang
+@@ -10,7 +10,7 @@
+ # this first will upset you if you're a PL/1 shop...
+ # in which case rm it; ascmagic will catch real C programs
+ #0	string		/*		C or REXX program text
+-0	string		//		C++ program text
++#0	string		//		C++ program text
+ 
+ # From: Mikhail Teterin <mi@aldan.algebra.com> 
+ 0	string		cscope		cscope reference data
+--- file-4.04.orig/magic/Magdir/console
++++ file-4.04/magic/Magdir/console
+@@ -119,9 +119,37 @@
+ 
+ #------------------------------------------------------------------------------
+ # msx: file(1) magic for MSX game cartridge dumps
+-0 beshort 0x4142 MSX game cartridge dump 
++# Too simple - MPi
++#0 beshort 0x4142 MSX game cartridge dump 
+ 
++#------------------------------------------------------------------------------
+ # Sony Playstation executables (Adam Sjoegren <asjo@diku.dk>) :
+ 0	string	PS-X\ EXE	Sony Playstation executable
+ #  Area:
+ >113	string	x		(%s)
++
++#------------------------------------------------------------------------------
++# Microsoft Xbox executables .xbe (Esa Hyytiä <ehyytia@cc.hut.fi>)
++0       string          XBEH            XBE, Microsoft Xbox executable
++# probabilistic checks whether signed or not
++>0x0004 ulelong =0x0
++>>&2    ulelong =0x0
++>>>&2   ulelong =0x0  \b, not signed
++>0x0004 ulelong >0
++>>&2    ulelong >0
++>>>&2   ulelong >0    \b, signed
++# expect base address of 0x10000
++>0x0104               ulelong =0x10000
++>>(0x0118-0x0FF60)    ulelong&0x80000007  0x80000007 \b, all regions
++>>(0x0118-0x0FF60)    ulelong&0x80000007  !0x80000007
++>>>(0x0118-0x0FF60)   ulelong >0           (regions:
++>>>>(0x0118-0x0FF60)  ulelong &0x00000001  NA
++>>>>(0x0118-0x0FF60)  ulelong &0x00000002  Japan
++>>>>(0x0118-0x0FF60)  ulelong &0x00000004  Rest_of_World
++>>>>(0x0118-0x0FF60)  ulelong &0x80000000  Manufacturer
++>>>(0x0118-0x0FF60)   ulelong >0           \b)
++
++# --------------------------------
++# Microsoft Xbox data file formats
++0       string          XIP0            XIP, Microsoft Xbox data
++0       string          XTF0            XTF, Microsoft Xbox data
+--- file-4.04.orig/magic/Magdir/database
++++ file-4.04/magic/Magdir/database
+@@ -192,4 +192,12 @@
+ 2	string		ICE		ICE authority data
+ 
+ # X11 Xauthority file (Wolfram Kleff)
++10	string		MIT-MAGIC-COOKIE-1	X11 Xauthority data
++11	string		MIT-MAGIC-COOKIE-1	X11 Xauthority data
++12	string		MIT-MAGIC-COOKIE-1	X11 Xauthority data
++13	string		MIT-MAGIC-COOKIE-1	X11 Xauthority data
+ 14	string		MIT-MAGIC-COOKIE-1	X11 Xauthority data
++15	string		MIT-MAGIC-COOKIE-1	X11 Xauthority data
++16	string		MIT-MAGIC-COOKIE-1	X11 Xauthority data
++17	string		MIT-MAGIC-COOKIE-1	X11 Xauthority data
++18	string		MIT-MAGIC-COOKIE-1	X11 Xauthority data
+--- file-4.04.orig/magic/Magdir/flash
++++ file-4.04/magic/Magdir/flash
+@@ -8,6 +8,8 @@
+ #
+ 0	string		FWS		Macromedia Flash data,
+ >3	byte		x		version %d
++0	string		CWS		Macromedia Flash data (compressed),
++>3	byte		x		version %d
+ #
+ # From Dave Wilson
+ 0	string AGD4\xbe\xb8\xbb\xcb\x00	Macromedia Freehand 9 Document
+--- file-4.04.orig/magic/Magdir/human68k
++++ file-4.04/magic/Magdir/human68k
+@@ -2,18 +2,18 @@
+ #------------------------------------------------------------------------------
+ # human68k:  file(1) magic for Human68k (X680x0 DOS) binary formats
+ 
+-0		string	HU		Human68k
+->68		string	LZX		LZX compressed
+->>72		string	>\0		(version %s)
+->(8.L+74)	string	LZX		LZX compressed
+->>(8.L+78)	string	>\0		(version %s)
+->60		belong	>0		binded
+->(8.L+66)	string	#HUPAIR		hupair
+->0		string	HU		X executable
+->(8.L+74)	string	#LIBCV1		- linked PD LIBC ver 1
+->4		belong	>0		- base address 0x%x
+->28		belong	>0		not stripped
+->32		belong	>0		with debug information
++#0		string	HU		Human68k
++#>68		string	LZX		LZX compressed
++#>>72		string	>\0		(version %s)
++#>(8.L+74)	string	LZX		LZX compressed
++#>>(8.L+78)	string	>\0		(version %s)
++#>60		belong	>0		binded
++#>(8.L+66)	string	#HUPAIR		hupair
++#>0		string	HU		X executable
++#>(8.L+74)	string	#LIBCV1		- linked PD LIBC ver 1
++#>4		belong	>0		- base address 0x%x
++#>28		belong	>0		not stripped
++#>32		belong	>0		with debug information
+ 0		beshort	0x601a		Human68k Z executable
+ 0		beshort	0x6000		Human68k object file
+ 0		belong	0xd1000000	Human68k ar binary archive
+--- file-4.04.orig/magic/Magdir/images
++++ file-4.04/magic/Magdir/images
+@@ -164,10 +164,11 @@
+ >>18	lelong		x		\b, %d x
+ >>22	lelong		x		%d x
+ >>28	leshort		x		%d
+-0	string		IC		PC icon data
+-0	string		PI		PC pointer image data
+-0	string		CI		PC color icon data
+-0	string		CP		PC color pointer image data
++# Too simple - MPi
++#0	string		IC		PC icon data
++#0	string		PI		PC pointer image data
++#0	string		CI		PC color icon data
++#0	string		CP		PC color pointer image data
+ # Conflicts with other entries [BABYL]
+ #0	string		BA		PC bitmap array data
+ 
+--- file-4.04.orig/magic/Magdir/jpeg
++++ file-4.04/magic/Magdir/jpeg
+@@ -19,9 +19,9 @@
+ >11	byte		x		\b %d.
+ >12	byte		x		\b%02d
+ # Next, the resolution or aspect ratio of the image:
+->13	byte		0		\b, aspect ratio
+->13	byte		1		\b, resolution (DPI)
+->13	byte		2		\b, resolution (DPCM)
++#>13	byte		0		\b, aspect ratio
++#>13	byte		1		\b, resolution (DPI)
++#>13	byte		2		\b, resolution (DPCM)
+ #>4	beshort		x		\b, segment length %d
+ # Next, show thumbnail info, if it exists:
+ >18	byte		!0		\b, thumbnail %dx
+@@ -54,8 +54,8 @@
+ # I've commented-out quantisation table reporting.  I doubt anyone cares yet.
+ #>(4.S+5)	byte		0xDB		\b, quantisation table
+ #>>(4.S+6)	beshort		x		\b length=%d
+->14	beshort		x		\b, %d x
+->16	beshort		x		\b %d
++#>14	beshort		x		\b, %d x
++#>16	beshort		x		\b %d
+ 
+ # HSI is Handmade Software's proprietary JPEG encoding scheme
+ 0	string		hsi1		JPEG image data, HSI proprietary
+--- file-4.04.orig/magic/Magdir/linux
++++ file-4.04/magic/Magdir/linux
+@@ -42,13 +42,8 @@
+ #
+ # LILO boot/chain loaders, from Daniel Quinlan <quinlan@yggdrasil.com>
+ # this can be overridden by the DOS executable (COM) entry
+-2	string		LILO		Linux/i386 LILO boot/chain loader
+-#
+-# Debian Packages, from Peter Tobias <tobias@server.et-inf.fho-emden.de>
+-0	string		0.9
+->8	byte		0x0a		old Debian Binary Package
+->>3	byte		>0		\b, created by dpkg 0.9%c
+->>4	byte		>0		pl%c
++# Too simple, MPi
++#2	string		LILO		Linux/i386 LILO boot/chain loader
+ # PSF fonts, from H. Peter Anvin <hpa@yggdrasil.com>
+ 0	leshort		0x0436		Linux/i386 PC Screen Font data,
+ >2	byte		0		256 characters, no directory,
+@@ -102,10 +97,10 @@
+ >0x1e3		string	Loading		version 1.3.79 or older
+ >0x1e9		string	Loading		from prehistoric times
+ 
+-# System.map files - Nicol=EF=BF=BDs Lichtmaier <nick@debian.org>
++# System.map files - Nicol�s Lichtmaier <nick@debian.org>
+ 8	string	\ A\ _text	Linux kernel symbol map text
+ 
+-# LSM entries - Nicol=EF=BF=BDs Lichtmaier <nick@debian.org>
++# LSM entries - Nicol�s Lichtmaier <nick@debian.org>
+ 0	string	Begin3	Linux Software Map entry text
+ 0	string	Begin4	Linux Software Map entry text (new format)
+ 
+--- file-4.04.orig/magic/Magdir/macintosh
++++ file-4.04/magic/Magdir/macintosh
+@@ -88,7 +88,8 @@
+ # that the first one be 0x80, 0x81, 0x82, or 0x83, and that the second
+ # be 0x81.  This works for the files I have, but maybe not for everyone's.
+ 
+-122	beshort&0xFCFF	0x8081		Macintosh MacBinary data
++# Unfortunately, this magic is quite weak - MPi
++#122	beshort&0xFCFF	0x8081		Macintosh MacBinary data
+ 
+ # MacBinary I doesn't have the version number field at all, but MacBinary II
+ # has been in use since 1987 so I hope there aren't many really old files
+@@ -110,118 +111,118 @@
+ # >73	byte&0x10	0x20		\b, bundle
+ # >73	byte&0x10	0x40		\b, invisible
+ # >73	byte&0x10	0x80		\b, locked
+-
+->65	string		x		\b, type "%4.4s"
+-
+->65	string		8BIM		(PhotoShop)
+->65	string		ALB3		(PageMaker 3)
+->65	string		ALB4		(PageMaker 4)
+->65	string		ALT3		(PageMaker 3)
+->65	string		APPL		(application)
+->65	string		AWWP		(AppleWorks word processor)
+->65	string		CIRC		(simulated circuit)
+->65	string		DRWG		(MacDraw)
+->65	string		EPSF		(Encapsulated PostScript)
+->65	string		FFIL		(font suitcase)
+->65	string		FKEY		(function key)
+->65	string		FNDR		(Macintosh Finder)
+->65	string		GIFf		(GIF image)
+->65	string		Gzip		(GNU gzip)
+->65	string		INIT		(system extension)
+->65	string		LIB\ 		(library)
+->65	string		LWFN		(PostScript font)
+->65	string		MSBC		(Microsoft BASIC)
+->65	string		PACT		(Compact Pro archive)
+->65	string		PDF\ 		(Portable Document Format)
+->65	string		PICT		(picture)
+->65	string		PNTG		(MacPaint picture)
+->65	string		PREF		(preferences)
+->65	string		PROJ		(Think C project)
+->65	string		QPRJ		(Think Pascal project)
+->65	string		SCFL		(Defender scores)
+->65	string		SCRN		(startup screen)
+->65	string		SITD		(StuffIt Deluxe)
+->65	string		SPn3		(SuperPaint)
+->65	string		STAK		(HyperCard stack)
+->65	string		Seg\ 		(StuffIt segment)
+->65	string		TARF		(Unix tar archive)
+->65	string		TEXT		(ASCII)
+->65	string		TIFF		(TIFF image)
+->65	string		TOVF		(Eudora table of contents)
+->65	string		WDBN		(Microsoft Word word processor)
+->65	string		WORD		(MacWrite word processor)
+->65	string		XLS\ 		(Microsoft Excel)
+->65	string		ZIVM		(compress (.Z))
+->65	string		ZSYS		(Pre-System 7 system file)
+->65	string		acf3		(Aldus FreeHand)
+->65	string		cdev		(control panel)
+->65	string		dfil		(Desk Acessory suitcase)
+->65	string		libr		(library)
+->65	string		nX^d		(WriteNow word processor)
+->65	string		nX^w		(WriteNow dictionary)
+->65	string		rsrc		(resource)
+->65	string		scbk		(Scrapbook)
+->65	string		shlb		(shared library)
+->65	string		ttro		(SimpleText read-only)
+->65	string		zsys		(system file)
+-
+->69	string		x		\b, creator "%4.4s"
+-
+-# Somewhere, Apple has a repository of registered Creator IDs.  These are
+-# just the ones that I happened to have files from and was able to identify.
+-
+->69	string		8BIM		(Adobe Photoshop)
+->69	string		ALD3		(PageMaker 3)
+->69	string		ALD4		(PageMaker 4)
+->69	string		ALFA		(Alpha editor)
+->69	string		APLS		(Apple Scanner)
+->69	string		APSC		(Apple Scanner)
+->69	string		BRKL		(Brickles)
+->69	string		BTFT		(BitFont)
+->69	string		CCL2 		(Common Lisp 2)
+->69	string		CCL\ 		(Common Lisp)
+->69	string		CDmo		(The Talking Moose)
+->69	string		CPCT		(Compact Pro)
+->69	string		CSOm		(Eudora)
+->69	string		DMOV		(Font/DA Mover)
+->69	string		DSIM		(DigSim)
+->69	string		EDIT		(Macintosh Edit)
+->69	string		ERIK		(Macintosh Finder)
+->69	string		EXTR		(self-extracting archive)
+->69	string		Gzip		(GNU gzip)
+->69	string		KAHL		(Think C)
+->69	string		LWFU		(LaserWriter Utility)
+->69	string		LZIV		(compress)
+->69	string		MACA		(MacWrite)
+->69	string		MACS		(Macintosh operating system)
+->69	string		MAcK		(MacKnowledge terminal emulator)
+->69	string		MLND		(Defender)
+->69	string		MPNT		(MacPaint)
+->69	string		MSBB		(Microsoft BASIC (binary))
+->69	string		MSWD		(Microsoft Word)
+->69	string		NCSA		(NCSA Telnet)
+->69	string		PJMM		(Think Pascal)
+->69	string		PSAL		(Hunt the Wumpus)
+->69	string		PSI2		(Apple File Exchange)
+->69	string		R*ch		(BBEdit)
+->69	string		RMKR		(Resource Maker)
+->69	string		RSED		(Resource Editor)
+->69	string		Rich		(BBEdit)
+->69	string		SIT!		(StuffIt)
+->69	string		SPNT		(SuperPaint)
+->69	string		Unix		(NeXT Mac filesystem)
+->69	string		VIM!		(Vim editor)
+->69	string		WILD		(HyperCard)
+->69	string		XCEL		(Microsoft Excel)
+->69	string		aCa2		(Fontographer)
+->69	string		aca3		(Aldus FreeHand)
+->69	string		dosa		(Macintosh MS-DOS file system)
+->69	string		movr		(Font/DA Mover)
+->69	string		nX^n		(WriteNow)
+->69	string		pdos		(Apple ProDOS file system)
+->69	string		scbk		(Scrapbook)
+->69	string		ttxt		(SimpleText)
+->69	string		ufox		(Foreign File Access)
++# 
++# >65	string		x		\b, type "%4.4s"
++# 
++# >65	string		8BIM		(PhotoShop)
++# >65	string		ALB3		(PageMaker 3)
++# >65	string		ALB4		(PageMaker 4)
++# >65	string		ALT3		(PageMaker 3)
++# >65	string		APPL		(application)
++# >65	string		AWWP		(AppleWorks word processor)
++# >65	string		CIRC		(simulated circuit)
++# >65	string		DRWG		(MacDraw)
++# >65	string		EPSF		(Encapsulated PostScript)
++# >65	string		FFIL		(font suitcase)
++# >65	string		FKEY		(function key)
++# >65	string		FNDR		(Macintosh Finder)
++# >65	string		GIFf		(GIF image)
++# >65	string		Gzip		(GNU gzip)
++# >65	string		INIT		(system extension)
++# >65	string		LIB\ 		(library)
++# >65	string		LWFN		(PostScript font)
++# >65	string		MSBC		(Microsoft BASIC)
++# >65	string		PACT		(Compact Pro archive)
++# >65	string		PDF\ 		(Portable Document Format)
++# >65	string		PICT		(picture)
++# >65	string		PNTG		(MacPaint picture)
++# >65	string		PREF		(preferences)
++# >65	string		PROJ		(Think C project)
++# >65	string		QPRJ		(Think Pascal project)
++# >65	string		SCFL		(Defender scores)
++# >65	string		SCRN		(startup screen)
++# >65	string		SITD		(StuffIt Deluxe)
++# >65	string		SPn3		(SuperPaint)
++# >65	string		STAK		(HyperCard stack)
++# >65	string		Seg\ 		(StuffIt segment)
++# >65	string		TARF		(Unix tar archive)
++# >65	string		TEXT		(ASCII)
++# >65	string		TIFF		(TIFF image)
++# >65	string		TOVF		(Eudora table of contents)
++# >65	string		WDBN		(Microsoft Word word processor)
++# >65	string		WORD		(MacWrite word processor)
++# >65	string		XLS\ 		(Microsoft Excel)
++# >65	string		ZIVM		(compress (.Z))
++# >65	string		ZSYS		(Pre-System 7 system file)
++# >65	string		acf3		(Aldus FreeHand)
++# >65	string		cdev		(control panel)
++# >65	string		dfil		(Desk Acessory suitcase)
++# >65	string		libr		(library)
++# >65	string		nX^d		(WriteNow word processor)
++# >65	string		nX^w		(WriteNow dictionary)
++# >65	string		rsrc		(resource)
++# >65	string		scbk		(Scrapbook)
++# >65	string		shlb		(shared library)
++# >65	string		ttro		(SimpleText read-only)
++# >65	string		zsys		(system file)
++# 
++# >69	string		x		\b, creator "%4.4s"
++# 
++# # Somewhere, Apple has a repository of registered Creator IDs.  These are
++# # just the ones that I happened to have files from and was able to identify.
++# 
++# >69	string		8BIM		(Adobe Photoshop)
++# >69	string		ALD3		(PageMaker 3)
++# >69	string		ALD4		(PageMaker 4)
++# >69	string		ALFA		(Alpha editor)
++# >69	string		APLS		(Apple Scanner)
++# >69	string		APSC		(Apple Scanner)
++# >69	string		BRKL		(Brickles)
++# >69	string		BTFT		(BitFont)
++# >69	string		CCL2 		(Common Lisp 2)
++# >69	string		CCL\ 		(Common Lisp)
++# >69	string		CDmo		(The Talking Moose)
++# >69	string		CPCT		(Compact Pro)
++# >69	string		CSOm		(Eudora)
++# >69	string		DMOV		(Font/DA Mover)
++# >69	string		DSIM		(DigSim)
++# >69	string		EDIT		(Macintosh Edit)
++# >69	string		ERIK		(Macintosh Finder)
++# >69	string		EXTR		(self-extracting archive)
++# >69	string		Gzip		(GNU gzip)
++# >69	string		KAHL		(Think C)
++# >69	string		LWFU		(LaserWriter Utility)
++# >69	string		LZIV		(compress)
++# >69	string		MACA		(MacWrite)
++# >69	string		MACS		(Macintosh operating system)
++# >69	string		MAcK		(MacKnowledge terminal emulator)
++# >69	string		MLND		(Defender)
++# >69	string		MPNT		(MacPaint)
++# >69	string		MSBB		(Microsoft BASIC (binary))
++# >69	string		MSWD		(Microsoft Word)
++# >69	string		NCSA		(NCSA Telnet)
++# >69	string		PJMM		(Think Pascal)
++# >69	string		PSAL		(Hunt the Wumpus)
++# >69	string		PSI2		(Apple File Exchange)
++# >69	string		R*ch		(BBEdit)
++# >69	string		RMKR		(Resource Maker)
++# >69	string		RSED		(Resource Editor)
++# >69	string		Rich		(BBEdit)
++# >69	string		SIT!		(StuffIt)
++# >69	string		SPNT		(SuperPaint)
++# >69	string		Unix		(NeXT Mac filesystem)
++# >69	string		VIM!		(Vim editor)
++# >69	string		WILD		(HyperCard)
++# >69	string		XCEL		(Microsoft Excel)
++# >69	string		aCa2		(Fontographer)
++# >69	string		aca3		(Aldus FreeHand)
++# >69	string		dosa		(Macintosh MS-DOS file system)
++# >69	string		movr		(Font/DA Mover)
++# >69	string		nX^n		(WriteNow)
++# >69	string		pdos		(Apple ProDOS file system)
++# >69	string		scbk		(Scrapbook)
++# >69	string		ttxt		(SimpleText)
++# >69	string		ufox		(Foreign File Access)
+ 
+ # Just in case...
+ 
+--- file-4.04.orig/magic/Magdir/msdos
++++ file-4.04/magic/Magdir/msdos
+@@ -239,11 +239,6 @@
+ >>8	byte	>0			\b, %d-colors
+ 
+ 
+-# True Type fonts currently misidentified as raw G3 data
+-
+-0	string	\000\001\000\000\000 MS-Windows true type font .ttf
+-
+-
+ # .chr files
+ 0	string	PK\010\010BGI	Borland font 
+ >4	string	>\0	%s
+@@ -279,7 +274,8 @@
+ 0	string		DCU1		Borland Delphi .DCU file
+ 0	string		!<spell>	MKS Spell hash list (old format)
+ 0	string		!<spell2>	MKS Spell hash list
+-0	string		AH		Halo(TM) bitmapped font file
++# Too simple - MPi
++#0	string		AH		Halo(TM) bitmapped font file
+ 0	lelong		0x08086b70	TurboC BGI file
+ 0	lelong		0x08084b50	TurboC Font file
+ 
+--- file-4.04.orig/magic/Magdir/os2
++++ file-4.04/magic/Magdir/os2
+@@ -11,16 +11,16 @@
+ # OS/2 URL objects
+ # Provided 1998/08/22 by
+ # David Mediavilla <davidme.news@REMOVEIFNOTSPAMusa.net>
+-0	string	http:			OS/2 URL object text
+->5	string	>\			(WWW) <http:%s>
+-0	string	mailto:			OS/2 URL object text
+->7	string	>\			(email) <%s>
+-0	string	news:			OS/2 URL object text
+->5	string	>\			(Usenet) <%s>
+-0	string	ftp:			OS/2 URL object text
+->4	string	>\			(FTP) <ftp:%s>
+-0	string	file:			OS/2 URL object text
+->5	string	>\			(Local file) <%s>
++#0	string	http:			OS/2 URL object text
++#>5	string	>\			(WWW) <http:%s>
++#0	string	mailto:			OS/2 URL object text
++#>7	string	>\			(email) <%s>
++#0	string	news:			OS/2 URL object text
++#>5	string	>\			(Usenet) <%s>
++#0	string	ftp:			OS/2 URL object text
++#>4	string	>\			(FTP) <ftp:%s>
++#0	string	file:			OS/2 URL object text
++#>5	string	>\			(Local file) <%s>
+ 
+ # >>>>> OS/2 INF/HLP <<<<<  (source: Daniel Dissett ddissett@netcom.com)
+ # Carl Hauser (chauser.parc@xerox.com) and 
+--- file-4.04.orig/magic/Magdir/python
++++ file-4.04/magic/Magdir/python
+@@ -11,4 +11,4 @@
+ 0	belong		0x87c60d0a	python 2.0 byte-compiled
+ 0	belong		0x2aeb0d0a	python 2.1 byte-compiled
+ 0	belong		0x2ded0d0a	python 2.2 byte-compiled
+-#0	belong		0x31f20d0a	python 2.3 byte-compiled
++0	belong		0x3bf20d0a	python 2.3 byte-compiled
+--- file-4.04.orig/magic/Magdir/sgml
++++ file-4.04/magic/Magdir/sgml
+@@ -11,8 +11,7 @@
+ 
+ # Extensible markup language (XML), a subset of SGML
+ # from Marc Prud'hommeaux (marc@apocalypse.org)
+-0	string/cb	\<?xml			XML document text
+-0	string		\<?xml\ version "	XML
++0	string		\<?xml\ version="	XML
+ >15	string		>\0			%.3s document text
+ >>23	string		\<xsl:stylesheet	(XSL stylesheet)
+ >>24	string		\<xsl:stylesheet	(XSL stylesheet)
+--- file-4.04.orig/magic/Magdir/ti-8x
++++ file-4.04/magic/Magdir/ti-8x
+@@ -1,5 +1,5 @@
+ # ------------------------------------------------------------------------
+-# ti-8x: file(1) magic for the TI-8x and TI-92 Graphing Calculators.
++# ti-8x: file(1) magic for the TI-8x and TI-9x Graphing Calculators.
+ #
+ # From: Ryan McGuire (rmcguire@freenet.columbus.oh.us).
+ #
+--- file-4.04.orig/magic/Magdir/debian-additions
++++ file-4.04/magic/Magdir/debian-additions
+@@ -0,0 +1,16 @@
++# GnuPG
++# The format is very similar to pgp
++0	string          \001gpg                 GPG key trust database
++>4	byte            x                       version %d
++0       beshort         0x9901                  GPG key public ring
++# This magic is not particularly good, as the keyrings don't have true
++# magic. Nevertheless, it covers many keyrings.
++
++# JFFS2 file system
++0       leshort         0x1984                  Linux old jffs2 filesystem data little endian
++0       lelong          0xe0011985              Linux jffs2 filesystem data little endian
++
++# Gnumeric spreadsheet
++# This entry is only semi-helpful, as Gnumeric compresses its files, so
++# they will ordinarily reported as "compressed", but at least -z helps
++39      string          =<gmr:Workbook           Gnumeric spreadsheet
+--- file-4.04.orig/magic/Makefile.am
++++ file-4.04/magic/Makefile.am
+@@ -22,6 +22,7 @@
+ 	$(top_builddir)/src/file -C -m magic.mime
+ 
+ magic_FRAGMENTS = \
++Magdir/debian-additions \
+ Magdir/acorn \
+ Magdir/adi \
+ Magdir/adventure \
+--- file-4.04.orig/magic/Makefile.in
++++ file-4.04/magic/Makefile.in
+@@ -52,6 +52,7 @@
+ CYGPATH_W = @CYGPATH_W@
+ DEFS = @DEFS@
+ DEPDIR = @DEPDIR@
++ECHO = @ECHO@
+ ECHO_C = @ECHO_C@
+ ECHO_N = @ECHO_N@
+ ECHO_T = @ECHO_T@
+@@ -128,6 +129,7 @@
+ CLEANFILES = magic magic.mgc magic.mime.mgc
+ 
+ magic_FRAGMENTS = \
++Magdir/debian-additions \
+ Magdir/acorn \
+ Magdir/adi \
+ Magdir/adventure \
+@@ -296,6 +298,7 @@
+ Magdir/zyxel
+ 
+ subdir = magic
++ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
+ mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
+ CONFIG_HEADER = $(top_builddir)/config.h
+ CONFIG_CLEAN_FILES =
+@@ -384,7 +387,6 @@
+ 
+ installdirs:
+ 	$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)
+-
+ install: install-am
+ install-exec: install-exec-am
+ install-data: install-data-am
+--- file-4.04.orig/magic/magic.mime
++++ file-4.04/magic/magic.mime
+@@ -193,10 +193,10 @@
+ # because it tries to uncompress it to figure out what's inside.
+ 
+ # standard unix compress
+-0	string		\037\235	application/x-compress
++#0	string		\037\235	application/x-compress
+ 
+ # gzip (GNU zip, not to be confused with [Info-ZIP/PKWARE] zip archiver)
+-0       string          \037\213        application/x-gzip
++#0       string          \037\213        application/x-gzip
+ 
+ 0		string			PK\003\004		application/x-zip
+ 
+@@ -311,6 +311,8 @@
+ 0	string		\<!doctype\ html	text/html
+ 0	string		\<!doctype\ HTML	text/html
+ 
++0	string/b	\<?xml			text/xml
++
+ #------------------------------------------------------------------------------
+ # images:  file(1) magic for image formats (see also "c-lang" for XPM bitmaps)
+ #
+@@ -372,7 +374,7 @@
+ 0	beshort		0xffd8		image/jpeg
+ 
+ # PC bitmaps (OS/2, Windoze BMP files)  (Greg Roelofs, newt@uchicago.edu)
+-0	string		BM		image/bmp
++0	string		BM		image/x-ms-bmp
+ #>14	byte		12		(OS/2 1.x format)
+ #>14	byte		64		(OS/2 2.x format)
+ #>14	byte		40		(Windows 3.x format)
+@@ -621,3 +623,12 @@
+ #>>12   leshort    0	application/x-dbf
+ #
+ #0	leshort		0x0006		application/x-dbt
++
++0	string		FWS		application/x-shockwave-flash
++0	string		CWS		application/x-shockwave-flash
++
++
++# Gnumeric spreadsheet
++# This entry is only semi-helpful, as Gnumeric compresses its files, so
++# they will ordinarily reported as "compressed", but at least -z helps
++39      string          =<gmr:Workbook           application/x-gnumeric
+--- file-4.04.orig/magic/magic.local
++++ file-4.04/magic/magic.local
+@@ -0,0 +1,3 @@
++# Magic local data for file(1) command.
++# Insert here your local magic data. Format is described in magic(5).
++
+--- file-4.04.orig/debian/changelog
++++ file-4.04/debian/changelog
+@@ -0,0 +1,649 @@
++file (4.04-1) unstable; urgency=low
++
++  * New upstream
++  * add MAXPATHLEN to apprentice.c in order to make it build on the
++    Hurd (closes: #212215)
++  * add TFMX (closes: #151217, as the rest was already there)
++  * recognize PO files (closes: #138423)
++
++ -- Michael Piefel <piefel@debian.org>  Tue, 23 Sep 2003 17:06:48 +0200
++
++file (4.03-3) unstable; urgency=low
++
++  * more and better magic:
++    - added Python 2.3 byte-compiled
++    - corrected magic for HFS+ (closes: #207576)
++    - fixed XML magic and added to MIME magic (closes: #186613)
++    - added Xbox magic (closes: #183432)
++    - remove ", English" from MIME type output (closes: #160415)
++    - remove the vain attempts to guess the size of JPEG files as they are
++      either wrong or confusing (sort of closes: #74938, #153833, #198053)
++    - add Gnumeric magic to both normal and MIME magic; note you still have to
++      pass -z to file (closes: #205708, #206756)
++    - remove compresse MIME types (related to #170981)
++    - add ACE archiver (closes: #178807)
++  * add more descriptive message for unreadable files (closes: #203168)
++  * rearranges header inclusions so that configuration is the same in all
++    compiled files (closes: #208785)
++  * fix the long-standing crash-on-compressed bug (closes: #197442, #207458)
++
++ -- Michael Piefel <piefel@debian.org>  Fri, 05 Sep 2003 11:59:54 +0200
++
++file (4.03-2) unstable; urgency=low
++
++  * Compressed Flash (closes: #179640), also for MIME (closes: #186946)
++  * Added GPG (closes: #197646) and JFFS2 (closes: #188780);
++    accidentally also closes: #203158 (debian-additions not empty anymore)
++
++ -- Michael Piefel <piefel@debian.org>  Tue, 29 Jul 2003 13:28:39 +0200
++
++file (4.03-1) unstable; urgency=low
++
++  * New upstream
++    - fixes Zsh bug (closes: #195583, #196163)
++    - incorporates many Debian changes to magic entries
++    - also closes: #196162 (no more Broken HTML) 
++  * Reformatted ancient changelog entries and made sure changelog
++    is in UTF-8.
++  * File depends on correct library version now (closes: #194697)
++  * Recognizes more Magic Cookies (closes: #201301)
++  * Dynamically updates libtool (closes: #195330)
++
++ -- Michael Piefel <piefel@debian.org>  Sun, 27 Jul 2003 23:39:15 +0200
++
++file (4.02-4) unstable; urgency=low
++
++  * The "no closes:" release.
++  * Removed one last artifact of the raw-magic option.
++  * Adapt the very-short-file fix to the new environment.
++
++ -- Michael Piefel <piefel@debian.org>  Sat, 17 May 2003 20:01:17 +0200
++
++file (4.02-3) unstable; urgency=low
++
++  * Remove the nomgc symbol from the library (closes: #193355); this kind of
++    reopens #115573, but I am now sure that this is not a bug, document the
++    behaviour instead.
++  * Make HTML magic a little less picky (closes: #193296)
++  * Close files after looking at them (closes: #193580)
++  * Don't report bogus for unreadable files (closes: #193582)
++
++ -- Michael Piefel <piefel@debian.org>  Sat, 17 May 2003 18:01:27 +0200
++
++file (4.02-2) unstable; urgency=low
++
++  * Changed Priority of libmagic-dev to optional (closes: #193254)
++  * Add Conflicts of libmagic1 to older file (closes: #193236, #193238)
++  * Use newer libtool (closes: #193152)
++    
++ -- Michael Piefel <piefel@debian.org>  Wed, 14 May 2003 13:47:47 +0200
++
++file (4.02-1) unstable; urgency=low
++
++  * New upstream version
++  * Acknowledge NMU, closes: #184204
++  * Description length limit is down to 64 again. The easy way, setting it in
++    file.h, doesn't work anymore, and I've not yet found out why.
++  * Upstream has made a library out of the magic number recognition routines.
++    Consequently, split the package up into three binary packages, adding
++    libmagic1 and libmagic-dev.
++  * debian/rules: all new and shiny; better autotools supprt
++  * add some more magic:
++    - TI emulators skins (closes: #167267)
++    - Objective Caml (closes: #166830)
++    - ReBorn (closes: #156279)
++    - SE Linux policy database (closes: #159283)
++    - Flow Cytometry Standard (closes: #160984)
++  * remove some magic:
++    - Brian Postma's Soundmon Module (closes: #168661)
++    - LILO (closes: #160602)
++  * fixed some magic:
++    - XWD X Window Dump (closes: #164047, #81771)
++  * fix reference to magic man page in README (closes: #159992)
++
++ -- Michael Piefel <piefel@debian.org>  Sun, 11 May 2003 20:15:20 +0200
++
++file (3.40-1.1) unstable; urgency=high
++
++  * [readelf.c] Apply patch from upstream version 3.41 to fix buffer overflow
++    - CAN-2003-0102
++    - http://www.idefense.com/advisory/03.04.03.txt
++    - Closes: #184204
++
++ -- Matt Zimmerman <mdz@debian.org>  Thu,  3 Apr 2003 13:50:22 -0500
++
++file (3.40-1) unstable; urgency=low
++
++  * New upstream version (closes... no, this time I'm faster)
++  * Switched Maintainer and Uploaders field, thereby effectively taken over
++    the package after not having heard of the previous maintainer for about
++    a year (finally officially closes: #174338, which is already closed)
++  * No more whitespace on first line of debian/rules (closes: #164651)
++  * It seems this already was fixed, but using an addition to the additional
++    StuffIt magic now (closes: #170893)
++  * Added VRML (closes: #166955)
++  * Corrected unknown groff character names in magic(5) manpage (closes: #180056)
++  * Update TI Calculator Magic (closes: #162820)
++  * Make the ELF string extraction a little more robust (closes: #166832)
++  * Recognizes HTML even with whitespace (closes: #119193)
++  * Do not hang on rapidly growing archives with -z (closes: #162896)
++  * Remove CVS date from Ogg output, it is not very useful as version number
++    is printed anyway, and may cause trouble as it is not a real string, thus
++    breaking the output routine for LANG!=C (closes: #178479)
++  * Fix alignment of multifile output and wide characters
++
++ -- Michael Piefel <piefel@debian.org>  Sun, 16 Feb 2003 17:31:21 +0100
++
++file (3.39-1) unstable; urgency=low
++
++  * NMU
++  * New upstream version (closes: #148212, #151907)
++    - incorporates most Debian patches 
++    - adds 9660 filesystem magic (closes: #157050; Upstream has
++      a different magic than reporter.)
++    - adds MNG magic (closes 147264, see below)
++    - adds PHP magic (closes: #145929)
++    - detects UTF-8 and UTF-16 with BOM (closes: #102076)
++    - some short string magic commented out (closes: #134266)
++  * New Debian patches
++    - improved Linux kernel magic, make it like lilo (closes: #106898)
++    - changed BMP MIME type to x-ms-bmp (closes: #124234)
++    - added JNG magic (closes: #147264)
++    - added alternate ZIP magic (closes: #56292)
++    - added alternate StuffIt magic (closes: #114027)
++    - added/changed magic for Screamtracker (closes: #60009)
++    - added vCalendar magic (closes: #158338)
++    - added ZX spectrum magic (closes: #157162)
++    - added EST flat binary (closes: #139239), Aculab VoIP firmware
++      (closes: #138967), PPCBoot image (closes: #138958); thank you, Mark
++    - tried some magic for multiple master fonts (closes: #29685)
++    - removed some Mac magic (closes: #113733); this is not the
++      real fix (TM), but works for the particular problem
++    - removed some two-byte ASCII magic - too simple (closes: #144398)
++    - fixed some entries extracting strings (changed \n to \0)
++    - added new command line option -M which ignores compiled databases
++      (closes: #115573)
++    - give warning for one-byte files (magic is at least two bytes long,
++      closes: #95778, #117222)
++  * Move Debian magic additions all together in one spot to facilitate
++    patching and communication with upstream
++
++ -- Michael Piefel <piefel@debian.org>  Sun, 01 Sep 2002 13:13:15 +0200
++
++file (3.37-3.1) unstable; urgency=low
++
++  * NMU
++  * Removed regexp.patch and kleff, they didn't serve a purpose
++  * Bumped standards-version to 3.5.
++  * Added Kimwitu magic
++  * Improved MS Office magic (closes: #116693, #54960)
++  * Added XV thumb, ISDN vbox, KiSS (closes: #54391)
++  * Emacs 19 improved upstream (closes: #101336)
++  * Added long HtmlHelp magic (closes: #113876)
++  * Added webshots desktop (closes: #118517)
++  * Added newer Python magic (closes: #119572)
++  * Ogg magic improved upstream (closes: #91858)
++  * XFS cleaned up (closes: #129172)
++  * Targa reports size (closes: #133024)
++  * Documented arbitrary 50 character description limit and increased it
++    to 80 characters (closes: #12415) - the patch for unlimited length
++    doesn't work, at least not at advertised.
++  * Added Atari MSA (closes: #95040)
++  * TI-8x updated (closes: #102824)
++  * Better Swap (closes: #105504)
++  * Increased buffer size to 96K (closes: #105505)
++  * Better CRAMFS (closes: #115575)
++  * Added JFFS (closes: #118900)
++  * Added Hercules DASD image magic (closes: #122326)
++  * Added TDB magic (closes: #122328)
++  * Added Matlab (closes: #125666)
++  * Added Squeak images and (closes: #131627)
++  * Added User Mode COW magic (closes: #134619)
++  * Added even better Ogg magic and even include it (closes: #134663)
++
++ -- Michael Piefel <piefel@debian.org>  Mon, 04 Mar 2002 19:47:32 +0100
++
++file (3.37-3) unstable; urgency=low
++
++  * Implemented internal gzip support through the zlib library. It's much
++    faster than executing gzip and it works better. Many small files that
++    weren't properly handled now are. I've tested this with over 400 random
++    gzipped files and it works, but please, report any problem with this.
++
++ -- Nicolás Lichtmaier <nick@debian.org>  Sun, 14 Oct 2001 05:56:19 -0300
++
++file (3.37-2) unstable; urgency=low
++
++  * The new sread function was sooo broken... I have now enhanced
++    it with the amazing capability of handling EOF. Now file -z
++    shouldn't hang (closes:Bug#115156).
++
++ -- Nicolás Lichtmaier <nick@debian.org>  Thu, 11 Oct 2001 03:10:10 -0300
++
++file (3.37-1) unstable; urgency=low
++
++  * New upstream release:
++    * Recognizes mp3 files with IDv2 tags (closes:Bug#112829, Bug#96688).
++    * Adds magic for RRDtool databases (closes:Bug#114372).
++    * Weak magic for AppleWorks spreadsheet data was removed
++      (closes:Bug#110451,Bug#98447).
++  * Remove warning for not using a compiled magic version for /etc/magic.
++    I won't try to implement something to create a compiled version of
++    /etc/magic as: 1) This fle is empty by default and will have only a few
++    manually added entries, so there wouldn't be any speed gain; 2) It will
++    add complexity and it wouldn't be trivial.
++  * Added a note in magic2mime(1) deprecating its use.
++  * No longer recognizes sunclock's "vector map format" as PostScript
++    (closes:Bug#105930).
++  * Added magic for cramfs and reiserfs from russell@coker.com.au
++    (closes:Bug#105485, Bug#105508).
++  * Added two Palm file formats from
++    John Gruenenfelder <johng@bach.as.arizona.edu> (closes:Bug#104034).
++
++ -- Nicolás Lichtmaier <nick@debian.org>  Mon,  8 Oct 2001 19:49:42 -0300
++
++file (3.33-5) unstable; urgency=low
++
++  * Added "Build-Depends: debhelper" (closes:Bug#86829).
++  * New magic for S/390 ELF binaries (closes:Bug#93491).
++  * Added support for large files (closes:Bug#93402).
++  * Fixed magic2mime to cope with the new charset detection
++    (closes:Bug#92931).
++  * Added -s option to short usage message (-h) (closes:Bug#85910).
++  * Added magic for Paint Shop Pro from
++    Telford Tendys <telford@triode.net.au> (closes:Bug#85359).
++  * Removed minor PS version number from font detection magic,
++    suggested by Reinhard Kotucha <reinhard@kammer.uni-hannover.de>
++    (closes:Bug#82667).
++  * Added magic for Flac audio (what's that? =) ) from
++    Matt Zimmerman <mdz@debian.org> (closes:Bug#91857).
++  * Added magic for newer LHA files (does someone still use lha? wow!)
++    from Paul Martin <pm@nowster.zetnet.co.uk> (closes:Bug#83454).
++  * Now shows which compressor a Debian package uses,
++    contributed by Ben Collins <bcollins@debian.org> (closes:Bug#48389).
++  * Removed creation date report from Debian magic, it no longer works.
++    It seems that the gzipped members of the .deb file are no longer
++    created with the proper date.
++  * Added lots of Palm documents contributed by
++    Michael-John Turner <mj@debian.org> (but replaced "document" with
++    "PalmOS document") (closes:Bug#87759).
++  * Added magic for Squish and JAM echomail/netmail Fidonet areas storage
++    formats contributed by peter@softwolves.pp.se (closes:Bug#90172).
++
++ -- Nicolás Lichtmaier <nick@debian.org>  Sun,  6 May 2001 02:13:10 -0300
++
++file (3.33-4) unstable; urgency=low
++
++  * Modified Newton PDA package format magic so it doesn't match
++    Java source code files.
++  * When using -z, don't write the NUL terminator to the uncompressing
++    program.
++  * Ignore output from gzip (gzip should have an option to disable the
++    "unexpected end of file" error message) (closes:Bug#83317).
++  * Minor updates to debian/rules.
++  * Reordered description for MIPS object files to please weak parsing
++    in libtool (closes:Bug#83303).
++
++ -- Nicolás Lichtmaier <nick@debian.org>  Tue, 30 Jan 2001 22:39:03 -0300
++
++file (3.33-3) unstable; urgency=low
++
++  * Code for detecting if an input stream is seekable assumed that lseek
++    returns 0 on success, which is untrue, and file was copying every ELF
++    file probed to a temporary file. Fixed (closes:Bug#82261).
++    Found by Colin Watson <cjw44@flatline.org.uk>.
++  * Uses -g only if debug is in the DEB_BUILD_OPTIONS variable.
++  * Updated standards-version to 3.2.1.
++
++ -- Nicolás Lichtmaier <nick@debian.org>  Mon, 15 Jan 2001 02:26:35 -0300
++
++file (3.33-2) unstable; urgency=low
++
++  * Added ELF magic for IBM AS/390 mainframe (closes:Bug#79575).
++  * Fix from Adam Heat for very small .gz files and -z, I've also
++    added NUL termination of the uncompressed buffer
++    (closes:Bug#16837,Bug#36724,Bug#37838).
++  * If the file is ELF and is not seekable, `file' will now copy
++    it to a temporary file because the ELF code needs to fseek
++    everywhere in the file. The idea was from Adam Heath <adam@doogie.org>.
++    (closes:Bug#28964,Bug#70629).
++
++ -- Nicolás Lichtmaier <nick@debian.org>  Sun,  7 Jan 2001 23:38:58 -0300
++
++file (3.33-1) unstable; urgency=low
++
++  * New upstream release (closes:Bug#67970). Fixes:
++    * Recognizes Berkeley DB files (closes:Bug#18821).
++    * Tries to recognize EBCDIC encoded files (closes:Bug#31949).
++    * lif files recognized in LE systems (closes:Bug#78261).
++  * Contributions from Wolfram Kleff (closes:Bug#56667).
++    * Changed pgp armored data to pgp armored *text*.
++    * Added GEM image and metafile from.
++    * Added Vivo video format.
++    * Added STAD packed image.
++    * Added AFX compressed files.
++    * Added GFA-BASIC 3 data.
++    * Added ICE and X11 authority data.
++  * Added magic for DJGPP compiled files from Robert vd Boon
++    (closes:Bug#70600).
++  * Changed file for data here and there (closes:Bug#35851).
++  * Added Sketch document (closes:Bug#67511).
++  * Added SMJPEG (image format used in games) (closes:Bug#62224).
++  * Added magic for Sony PlayStation executables (closes:Bug#31310).
++  * Added other way of detecting perl scripts (closes:Bug#45426).
++  * Fixed detection of MP3 files with the new -i option.
++  * Adapted Debian patch to include long-options alternatives for the
++    new -k and -i options. Updated the manpage.
++
++ -- Nicolás Lichtmaier <nick@debian.org>  Sun, 10 Dec 2000 19:02:07 -0300
++
++file (3.28-1) unstable; urgency=low
++
++  * New upstream release. Fixes:
++    * A serious attempt to detect JPEG is done now, but the
++      format seems to be not very magic friendly (closes:Bug#31950).
++    * DB2 magic added (closes:Bug#19097).
++  * Added another case combination for the detection of HTML files
++    (closes:Bug#45326).
++  * Improved newly added xml detection (eg: added XSL stylesheets detection).
++  * Some magic files weren't being included, modified Makefile.am.
++    The files now included are jpeg, grace, mcrypt, palm and spectrum.
++
++ -- Nicolás Lichtmaier <nick@debian.org>  Tue, 28 Dec 1999 00:58:01 -0300
++
++file (3.27-7) unstable; urgency=low
++
++  * Added entry for recently announced new LSM file format.
++  * Removed README.Debian and folded it into the copyright file
++    (closes:Bug#53069).
++
++ -- Nicolás Lichtmaier <nick@debian.org>  Fri, 24 Dec 1999 20:23:48 -0300
++
++file (3.27-6) unstable; urgency=low
++
++  * Applied patch with improvements to magi2mime
++    from J.H.M. Dassen (Ray) <ray@cistron.nl> (closes:Bug#51399).
++  * Added some Windows magic from Pavel Machek <pavel@bug.ucw.cz>
++    (closes:Bug#31023).
++  * Added magic for PCX, Adobe's PSD, MS Word, and replaced
++    magic for kernel detection with contributions from
++    Wolfram Kleff <kleff@cs.uni-bonn.de> (closes:Bug#46781).
++  * Added magic for Linux kernel System.map files.
++
++ -- Nicolás Lichtmaier <nick@debian.org>  Sun, 12 Dec 1999 17:09:08 -0300
++
++file (3.27-5) unstable; urgency=low
++
++  * Put docs and manpages under /usr/share.
++  * Updated `Standards-Version' to 3.1.0.
++  * Added contributed magic for `Smith Corona Personal Word Processors'
++    (closes:Bug#45704).
++  * Added magic for X-Post-it (closes:Bug#43031).
++  * Improved detection of MS-DOS batch files a bit (closes:Bug#50205).
++
++ -- Nicolás Lichtmaier <nick@debian.org>  Mon, 15 Nov 1999 01:09:13 -0300
++
++file (3.27-4) unstable; urgency=low
++
++  * It was not reading /etc/magic.
++  * Updated manpage to say that local magic entries are read from
++    and should be written to /etc/magic.
++
++ -- Nicolás Lichtmaier <nick@debian.org>  Sat, 10 Jul 1999 19:40:17 -0300
++
++file (3.27-3) unstable; urgency=low
++
++  * Added detection of SIDPlay audio files (closes: Bug#35564, Bug#35483).
++  * Added "#include <errno.h>" to compress.c (closes: Bug#37705).
++  * Fixed tiny typos in README (closes: Bug#38877).
++  * Added magic for Atari ST executables from Wolfram Kleff
++    <kleff@cs.uni-bonn.de>.
++  * Added formats for some communications standards contributed by
++    W. Borgert <debacle@debian.org> (closes: Bug#34542, Bug#34779).
++  * Removed detection of format `Fasttracker "oktalyzer" module sound data'.
++    It was just 2 bytes at offset 0 and generated false positives
++    (closes: Bug#36704).
++  * Added detection of MPEG audio level 2.5 and improved messages for level
++    3 (mp3) contributed by Wolfram Kleff <kleff@cs.uni-bonn.de>
++    (closes: Bug#40733).
++  * Added audio/midi to magic2mime.
++  * Readded magic2mime to package. It was removed by mistake.
++
++ -- Nicolás Lichtmaier <nick@debian.org>  Sat, 10 Jul 1999 03:11:45 -0300
++
++file (3.27-2) unstable; urgency=low
++
++  * Removed detection of unstriped binaries. Patch from
++    Sean Perry <shaleh@debian.org>. Fixes bugs #38407, #38417, 38419.
++  * Added detection of NITF files from jrv@vanzandt.mv.com.
++    Fixes bug #38452.
++  * No longer includes Localstuff in /usr/share/misc/magic. Local
++    definitions should go to /etc/magic.
++
++ -- Nicolás Lichtmaier <nick@debian.org>  Fri, 28 May 1999 00:39:32 -0300
++
++file (3.27-1) unstable; urgency=low
++
++  * New upstream release. Fixes bugs #36786, #30692,
++    #29353 (added shockwave/flash files).
++  * Removed detection of "OS/2 URL objects": too general.
++  * Truncates \n on output. file's outputs MUST be one line per file.
++    Fixes bugs #34439, #34290, #35222, #32305, #32302, #30875.
++
++ -- Nicolás Lichtmaier <nick@debian.org>  Tue, 25 May 1999 21:50:13 -0300
++
++file (3.26-2) frozen unstable; urgency=low
++
++  * Moved x86 boot sector detection after linux kernel detection.
++    Fixes bug #24185.
++  * Added kernel version extraction for newer kernels.
++  * Removed `,' from GIF description's end.
++  * Changed version shown to 3.26-Debian, as this version is different from
++    upstream.
++  * Added manpage for magic2mime.
++  * Added more mime types for magic2mime and some fixes for the script.
++  * Switched to debhelper.
++
++ -- Nicolás Lichtmaier <nick@debian.org>  Wed, 20 Jan 1999 02:08:24 -0300
++
++file (3.26-1) frozen unstable; urgency=low
++
++  * New upstream release. Upstream author included many Debian enhancements
++    and added some minor fixes. Fixes bug #30692. Bug #30875 was fixed in
++    previous NMU.
++  * Fixed autoconf use.
++
++ -- Nicolás Lichtmaier <nick@debian.org>  Wed, 20 Jan 1999 03:15:45 +0000
++
++file (3.24-4.2) frozen unstable; urgency=HIGH
++
++  * NMU:
++    Fix critical bugs #31031 and #31057.
++
++ -- Vincent Renardias <vincent@waw.com>  Wed,  6 Jan 1999 01:51:15 +0100
++
++file (3.24-4.1) frozen unstable; urgency=low
++
++  * Non-maintainer release.
++  * Add patch so "\n"-style escapes work (closes:Bug#22854).
++
++ -- Joel Klecker <espy@debian.org>  Sun, 13 Dec 1998 16:44:18 -0800
++
++file (3.24-4) frozen unstable; urgency=low
++
++  * Added `-f' to an rm that might obstaculize automatic builds,
++    fixes bug #19970.
++  * Removed very old Debian package detection that caused files starting
++    with 0.9 to show no description at all, fixes bugs #19657 and #19677.
++
++ -- Nicolás Lichtmaier <nick@feedback.net.ar>  Sun, 22 Mar 1998 23:18:34 -0300
++
++file (3.24-3) unstable; urgency=low
++
++  * Small fix in online help.
++  * Changed `Standards-version' to 2.4.0.0 (no changes required).
++  * Moved /usr/share/magic to /usr/share/misc/magic, fixes bug #18639.
++
++ -- Nicolás Lichtmaier <nick@feedback.net.ar>  Sun,  8 Mar 1998 14:28:45 -0300
++
++file (3.24-2) unstable; urgency=low
++
++  * Fixed upstream completely broken configure.in (wasn't showing special
++    files major & minor numbers).
++  * Included upsstream magic2mime in the binary package.
++  * Added more HTML tokns to names.h.
++  * Added lzop compressd files definition, contributed
++    by Paolo Molaro <lupus@lettere.unipd.it>.
++  * Moved magic data to /usr/share/magic (not a conffile). /etc/magic will
++    be used for local magic definitions.
++
++ -- Nicolás Lichtmaier <nick@feedback.net.ar>  Tue, 24 Feb 1998 21:21:59 -0300
++
++file (3.24-1) unstable; urgency=low
++
++  * names.h: Added HTML.
++  * New upstream release.
++
++ -- Nicolás Lichtmaier <nick@feedback.net.ar>  Sat, 21 Feb 1998 00:47:11 -0300
++
++file (3.23-1) unstable; urgency=low
++
++  * Added long version for the new option `-b' (`--brief'). Added long
++    option to manpage. Added the option to the usge message (`--help'). 
++  * Added GNU message catalog magic, contributed
++    by Santiago Vila Doncel <sanvila@unex.es>, fixes bug #14743.
++  * Removed duplcated entry for romfs, fixes bug #13977.
++  * New upstream release, fixes bug #17830.
++
++ -- Nicolás Lichtmaier <nick@feedback.net.ar>  Thu, 19 Feb 1998 00:12:32 -0300
++
++file (3.20.1-8) unstable; urgency=low
++
++  * Added magic for Octave contributed
++    by Dirk Eddelbuettel <edd@rosebud.sps.queensu.ca>
++  * names.h: Added detectionn of Java source code.
++  * softmagic.c: When converting endianness only swap bytes if needed.
++  * Use %m instead of strerr.
++  * Added magic for WordPerfect files, contributed
++    by Scott K. Ellis <ellis@charon.valueweb.net>.
++
++ -- Nicolás Lichtmaier <nick@feedback.net.ar>  Fri, 10 Oct 1997 17:22:27 -0300
++
++file (3.20.1-7) unstable; urgency=low
++
++  * Changed maintainer address.
++  * Added filesystems and Linux86 magic, contributed
++    by Juan Cespedes <cespedes@debian.org>, fixes #13279.
++  * Keep files' date.
++  * Added GIMP file formats, contributed
++    by Kenneth MacDonald <kenny@ed.ac.uk>.
++
++ -- Nicolás Lichtmaier <nick@feedback.net.ar>  Wed,  9 Jul 1997 00:22:38 -0300
++
++file (3.20.1-6) unstable; urgency=low
++
++  * Minor changes to debian/rules.
++  * Modified manpage.
++  * Added `--help' option.
++  * Added magic data for vgetty voice formats (thanks to
++    David Engel <david@sw.ods.com>).
++  * Arguments to a printf casted to long long, fixes #10779.
++
++ -- Nicolás Lichtmaier <nick@feedback.com.ar>  Mon, 23 Jun 1997 20:21:58 -0300
++
++file (3.20.1-5) unstable; urgency=low
++
++  * Added Linux kernel boot image version detection for new kernels.
++  * Removed `-Wall' warnings.
++  * Added "DEC SRC Virtual Paper: Lectern files" type,
++    contributed by Karl M. Hegbloom <karlheg@inetarena.com>.
++  * Removed useless RCS ids.
++  * Corrected compilation flags.
++  * Don't try to keep file modification time, it changed file status change
++    time. And it's more natural a change in access time than in file status
++    change time. Fixes bug #7920.
++  * Minor fix to manpage.
++
++ -- Nicolás Lichtmaier <nick@feedback.com.ar>  Wed, 18 Jun 1997 21:55:49 -0300
++
++file (3.20.1-4) unstable; urgency=low
++
++  * Built with libc6.
++
++ -- Nicolás Lichtmaier <nick@feedback.com.ar>  Wed, 18 Jun 1997 00:09:58 -0300
++
++file (3.20.1-3) unstable; urgency=low
++
++  * Removed information about who created the /etc/magic file.
++  * Removed creation date from /etc/magic. This changed the md5sum of this
++    conffile every release.
++  * Man page updated.
++  * Added long options support.
++
++ -- Nicolás Lichtmaier <nick@feedback.com.ar>  Tue, 11 Mar 1997 15:19:43 -0300
++
++file (3.20.1-2) unstable; urgency=low
++
++  * Improved MS applications' docuemts detection (#4473).
++  * Added Steve McIntyre's contributed formats (#6735).
++  * New upstream release has fixed bugs #5777 #5838 and #6656 . All
++    reporting that file didn't detect Java's .class.
++  * My name is Nicolás. Fixes #7238 (!).
++
++ -- Nicolás Lichtmaier <nick@feedback.com.ar>  Wed, 12 Feb 1997 02:53:42 -0300
++
++file (3.20.1-1) unstable; urgency=low
++
++  * Added LSM files detection.
++  * Clarified header of /etc/magic.
++  * Added detection of creation time for .deb's.
++  * Added detection of 2.1.x kernels.
++  * Upstream fix to handle \n in arguments to string format broke
++    description that expected \n to end the string. Changed file
++    to discard \n's and following text at print time.
++  * Upstream changelog included.
++  * New upstream release
++
++ -- Nicolás Lichtmaier <nick@feedback.com.ar>  Sun, 9 Feb 1997 23:41:39 -0300
++
++file (3.19-7) unstable; urgency=low
++
++  * Corrected section in control file.
++  * New maintainer.
++
++ -- Nicolás Lichtmaier <nick@feedback.com.ar>  Sun, 9 Feb 1997 21:49:19 -0300
++
++file (3.19-6) unstable; urgency=low
++
++  * Added detection of pcap data files (like used by tcpdump) Peter Tobias
++    <tobias@et-inf.fho-emden.de>
++  * Removed signal detection from core files. Doesn't work for ELF binaries
++    Peter Tobias <tobias@et-inf.fho-emden.de>.
++  * Changed to new source format.
++
++ -- Nicolás Lichtmaier <nick@feedback.com.ar>  Mon, 3 Feb 1997 20:11:00 -0300
++
++file (3.19-5)
++
++  * Change of maintainer and updated for multi-architecture build (fixes Bug #3332)
++  * Un-right-justified the description field
++  * Move entry for debian packages to the correct spot and update it for debian 2.0 packages (fixes Bug #3411)
++  * Add entry for TrueType fonts to Magdir/fonts
++
++ -- Darren Stalder  <torin@daft.com>, Mon Jul  8 23:07:21 1996
++
++file (3.19-4)
++  * added entry for Adobe Postscript PPD files in Magdir/ppd.
++
++file (3.19-3)
++  * added entry for linux kernal images to source file Magdir/linux
++
++file (3.19-2)
++  * add MAGIC=/etc/magic to make(1) invocation
++  * change maintainer email address
++
++file (3.19-1)
++  * added debian.* files
++  * modified Magdir/archive to add debian-split entry to ar archives
++  * modified magdir/elf to add more entry for core file
++
+--- file-4.04.orig/debian/control
++++ file-4.04/debian/control
+@@ -0,0 +1,41 @@
++Source: file
++Section: utils
++Priority: standard
++Maintainer: Michael Piefel <piefel@debian.org>
++Build-Depends: debhelper (>= 4), zlib1g-dev, autotools-dev, libtool
++Standards-Version: 3.6.1
++
++Package: file
++Architecture: any
++Depends: libmagic1 (= ${Source-Version}), ${shlibs:Depends}
++Description: Determines file type using "magic" numbers
++ File tests each argument in an attempt to classify it.  There are three
++ sets of tests, performed in this order: filesystem tests, magic number
++ tests, and language tests.  The first test that succeeds causes the
++ file type to be printed.
++ .
++ Starting with version 4, the file command is not much more than a wrapper
++ around the "magic" library.
++
++Package: libmagic1
++Section: libs
++Architecture: any
++Depends: ${shlibs:Depends}
++Suggests: file
++Conflicts: file (<= 4)
++Description: File type determination library using "magic" numbers
++ This library can be used to classify files according to magic number
++ tests. It implements the core functionality of the file command.
++
++Package: libmagic-dev
++Section: libdevel
++Priority: optional
++Architecture: any
++Depends: libmagic1 (= ${Source-Version})
++Suggests: file
++Description: File type determination library (development)
++ This library can be used to classify files according to magic number
++ tests. It implements the core functionality of the file command.
++ .
++ This package contains the development files.
++
+--- file-4.04.orig/debian/rules
++++ file-4.04/debian/rules
+@@ -0,0 +1,128 @@
++#!/usr/bin/make -f
++
++# debian/rules that uses debhelper;
++# based on rules.multi2, originally written by Joey Hess.
++#
++# This version is for a multibinary package. It also allows you to build any
++# of the binary packages independantly, via binary-<package> targets.
++
++# Uncomment this to turn on verbose mode. 
++#export DH_VERBOSE=1
++
++# This has to be exported to make some magic below work.
++export DH_OPTIONS
++
++# Proper autotools handling as per autotools-dev/README.Debian
++export DEB_HOST_GNU_TYPE  ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
++export DEB_BUILD_GNU_TYPE ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
++ifeq ($(DEB_BUILD_GNU_TYPE), $(DEB_HOST_GNU_TYPE))
++  CONFFLAGS += --build $(DEB_HOST_GNU_TYPE)
++else
++  CONFFLAGS += --build $(DEB_BUILD_GNU_TYPE) --host $(DEB_HOST_GNU_TYPE)
++endif
++
++# Initial CFLAGS; HOWMANY is the number of bytes looked at by file
++CFLAGS = -DHOWMANY=0x18000
++
++ifneq (,$(findstring debug,$(DEB_BUILD_OPTIONS)))
++  CFLAGS += -g
++endif
++ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
++  CFLAGS += -O0
++else
++  CFLAGS += -O2
++endif
++
++build: build-stamp
++build-stamp:
++	dh_testdir
++
++	mv config.sub config.sub.upstream && ln -s /usr/share/misc/config.sub
++	mv config.guess config.guess.upstream && ln -s /usr/share/misc/config.guess
++	./configure $(CONFFLAGS) --prefix=/usr \
++		'--datadir=$${prefix}/share/misc' '--mandir=$${prefix}/share/man' \
++		--enable-fsect-man5
++	rm config.sub && mv config.sub.upstream config.sub
++	rm config.guess && mv config.guess.upstream config.guess
++	mv libtool libtool.upstream && cp /usr/bin/libtool libtool
++	make
++	rm libtool && mv libtool.upstream libtool
++	touch build-stamp
++
++clean:
++	dh_testdir
++	dh_testroot
++	rm -f build-stamp debian/copyright
++
++	-$(MAKE) clean
++	-$(MAKE) distclean
++
++	dh_clean
++
++install: DH_OPTIONS=
++install: build
++	dh_testdir
++	dh_testroot
++	dh_clean -k
++	dh_installdirs
++
++	# Add here commands to install the package into debian/tmp.
++	mv libtool libtool.upstream && cp /usr/bin/libtool libtool
++	$(MAKE) prefix=`pwd`/debian/tmp/usr install
++	rm libtool && mv libtool.upstream libtool
++	install -m644 -p -D magic/magic.local `pwd`/debian/tmp/etc/magic
++
++	dh_install --sourcedir=debian/tmp
++
++# This single target is used to build all the packages, all at once, or
++# one at a time. So keep in mind: any options passed to commands here will
++# affect _all_ packages. Anything you want to only affect one package
++# should be put in another target, such as the install target.
++binary-common:
++	cat debian/copyright-prolog LEGAL.NOTICE > debian/copyright
++	dh_testdir
++	dh_testroot
++	dh_installchangelogs
++	dh_installdocs
++	dh_installexamples
++	dh_installmenu
++#	dh_installdebconf
++#	dh_installlogrotate
++#	dh_installemacsen
++#	dh_installcatalogs
++#	dh_installpam
++#	dh_installmime
++#	dh_installinit
++#	dh_installman
++#	dh_installcron
++#	dh_installinfo
++#	dh_undocumented
++	dh_strip
++	dh_link
++	dh_compress
++	dh_fixperms
++#	dh_perl
++#	dh_python
++	dh_makeshlibs
++	dh_installdeb
++	dh_shlibdeps -Llibmagic1 -ldebian/libmagic1/usr/lib
++	dh_gencontrol
++	dh_md5sums
++	dh_builddeb
++	rm -f debian/copyright
++
++# Build architecture independant packages using the common target.
++binary-indep: build install
++# (Uncomment this next line if you have such packages.)
++#	 $(MAKE) -f debian/rules DH_OPTIONS=-i binary-common
++
++# Build architecture dependent packages using the common target.
++binary-arch: build install
++	$(MAKE) -f debian/rules DH_OPTIONS=-a binary-common
++
++# Any other binary targets build just one binary package at a time.
++binary-%: build install
++	make -f debian/rules binary-common DH_OPTIONS=-p$*
++
++binary: binary-indep binary-arch
++.PHONY: build clean binary-indep binary-arch binary-common binary install
+--- file-4.04.orig/debian/copyright-prolog
++++ file-4.04/debian/copyright-prolog
+@@ -0,0 +1,9 @@
++This package was assembled by Michael Piefel <piefel@debian.org>
++sources from ftp://ftp.astron.com/pub/file/file-4.02.tar.gz .
++
++This package was previously maintained by Darren Stalder <torin@daft.com>,
++Bill Mitchell <mitchell@debian.org> and Nicolas Lichtmaier <nick@feedback.net.ar>.
++
++
++Upstream copyright and license information:
++
+--- file-4.04.orig/debian/libmagic-dev.install
++++ file-4.04/debian/libmagic-dev.install
+@@ -0,0 +1,4 @@
++usr/include
++usr/lib/libmagic*.{a,la,so}
++usr/share/man/man3
++
+--- file-4.04.orig/debian/file.install
++++ file-4.04/debian/file.install
+@@ -0,0 +1,3 @@
++etc/magic
++usr/bin
++usr/share/man/man1
+--- file-4.04.orig/debian/libmagic1.install
++++ file-4.04/debian/libmagic1.install
+@@ -0,0 +1,3 @@
++usr/lib/libmagic*.so.*
++usr/share/misc/file
++usr/share/man/man5
+--- file-4.04.orig/debian/file.dirs
++++ file-4.04/debian/file.dirs
+@@ -0,0 +1,3 @@
++etc
++usr/bin
++usr/share/man/man1
+--- file-4.04.orig/debian/libmagic1.dirs
++++ file-4.04/debian/libmagic1.dirs
+@@ -0,0 +1,3 @@
++usr/lib
++usr/share/misc/file
++usr/share/man/man5
+--- file-4.04.orig/debian/libmagic-dev.dirs
++++ file-4.04/debian/libmagic-dev.dirs
+@@ -0,0 +1,4 @@
++usr/include
++usr/lib
++usr/share/man/man3
++
+--- file-4.04.orig/debian/compat
++++ file-4.04/debian/compat
+@@ -0,0 +1 @@
++4
+--- file-4.04.orig/stamp-h
++++ file-4.04/stamp-h
+@@ -0,0 +1 @@
++timestamp
