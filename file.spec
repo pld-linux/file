@@ -2,11 +2,11 @@ Summary:	file(1) command
 Summary(de):	Befehl file(1)
 Summary(es):	Comando file
 Summary(fr):	Commande file(1)
-Summary(ja): ╔у╔║╔╓╔К╓н╪ОнЮ╓Рх╫йл╓╧╓К╔Ф║╪╔ф╔ё╔Й╔ф╔ё║╪
+Summary(ja):	╔у╔║╔╓╔К╓н╪ОнЮ╓Рх╫йл╓╧╓К╔Ф║╪╔ф╔ё╔Й╔ф╔ё║╪
 Summary(pl):	Polecenie file(1)
 Summary(pt_BR):	Um utilitАrio para determinar tipos de arquivos
-Summary(tr):	Dosya tipini belirleme aracЩ
 Summary(ru):	Утилита для определения типов файлов
+Summary(tr):	Dosya tipini belirleme aracЩ
 Summary(uk):	Утил╕та для визначення тип╕в файл╕в
 Name:		file
 Version:	3.38
@@ -91,6 +91,12 @@ Ele reconhece vАrios tipos de arquivos, incluindo binАrios ELF,
 bibliotecas de sistema, pacotes RPM e vАrios formatos grАficos
 diferentes.
 
+%description -l ru
+Команда file используется для определения типа файла по данным, в нем
+содержащимся. Она может определить множество разнообразных типов
+файлов, включая бинарные файлы формата ELF, системные библиотеки,
+пакеты RPM, различные графические форматы и много других.
+
 %description -l tr
 file, bir dosyayЩ inceleyerek ne tЭr bir dosya olduПu konusunda size
 bir fikir verebilir. BЖylece uzantЩsЩndan ve adЩndan ne olduПunu
@@ -98,12 +104,6 @@ bir fikir verebilir. BЖylece uzantЩsЩndan ve adЩndan ne olduПunu
 da ne yapacaПЩnЩza karar verebilisiniz. file, temel dosya tiplerini,
 ГoПu grafik formatЩnЩ, ГalЩЧtЩrЩlabilir dosyalarЩ, sistem
 kitaplЩklarЩnЩ vs. tanЩyabilir.
-
-%description -l ru
-Команда file используется для определения типа файла по данным, в нем
-содержащимся. Она может определить множество разнообразных типов
-файлов, включая бинарные файлы формата ELF, системные библиотеки,
-пакеты RPM, различные графические форматы и много других.
 
 %description -l uk
 Команда file використову╓ться для визначення типу файлу по даних, як╕
