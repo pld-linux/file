@@ -5,7 +5,7 @@ Summary(pl): komenda file(1)
 Summary(tr): Dosya tipini belirleme aracý
 Name:        file
 Version:     3.26
-Release:     2
+Release:     3
 Copyright:   distributable
 Group:       Utilities/File
 Source0:     ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
@@ -62,15 +62,17 @@ install %{SOURCE1} ./Magdir/gimp
 install %{SOURCE2} ./Magdir/xdelta
 
 %build
-CFLAGS="$RPM_OPT_FLAGS" ./configure --prefix=/usr
-make
+CFLAGS="$RPM_OPT_FLAGS" \
+./configure \
+	--prefix=/usr
+make LDFLAGS="-s"
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/usr/man
 make prefix=$RPM_BUILD_ROOT/usr install
 
-strip $RPM_BUILD_ROOT/usr/bin/file
+gzip -9nf $RPM_BUILD_ROOT/usr/man/man{1,4}/*
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -81,6 +83,11 @@ rm -rf $RPM_BUILD_ROOT
 %attr(644, root,  man) /usr/man/man[14]/*
 
 %changelog
+* Wed Dec 23 1998 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
+  [3.26-3]
+- added gzipping man pages,
+- added LDFLAGS="-s" make parameter.
+
 * Thu Nov 26 1998 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
   [3.26-2]
 - updated file.xdelta from xdelta-1.0.0 and added
