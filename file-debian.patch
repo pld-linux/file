@@ -1,5 +1,5 @@
---- file-4.04.orig/doc/file.man
-+++ file-4.04/doc/file.man
+--- file-4.06.orig/doc/file.man
++++ file-4.06/doc/file.man
 @@ -1,4 +1,4 @@
 -.TH FILE __CSECTION__ "Copyright but distributable"
 +.TH FILE __CSECTION__ "July 2003" "Debian/GNU Linux" "Copyrighted but distributable"
@@ -31,7 +31,7 @@
  magic file
  .I __MAGIC__.mgc ,
  or 
-@@ -330,12 +331,6 @@
+@@ -339,12 +340,6 @@
  The order of entries in the magic file is significant.
  Depending on what system you are using, the order that
  they are put together may be incorrect.
@@ -44,7 +44,7 @@
  .SH EXAMPLES
  .nf
  $ file file.c file /dev/{wd0a,hda}
-@@ -489,3 +484,7 @@
+@@ -498,3 +493,7 @@
  .B ftp.astron.com
  in the directory
  .I /pub/file/file-X.YZ.tar.gz
@@ -52,8 +52,8 @@
 +This version contains some extensions from
 +.B Debian
 +(mainly new magic entries).
---- file-4.04.orig/src/Makefile.am
-+++ file-4.04/src/Makefile.am
+--- file-4.06.orig/src/Makefile.am
++++ file-4.06/src/Makefile.am
 @@ -4,7 +4,7 @@
  
  bin_PROGRAMS = file
@@ -63,21 +63,21 @@
  
  libmagic_la_SOURCES = magic.c apprentice.c softmagic.c ascmagic.c \
  	compress.c is_tar.c readelf.c print.c fsmagic.c \
---- file-4.04.orig/src/apprentice.c
-+++ file-4.04/src/apprentice.c
-@@ -81,6 +81,10 @@
-   char PATHSEP=':';
+--- file-4.06.orig/src/apprentice.c
++++ file-4.06/src/apprentice.c
+@@ -75,6 +75,10 @@
+ #define MAP_FILE 0
  #endif
  
 +#ifndef MAXPATHLEN
 +#define	MAXPATHLEN	512
 +#endif
 +
- 
  private int getvalue(struct magic_set *ms, struct magic *, char **);
  private int hextoint(int);
---- file-4.04.orig/src/ascmagic.c
-+++ file-4.04/src/ascmagic.c
+ private char *getstr(struct magic_set *, char *, char *, int, int *);
+--- file-4.06.orig/src/ascmagic.c
++++ file-4.06/src/ascmagic.c
 @@ -41,8 +41,8 @@
   * international characters, now subsumed into this file.
   */
@@ -88,8 +88,8 @@
  #include <stdio.h>
  #include <string.h>
  #include <memory.h>
---- file-4.04.orig/src/compress.c
-+++ file-4.04/src/compress.c
+--- file-4.06.orig/src/compress.c
++++ file-4.06/src/compress.c
 @@ -37,8 +37,8 @@
   *	uncompress(method, old, n, newch) - uncompress old into new, 
   *					    using method, return sizeof new
@@ -100,7 +100,7 @@
  #include <stdio.h>
  #include <stdlib.h>
  #ifdef HAVE_UNISTD_H
-@@ -360,9 +360,23 @@
+@@ -357,9 +357,23 @@
  	default: /* parent */
  		(void) close(fdin[0]);
  		(void) close(fdout[1]);
@@ -127,7 +127,7 @@
  		}
  		(void) close(fdin[1]);
  		fdin[1] = -1;
-@@ -372,7 +386,8 @@
+@@ -369,7 +383,8 @@
  		}
  		if ((r = sread(fdout[0], *newch, HOWMANY)) <= 0) {
  			free(*newch);
@@ -137,7 +137,7 @@
  			goto err;
  		} else {
  			n = r;
-@@ -383,7 +398,9 @@
+@@ -380,7 +395,9 @@
  		if (fdin[1] != -1)
  			(void) close(fdin[1]);
  		(void) close(fdout[0]);
@@ -148,8 +148,8 @@
  		return n;
  	}
  }
---- file-4.04.orig/src/file.c
-+++ file-4.04/src/file.c
+--- file-4.06.orig/src/file.c
++++ file-4.06/src/file.c
 @@ -34,8 +34,8 @@
   * file - find type of a file or files - main program.
   */
@@ -171,7 +171,7 @@
  
  #ifdef HAVE_GETOPT_H
  #include <getopt.h>	/* for long options (is this portable?)*/
-@@ -256,9 +260,8 @@
+@@ -250,9 +254,8 @@
  			flags |= MAGIC_DEVICES;
  			break;
  		case 'v':
@@ -183,7 +183,7 @@
  				       magicfile);
  			return 1;
  		case 'z':
-@@ -304,7 +307,7 @@
+@@ -303,7 +306,7 @@
  	else {
  		int i, wid, nw;
  		for (wid = 0, i = optind; i < argc; i++) {
@@ -192,7 +192,7 @@
  			if (nw > wid)
  				wid = nw;
  		}
-@@ -354,7 +357,7 @@
+@@ -353,7 +356,7 @@
  		}
  
  		while (fgets(buf, MAXPATHLEN, f) != NULL) {
@@ -201,7 +201,7 @@
  			if (cwid > wid)
  				wid = cwid;
  		}
-@@ -380,7 +383,8 @@
+@@ -379,7 +382,8 @@
  
  	if (wid > 0 && !bflag)
  		(void) printf("%s%s%*s ", std_in ? "/dev/stdin" : inname,
@@ -251,18 +251,18 @@
 +#endif
 +}
 +
---- file-4.04.orig/src/file.h
-+++ file-4.04/src/file.h
-@@ -198,6 +198,7 @@
+--- file-4.06.orig/src/file.h
++++ file-4.06/src/file.h
+@@ -214,6 +214,7 @@
  protected void file_magwarn(const char *, ...);
  protected void file_mdump(struct magic *);
  protected void file_showstr(FILE *, const char *, size_t);
 +protected size_t file_mbswidth(const char *);
+ protected const char *file_getbuffer(struct magic_set *);
  
  #ifndef HAVE_STRERROR
- extern int sys_nerr;
---- file-4.04.orig/src/funcs.c
-+++ file-4.04/src/funcs.c
+--- file-4.06.orig/src/funcs.c
++++ file-4.06/src/funcs.c
 @@ -26,8 +26,8 @@
   * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
   * SUCH DAMAGE.
@@ -273,8 +273,8 @@
  #include <stdarg.h>
  #include <stdlib.h>
  #include <string.h>
---- file-4.04.orig/src/is_tar.c
-+++ file-4.04/src/is_tar.c
+--- file-4.06.orig/src/is_tar.c
++++ file-4.06/src/is_tar.c
 @@ -42,8 +42,8 @@
   * for file command by Ian Darwin.
   */
@@ -285,8 +285,8 @@
  #include <string.h>
  #include <ctype.h>
  #include <sys/types.h>
---- file-4.04.orig/src/magic.c
-+++ file-4.04/src/magic.c
+--- file-4.06.orig/src/magic.c
++++ file-4.06/src/magic.c
 @@ -27,8 +27,8 @@
   * SUCH DAMAGE.
   */
@@ -297,34 +297,36 @@
  
  #include <stdio.h>
  #include <stdlib.h>
-@@ -251,11 +251,24 @@
+@@ -235,11 +235,24 @@
  	else if ((fd = open(inname, O_RDONLY)) < 0) {
- 		/* We can't open it, but we were able to stat it. */
+ 		/* We cannot open it, but we were able to stat it. */
  		if (sb.st_mode & 0002)
 -			if (file_printf(ms, "writable, ") == -1)
-+			if (file_printf(ms, "writable, ") == -1) {
-+			        close(fd);
- 				return NULL;
-+			}
- 		if (sb.st_mode & 0111)
--			if (file_printf(ms, "executable, ") == -1)
-+			if (file_printf(ms, "executable, ") == -1) {
-+			        close(fd);
-+				return NULL;
-+			}
-+		if (sb.st_mode & 0100000)
-+			if (file_printf(ms, "regular file, ") == -1) {
-+			        close(fd);
- 				return NULL;
-+			}
-+		if (file_printf(ms, "no read permission") == -1) {
+-				return NULL;
++		    if (file_printf(ms, "writable, ") == -1) {
 +			close(fd);
 +			return NULL;
++		    }
+ 		if (sb.st_mode & 0111)
+-			if (file_printf(ms, "executable, ") == -1)
+-				return NULL;
++		    if (file_printf(ms, "executable, ") == -1) {
++			close(fd);
++			return NULL;
++		    }
++		if (sb.st_mode & 0100000)
++		    if (file_printf(ms, "regular file, ") == -1) {
++			close(fd);
++			return NULL;
++		    }
++		if (file_printf(ms, "no read permission") == -1) {
++		    close(fd);
++		    return NULL;
 +		}
- 		return ms->o.buf;
+ 		return file_getbuffer(ms);
  	}
  
-@@ -273,6 +286,10 @@
+@@ -257,6 +270,10 @@
  			(void)close(fd);
  		    goto done;
  		}
@@ -335,8 +337,8 @@
  	} else {
  		buf[nbytes++] = '\0';	/* null-terminate it */
  #ifdef __EMX__
---- file-4.04.orig/src/names.h
-+++ file-4.04/src/names.h
+--- file-4.06.orig/src/names.h
++++ file-4.06/src/names.h
 @@ -60,6 +60,7 @@
  #define	L_HTML	11		/* HTML */
  #define	L_BCPL	12		/* BCPL */
@@ -358,8 +360,8 @@
  	{ "HTML document",				"text/html", },
  	{ "BCPL program",				"text/x-bcpl" },
  	{ "M4 macro language pre-processor",		"text/x-m4" },
-+	{ "PO (gettext message catalogue)",		"text/x-po" },
- 	{ "can't happen error on names.h/types",	"error/x-error" },
++	{ "PO (gettext message catalogue)",             "text/x-po" },
+ 	{ "cannot happen error on names.h/types",	"error/x-error" },
  	{ 0, 0}
  };
 @@ -125,6 +127,7 @@
@@ -370,8 +372,18 @@
  	{"dnl",		L_M4},
  	{"import",	L_JAVA},
  	{"\"libhdr\"",	L_BCPL},
---- file-4.04.orig/magic/Header
-+++ file-4.04/magic/Header
+--- file-4.06.orig/configure.in
++++ file-4.06/configure.in
+@@ -68,6 +68,7 @@
+ AC_CHECK_HEADERS(locale.h)
+ AC_CHECK_HEADERS(utime.h)
+ AC_CHECK_HEADERS(sys/utime.h)
++AC_CHECK_HEADERS(wchar.h)
+ 
+ dnl Checks for typedefs, structures, and compiler characteristics.
+ AC_C_CONST
+--- file-4.06.orig/magic/Header
++++ file-4.06/magic/Header
 @@ -1,5 +1,5 @@
 -# Magic
  # Magic data for file(1) command.
@@ -382,9 +394,9 @@
 +# Don't edit this file, edit /etc/magic or send your suggested inclusions to
 +# this file as a wishlist bug against file (using the reportbug utility).
 +
---- file-4.04.orig/magic/Magdir/amigaos
-+++ file-4.04/magic/Magdir/amigaos
-@@ -33,7 +33,8 @@
+--- file-4.06.orig/magic/Magdir/amigaos
++++ file-4.06/magic/Magdir/amigaos
+@@ -33,9 +33,10 @@
  0	string		ARP.		The Holy Noise Module sound file
  0	string		BeEp\0		JamCracker Module sound file
  0	string		COSO\0		Hippel-COSO Module sound file
@@ -396,8 +408,30 @@
 +#26	string		BPSM		Brian Postma's Soundmon Module sound file v3
 +#26	string		V.2		Brian Postma's Soundmon Module sound file v2
  
---- file-4.04.orig/magic/Magdir/archive
-+++ file-4.04/magic/Magdir/archive
+ # The following are from: "Stefan A. Haubenthal" <polluks@web.de>
+ 0	beshort		0x0f00		AmigaOS bitmap font
+--- file-4.06.orig/magic/Magdir/animation
++++ file-4.06/magic/Magdir/animation
+@@ -121,7 +121,7 @@
+ #From: Johan Gade <jgade@diku.dk>
+ 
+ # MPEG-4 Advanced Audio Coding (AAC) file (perhaps also MPEG-2 ACC?)
+-16	string		M4A		MPEG-4 Advanced Audio Coding file (ACC)
++16	string		M4A		MPEG-4 Advanced Audio Coding file (AAC)
+ 
+ 
+ # FLI animation format
+@@ -167,6 +167,8 @@
+ 0	string		MOVI		Silicon Graphics movie file
+ 4	string		moov		Apple QuickTime movie file (moov)
+ 4	string		mdat		Apple QuickTime movie file (mdat)
++4	string		wide		Apple QuickTime movie file (moov)
++4	string		free		Apple QuickTime movie file (free)
+ 
+ # iso 13818 transport stream
+ #
+--- file-4.06.orig/magic/Magdir/archive
++++ file-4.06/magic/Magdir/archive
 @@ -35,7 +35,7 @@
  >68	string		>\0		(format %s)
  >81	string		bz2		\b, uses bzip2 compression
@@ -407,17 +441,32 @@
  
  # other archives
  0	long		0177555		very old archive
---- file-4.04.orig/magic/Magdir/audio
-+++ file-4.04/magic/Magdir/audio
-@@ -333,3 +333,6 @@
+@@ -241,9 +241,11 @@
+ 
+ # Microsoft cabinets 
+ # by David Necas (Yeti) <yeti@physics.muni.cz>
+-0	string	MSCF\0\0\0\0	Microsoft cabinet file data,
+->25	byte	x		v%d
+->24	byte	x		\b.%d
++#0	string	MSCF\0\0\0\0	Microsoft cabinet file data,
++#>25	byte	x		v%d
++#>24	byte	x		\b.%d
++# MPi: All CABs have version 1.3, so this is pointless.
++# Better magic in debian-additions.
+ 
+ # GTKtalog catalogs 
+ # by David Necas (Yeti) <yeti@physics.muni.cz>
+--- file-4.06.orig/magic/Magdir/audio
++++ file-4.06/magic/Magdir/audio
+@@ -337,3 +337,6 @@
  0	string		A#S#C#S#S#L#V#3	    Synthesizer Generator or Kimwitu data
  # Kimwitu++ uses a slightly different magic
  0	string		A#S#C#S#S#L#HUB	    Kimwitu++ data
 +
 +# From "Simon Hosie
 +0       string  TFMX-SONG       TFMX module sound data
---- file-4.04.orig/magic/Magdir/c-lang
-+++ file-4.04/magic/Magdir/c-lang
+--- file-4.06.orig/magic/Magdir/c-lang
++++ file-4.06/magic/Magdir/c-lang
 @@ -10,7 +10,7 @@
  # this first will upset you if you're a PL/1 shop...
  # in which case rm it; ascmagic will catch real C programs
@@ -427,8 +476,8 @@
  
  # From: Mikhail Teterin <mi@aldan.algebra.com> 
  0	string		cscope		cscope reference data
---- file-4.04.orig/magic/Magdir/console
-+++ file-4.04/magic/Magdir/console
+--- file-4.06.orig/magic/Magdir/console
++++ file-4.06/magic/Magdir/console
 @@ -119,9 +119,37 @@
  
  #------------------------------------------------------------------------------
@@ -468,8 +517,8 @@
 +# Microsoft Xbox data file formats
 +0       string          XIP0            XIP, Microsoft Xbox data
 +0       string          XTF0            XTF, Microsoft Xbox data
---- file-4.04.orig/magic/Magdir/database
-+++ file-4.04/magic/Magdir/database
+--- file-4.06.orig/magic/Magdir/database
++++ file-4.06/magic/Magdir/database
 @@ -192,4 +192,12 @@
  2	string		ICE		ICE authority data
  
@@ -483,8 +532,8 @@
 +16	string		MIT-MAGIC-COOKIE-1	X11 Xauthority data
 +17	string		MIT-MAGIC-COOKIE-1	X11 Xauthority data
 +18	string		MIT-MAGIC-COOKIE-1	X11 Xauthority data
---- file-4.04.orig/magic/Magdir/flash
-+++ file-4.04/magic/Magdir/flash
+--- file-4.06.orig/magic/Magdir/flash
++++ file-4.06/magic/Magdir/flash
 @@ -8,6 +8,8 @@
  #
  0	string		FWS		Macromedia Flash data,
@@ -494,8 +543,8 @@
  #
  # From Dave Wilson
  0	string AGD4\xbe\xb8\xbb\xcb\x00	Macromedia Freehand 9 Document
---- file-4.04.orig/magic/Magdir/human68k
-+++ file-4.04/magic/Magdir/human68k
+--- file-4.06.orig/magic/Magdir/human68k
++++ file-4.06/magic/Magdir/human68k
 @@ -2,18 +2,18 @@
  #------------------------------------------------------------------------------
  # human68k:  file(1) magic for Human68k (X680x0 DOS) binary formats
@@ -527,8 +576,8 @@
  0		beshort	0x601a		Human68k Z executable
  0		beshort	0x6000		Human68k object file
  0		belong	0xd1000000	Human68k ar binary archive
---- file-4.04.orig/magic/Magdir/images
-+++ file-4.04/magic/Magdir/images
+--- file-4.06.orig/magic/Magdir/images
++++ file-4.06/magic/Magdir/images
 @@ -164,10 +164,11 @@
  >>18	lelong		x		\b, %d x
  >>22	lelong		x		%d x
@@ -545,8 +594,8 @@
  # Conflicts with other entries [BABYL]
  #0	string		BA		PC bitmap array data
  
---- file-4.04.orig/magic/Magdir/jpeg
-+++ file-4.04/magic/Magdir/jpeg
+--- file-4.06.orig/magic/Magdir/jpeg
++++ file-4.06/magic/Magdir/jpeg
 @@ -19,9 +19,9 @@
  >11	byte		x		\b %d.
  >12	byte		x		\b%02d
@@ -571,8 +620,8 @@
  
  # HSI is Handmade Software's proprietary JPEG encoding scheme
  0	string		hsi1		JPEG image data, HSI proprietary
---- file-4.04.orig/magic/Magdir/linux
-+++ file-4.04/magic/Magdir/linux
+--- file-4.06.orig/magic/Magdir/linux
++++ file-4.06/magic/Magdir/linux
 @@ -42,13 +42,8 @@
  #
  # LILO boot/chain loaders, from Daniel Quinlan <quinlan@yggdrasil.com>
@@ -602,8 +651,8 @@
  0	string	Begin3	Linux Software Map entry text
  0	string	Begin4	Linux Software Map entry text (new format)
  
---- file-4.04.orig/magic/Magdir/macintosh
-+++ file-4.04/magic/Magdir/macintosh
+--- file-4.06.orig/magic/Magdir/macintosh
++++ file-4.06/magic/Magdir/macintosh
 @@ -88,7 +88,8 @@
  # that the first one be 0x80, 0x81, 0x82, or 0x83, and that the second
  # be 0x81.  This works for the files I have, but maybe not for everyone's.
@@ -845,9 +894,19 @@
  
  # Just in case...
  
---- file-4.04.orig/magic/Magdir/msdos
-+++ file-4.04/magic/Magdir/msdos
-@@ -239,11 +239,6 @@
+--- file-4.06.orig/magic/Magdir/msdos
++++ file-4.06/magic/Magdir/msdos
+@@ -181,9 +181,6 @@
+ # Help files
+ 0	string	?_\3\0		MS Windows Help Data
+ 
+-# Microsoft CAB distribution format  Dale Worley <root@dworley.ny.mediaone.net>
+-0	string		MSCF\000\000\000\000	Microsoft CAB file
+-
+ #  DeIsL1.isu what this is I don't know
+ 0	string	\161\250\000\000\001\002	DeIsL1.isu whatever that is
+ 
+@@ -239,11 +236,6 @@
  >>8	byte	>0			\b, %d-colors
  
  
@@ -859,7 +918,7 @@
  # .chr files
  0	string	PK\010\010BGI	Borland font 
  >4	string	>\0	%s
-@@ -279,7 +274,8 @@
+@@ -279,7 +271,8 @@
  0	string		DCU1		Borland Delphi .DCU file
  0	string		!<spell>	MKS Spell hash list (old format)
  0	string		!<spell2>	MKS Spell hash list
@@ -869,8 +928,8 @@
  0	lelong		0x08086b70	TurboC BGI file
  0	lelong		0x08084b50	TurboC Font file
  
---- file-4.04.orig/magic/Magdir/os2
-+++ file-4.04/magic/Magdir/os2
+--- file-4.06.orig/magic/Magdir/os2
++++ file-4.06/magic/Magdir/os2
 @@ -11,16 +11,16 @@
  # OS/2 URL objects
  # Provided 1998/08/22 by
@@ -898,16 +957,16 @@
  
  # >>>>> OS/2 INF/HLP <<<<<  (source: Daniel Dissett ddissett@netcom.com)
  # Carl Hauser (chauser.parc@xerox.com) and 
---- file-4.04.orig/magic/Magdir/python
-+++ file-4.04/magic/Magdir/python
+--- file-4.06.orig/magic/Magdir/python
++++ file-4.06/magic/Magdir/python
 @@ -11,4 +11,4 @@
  0	belong		0x87c60d0a	python 2.0 byte-compiled
  0	belong		0x2aeb0d0a	python 2.1 byte-compiled
  0	belong		0x2ded0d0a	python 2.2 byte-compiled
 -#0	belong		0x31f20d0a	python 2.3 byte-compiled
 +0	belong		0x3bf20d0a	python 2.3 byte-compiled
---- file-4.04.orig/magic/Magdir/sgml
-+++ file-4.04/magic/Magdir/sgml
+--- file-4.06.orig/magic/Magdir/sgml
++++ file-4.06/magic/Magdir/sgml
 @@ -11,8 +11,7 @@
  
  # Extensible markup language (XML), a subset of SGML
@@ -918,8 +977,8 @@
  >15	string		>\0			%.3s document text
  >>23	string		\<xsl:stylesheet	(XSL stylesheet)
  >>24	string		\<xsl:stylesheet	(XSL stylesheet)
---- file-4.04.orig/magic/Magdir/ti-8x
-+++ file-4.04/magic/Magdir/ti-8x
+--- file-4.06.orig/magic/Magdir/ti-8x
++++ file-4.06/magic/Magdir/ti-8x
 @@ -1,5 +1,5 @@
  # ------------------------------------------------------------------------
 -# ti-8x: file(1) magic for the TI-8x and TI-92 Graphing Calculators.
@@ -927,9 +986,25 @@
  #
  # From: Ryan McGuire (rmcguire@freenet.columbus.oh.us).
  #
---- file-4.04.orig/magic/Magdir/debian-additions
-+++ file-4.04/magic/Magdir/debian-additions
-@@ -0,0 +1,16 @@
+--- file-4.06.orig/magic/Magdir/vorbis
++++ file-4.06/magic/Magdir/vorbis
+@@ -17,11 +17,11 @@
+ ##>4		byte		0		revision 0
+ >4		byte		0
+ ##>>14		lelong		x		(Serial %lX)
+-# --- First vorbis packet - general header ---
+->>28		string		\x01vorbis	\b, Vorbis audio,
+ # non-Vorbis content: FLAC (Free Loss-lessy Audio Codec,
+ # http://flac.sourceforge.net)
+ >>28		string		fLaC		\b, FLAC audio
++# --- First vorbis packet - general header ---
++>>28		string		\x01vorbis	\b, Vorbis audio,
+ >>>35		lelong		!0		UNKNOWN VERSION %lu,
+ ##>>>35		lelong		0		version 0,
+ >>>35		lelong		0
+--- file-4.06.orig/magic/Magdir/debian-additions
++++ file-4.06/magic/Magdir/debian-additions
+@@ -0,0 +1,112 @@
 +# GnuPG
 +# The format is very similar to pgp
 +0	string          \001gpg                 GPG key trust database
@@ -946,8 +1021,104 @@
 +# This entry is only semi-helpful, as Gnumeric compresses its files, so
 +# they will ordinarily reported as "compressed", but at least -z helps
 +39      string          =<gmr:Workbook           Gnumeric spreadsheet
---- file-4.04.orig/magic/Makefile.am
-+++ file-4.04/magic/Makefile.am
++
++# Netscape Communicator address book
++0   string   \000\017\102\111 Netscape Communicator address book
++
++
++#------------------------------------------------------------------------------
++# dact:  file(1) magic for DACT compressed files
++#
++0	long		0x444354C3	DACT compressed data
++>4	byte		>-1		(version %i.
++>5	byte		>-1		$BS%i.
++>6	byte		>-1		$BS%i)
++>7	long		>0		$BS, original size: %i bytes
++>15	long		>30		$BS, block size: %i bytes
++
++
++#------------------------------------------------------------------------------
++# From Stuart Caie <kyzer@4u.net> (developer of cabextract)
++# Microsoft Cabinet files
++0	string		MSCF\0\0\0\0	Microsoft Cabinet file
++>8	lelong		x		\b, %u bytes
++>28	leshort		1		\b, 1 file
++>28	leshort		>1		\b, %u files
++
++# InstallShield Cabinet files
++0	string		ISc(		InstallShield Cabinet file
++>5	byte&0xf0	=0x60 		version 6,
++>5	byte&0xf0	!0x60 		version 4/5,
++>(12.l+40)	lelong	x		%u files
++
++# Windows CE package files
++0	string		MSCE\0\0\0\0	Microsoft WinCE install header
++>20	lelong		0		\b, architecture-independent
++>20	lelong		103		\b, Hitachi SH3
++>20	lelong		104		\b, Hitachi SH4
++>20	lelong		0xA11		\b, StrongARM
++>20	lelong		4000		\b, MIPS R4000
++>20	lelong		10003		\b, Hitachi SH3
++>20	lelong		10004		\b, Hitachi SH3E
++>20	lelong		10005		\b, Hitachi SH4
++>20	lelong		70001		\b, ARM 7TDMI
++>52	leshort		1 		\b, 1 file
++>52	leshort		>1 		\b, %u files
++>56	leshort		1 		\b, 1 registry entry
++>56	leshort		>1 		\b, %u registry entries
++
++
++#------------------------------------------------------------------------------
++# gcc:  file(1) magic for GCC special files
++#
++0       string          gpch            GCC precompiled header
++
++# The version field is annoying.  It's 3 characters, not zero-terminated.
++>5      byte            x                       (version %c
++>6      byte            x                       \b%c
++>7      byte            x                       \b%c)
++
++# 67 = 'C', 111 = 'o', 43 = '+', 79 = 'O'
++>4      byte            67                      for C
++>4      byte            111                     for Objective C
++>4      byte            43                      for C++
++>4      byte            79                      for Objective C++
++
++
++#------------------------------------------------------------------------------
++# GEOS files (Vidar Madsen, vidar@gimp.org)
++# semi-commonly used in embedded and handheld systems.
++0	belong	0xc745c153	GEOS
++>40	byte	1	executable
++>40	byte	2	VMFile
++>40	byte	3	binary
++>40	byte	4	directory label
++>40	byte	<1	unknown
++>40	byte	>4	unknown
++>4	string	>\0	\b, name "%s"
++#>44	short	x	\b, version %d
++#>46	short	x	\b.%d
++#>48	short	x	\b, rev %d
++#>50	short	x	\b.%d
++#>52	short	x	\b, proto %d
++#>54	short	x	\br%d
++#>168	string	>\0	\b, copyright "%s"
++
++
++#---------------------------------------------------------------------------
++# HVQM4: compressed movie format designed by Hudson for Nintendo GameCube
++# From Mark Sheppard <msheppard@climax.co.uk>, 2002-10-03
++#
++0	string		HVQM4		%s
++>6	string		>\0		v%s
++>0	byte		x		GameCube movie,
++>0x34	ubeshort	x		%d x
++>0x36	ubeshort	x		%d,
++>0x26	ubeshort	x		%dµs,
++>0x42	ubeshort	0		no audio
++>0x42	ubeshort	>0		%dHz audio
+--- file-4.06.orig/magic/Makefile.am
++++ file-4.06/magic/Makefile.am
 @@ -22,6 +22,7 @@
  	$(top_builddir)/src/file -C -m magic.mime
  
@@ -956,9 +1127,9 @@
  Magdir/acorn \
  Magdir/adi \
  Magdir/adventure \
---- file-4.04.orig/magic/magic.mime
-+++ file-4.04/magic/magic.mime
-@@ -193,10 +193,10 @@
+--- file-4.06.orig/magic/magic.mime
++++ file-4.06/magic/magic.mime
+@@ -195,10 +195,10 @@
  # because it tries to uncompress it to figure out what's inside.
  
  # standard unix compress
@@ -971,7 +1142,7 @@
  
  0		string			PK\003\004		application/x-zip
  
-@@ -311,6 +311,8 @@
+@@ -313,6 +313,8 @@
  0	string		\<!doctype\ html	text/html
  0	string		\<!doctype\ HTML	text/html
  
@@ -980,7 +1151,7 @@
  #------------------------------------------------------------------------------
  # images:  file(1) magic for image formats (see also "c-lang" for XPM bitmaps)
  #
-@@ -372,7 +374,7 @@
+@@ -374,7 +376,7 @@
  0	beshort		0xffd8		image/jpeg
  
  # PC bitmaps (OS/2, Windoze BMP files)  (Greg Roelofs, newt@uchicago.edu)
@@ -989,7 +1160,7 @@
  #>14	byte		12		(OS/2 1.x format)
  #>14	byte		64		(OS/2 2.x format)
  #>14	byte		40		(Windows 3.x format)
-@@ -621,3 +623,12 @@
+@@ -623,3 +625,12 @@
  #>>12   leshort    0	application/x-dbf
  #
  #0	leshort		0x0006		application/x-dbt
@@ -1002,15 +1173,31 @@
 +# This entry is only semi-helpful, as Gnumeric compresses its files, so
 +# they will ordinarily reported as "compressed", but at least -z helps
 +39      string          =<gmr:Workbook           application/x-gnumeric
---- file-4.04.orig/magic/magic.local
-+++ file-4.04/magic/magic.local
+--- file-4.06.orig/magic/magic.local
++++ file-4.06/magic/magic.local
 @@ -0,0 +1,3 @@
 +# Magic local data for file(1) command.
 +# Insert here your local magic data. Format is described in magic(5).
 +
---- file-4.04.orig/debian/changelog
-+++ file-4.04/debian/changelog
-@@ -0,0 +1,649 @@
+--- file-4.06.orig/debian/changelog
++++ file-4.06/debian/changelog
+@@ -0,0 +1,665 @@
++file (4.06-1) unstable; urgency=low
++
++  * New upstream.
++    - Return error for non-existant files (closes: #215801)
++    - Adds BitTorrent (closes: #201301)
++  * Fix minor AAC typo (closes: #215052)
++  * More QuickTime subformats (closes: #198809)
++  * Rearrange Flac detection (closes: #213693)
++  * Improved CAB detection (closes: #207344, #205431)
++  * Added DACT (closes: #195882)
++  * Added GCC precompiled headers (closes: #204304)
++  * Added GEOS (closes: #162852)
++  * Added HVQM4 (Still counting, Mark? Closes: #151138)
++
++ -- Michael Piefel <piefel@debian.org>  Fri, 17 Oct 2003 12:40:54 +0200
++
 +file (4.04-1) unstable; urgency=low
 +
 +  * New upstream
