@@ -18,7 +18,8 @@ Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
 # Source0-md5:	679d8982035167160c2d7bd2112fdf85
 Source1:	zisofs.magic
 Source2:	magic.mime
-Source3:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-non-english-man-pages.tar.bz2
+#Source3:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-non-english-man-pages.tar.bz2
+Source3:	%{name}-non-english-man-pages.tar.bz2
 # Source3-md5:	c157a183b64156f8baafaefd9cbf04c1
 Source4:	%{name}-magic.mscompress
 Patch0:		%{name}-sparc.patch
@@ -186,10 +187,10 @@ cat %{SOURCE1} %{SOURCE4} >>$RPM_BUILD_ROOT%{_datadir}/file/magic
 bzip2 -dc %{SOURCE3} | tar xf - -C $RPM_BUILD_ROOT%{_mandir}
 
 # somebody forgot about patching in tarball
-#mv -f $RPM_BUILD_ROOT%{_mandir}/pt_BR/man{4,5}
-#sed -e 's/MAGIC 4/MAGIC 5/' $RPM_BUILD_ROOT%{_mandir}/pt_BR/man5/magic.4 \
-#	> $RPM_BUILD_ROOT%{_mandir}/pt_BR/man5/magic.5
-#rm -f $RPM_BUILD_ROOT%{_mandir}/pt_BR/man5/magic.4
+mv -f $RPM_BUILD_ROOT%{_mandir}/pt_BR/man{4,5}
+sed -e 's/MAGIC 4/MAGIC 5/' $RPM_BUILD_ROOT%{_mandir}/pt_BR/man5/magic.4 \
+	> $RPM_BUILD_ROOT%{_mandir}/pt_BR/man5/magic.5
+rm -f $RPM_BUILD_ROOT%{_mandir}/pt_BR/man5/magic.4
 
 ./src/file -m $RPM_BUILD_ROOT%{_datadir}/file/magic -c -C
 
@@ -212,7 +213,7 @@ rm -rf $RPM_BUILD_ROOT
 %lang(ja) %{_mandir}/ja/man[15]/*
 %lang(nl) %{_mandir}/nl/man[15]/*
 %lang(pl) %{_mandir}/pl/man[15]/*
-#%lang(pt_BR) %{_mandir}/pt_BR/man[15]/*
+%lang(pt_BR) %{_mandir}/pt_BR/man[15]/*
 
 %files -n libmagic
 %defattr(644,root,root,755)
