@@ -22,12 +22,12 @@ Summary(uk):	õÔÉÌ¦ÔÁ ÄÌÑ ×ÉÚÎÁŞÅÎÎÑ ÔÉĞ¦× ÆÁÊÌ¦×
 Summary(zh_CN):	ÅĞ¶¨ÎÄ¼şÀàĞÍµÄ¹¤¾ß¡£
 Summary(zh_TW):	¥Î©ó¨M©wÀÉ®×Ãş«¬ªº¤@­Ó¤u¨ãµ{¦¡¡C
 Name:		file
-Version:	4.09
+Version:	4.10
 Release:	1
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/%{name}/%{name}-%{version}.tar.gz
-# Source0-md5:	46209022d57dbca7bb3cc07aa63bd008
+# Source0-md5:	c3cf1bda84a9d55896d4b7dd2caee68d
 Source1:	zisofs.magic
 Source2:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-non-english-man-pages.tar.bz2
 # Source2-md5:	c157a183b64156f8baafaefd9cbf04c1
@@ -37,7 +37,6 @@ Patch1:		%{name}-sparc.patch
 Patch2:		%{name}-ia64.patch
 Patch3:		%{name}-mime-elf.patch
 Patch4:		%{name}-unicode.patch
-Patch5:		%{name}-readelf-fix.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
@@ -224,7 +223,6 @@ Ten pakiet zawiera statyczn± wersjê biblioteki.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
-%patch5 -p1
 
 %build
 %{__libtoolize}
