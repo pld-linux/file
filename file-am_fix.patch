@@ -1,22 +1,6 @@
 diff -urN file-4.04.org/magic/Makefile.am file-4.04/magic/Makefile.am
 --- file-4.04.org/magic/Makefile.am	2003-10-02 10:21:54.000000000 +0200
 +++ file-4.04/magic/Makefile.am	2003-10-02 10:22:37.000000000 +0200
-@@ -38,7 +38,6 @@
- Magdir/asterix \
- Magdir/att3b \
- Magdir/audio \
--Magdir/audio.orig \
- Magdir/bFLT \
- Magdir/blender \
- Magdir/blit \
-@@ -105,7 +104,6 @@
- Magdir/lisp \
- Magdir/mach \
- Magdir/macintosh \
--Magdir/macintosh.orig \
- Magdir/magic \
- Magdir/mail.news \
- Magdir/maple \
 @@ -157,7 +155,6 @@
  Magdir/sccs \
  Magdir/sendmail \
@@ -25,11 +9,3 @@ diff -urN file-4.04.org/magic/Makefile.am file-4.04/magic/Makefile.am
  Magdir/sgml \
  Magdir/sharc \
  Magdir/sinclair \
-@@ -188,7 +185,6 @@
- Magdir/vms \
- Magdir/vmware \
- Magdir/vorbis \
--Magdir/vorbis.orig \
- Magdir/vxl \
- Magdir/wordprocessors \
- Magdir/xdelta \
