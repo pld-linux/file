@@ -4,15 +4,15 @@ Summary(fr):	Commande file(1)
 Summary(pl):	komenda file(1)
 Summary(tr):	Dosya tipini belirleme aracý
 Name:		file
-Version:	3.31
+Version:	3.32
 Release:	1
 Copyright:	distributable
 Group:		Utilities/File
 Group(pl):	Narzêdzia/Pliki
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
-Patch0:		file-sparc.patch
-Patch1:		file-tfm.patch
-Patch2:		file-ia64.patch
+Patch0:		%{name}-sparc.patch
+Patch1:		%{name}-tfm.patch
+Patch2:		%{name}-ia64.patch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Conflicts:	xdelta < 1.0.0
 
