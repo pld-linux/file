@@ -240,7 +240,8 @@ rm -f install-sh ltmain.sh missing mkinstalldirs
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install DESTDIR=$RPM_BUILD_ROOT
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 cat %{SOURCE1} %{SOURCE4} >>$RPM_BUILD_ROOT%{_datadir}/file/magic
 # install %{SOURCE2} $RPM_BUILD_ROOT%{_datadir}
