@@ -1,11 +1,11 @@
 Summary:	file(1) command
 Summary(de):	Befehl file(1)
 Summary(fr):	Commande file(1)
-Summary(pl):	komenda file(1)
+Summary(pl):	Komenda file(1)
 Summary(tr):	Dosya tipini belirleme aracý
 Name:		file
 Version:	3.37
-Release:	3
+Release:	4
 License:	distributable
 Group:		Applications/File
 Group(de):	Applikationen/Datei
@@ -14,6 +14,7 @@ Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
 Source1:	zisofs.magic
 Source2:	magic.mime
 Source3:	%{name}-non-english-man-pages.tar.bz2
+Source4:	%{name}-magic.mscompress
 Patch0:		%{name}-sparc.patch
 Patch1:		%{name}-tfm.patch
 Patch2:		%{name}-ia64.patch
@@ -88,8 +89,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
-cat %{SOURCE1} >>$RPM_BUILD_ROOT%{_datadir}/magic
-# install %{SOURCE3} $RPM_BUILD_ROOT%{_datadir}
+cat %{SOURCE1} %{SOURCE4} >>$RPM_BUILD_ROOT%{_datadir}/magic
+# install %{SOURCE2} $RPM_BUILD_ROOT%{_datadir}
 
 bzip2 -dc %{SOURCE3} | tar xf - -C $RPM_BUILD_ROOT%{_mandir}
 
