@@ -4,8 +4,8 @@ Summary(fr):	Commande file(1)
 Summary(pl):	komenda file(1)
 Summary(tr):	Dosya tipini belirleme aracý
 Name:		file
-Version:	3.35
-Release:	3
+Version:	3.36
+Release:	1
 License:	Distributable
 Group:		Applications/File
 Group(de):	Applikationen/Datei
@@ -18,9 +18,6 @@ Source4:	magic.5.pl
 Patch0:		%{name}-sparc.patch
 Patch1:		%{name}-tfm.patch
 Patch2:		%{name}-ia64.patch
-Patch3:		%{name}-magic5.patch
-Patch4:		%{name}-fnovfl.patch
-Patch5:		%{name}-elf.patch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Conflicts:	xdelta < 1.0.0
 
@@ -72,9 +69,6 @@ kitaplýklarýný vs. tanýyabilir.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1 -R
 
 %build
 aclocal
@@ -82,7 +76,8 @@ autoconf
 rm -f install-sh missing mkinstalldirs
 automake --copy --add-missing
 %configure \
-	--disable-elf
+	--disable-elf \
+	--enable-fsect-man5
 	
 %{__make}
 
