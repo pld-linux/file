@@ -13,7 +13,7 @@ Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
 Source1:	file.xdelta
 Patch0:		file-sparc.patch
 Patch1:		file-tfm.patch
-Buildroot:	/tmp/%{name}-%{version}-root
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Conflicts:	xdelta < 1.0.0
 
 %define		_datadir	%{_prefix}/share/misc
