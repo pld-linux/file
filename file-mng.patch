@@ -1,0 +1,11 @@
+--- file-3.37/magic.mime.mng	Mon May  6 18:32:56 2002
++++ file-3.37/magic.mime	Mon May  6 18:40:49 2002
+@@ -487,6 +487,8 @@
+ 0	string		MOVI				video/sgi
+ 4	string		moov				video/quicktime	moov
+ 4	string		mdat				video/quicktime	mdat
++# MNG
++0	string		\x8aMNG				video/x-mng
+ # The contributor claims:
+ #   I couldn't find a real magic number for these, however, this
+ #   -appears- to work.  Note that it might catch other files, too,

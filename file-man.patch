@@ -1,0 +1,11 @@
+--- file-3.40/file.man.orig	Sat Feb  8 19:33:53 2003
++++ file-3.40/file.man	Mon Feb 10 00:03:24 2003
+@@ -99,7 +99,7 @@
+ offset into the file can usually be described in this way.
+ The information identifying these files is read from the compiled
+ magic file
+-.I __MAGIC__.mgc ,
++.IR __MAGIC__.mgc ,
+ or
+ .I __MAGIC__
+ if the compile file does not exist.
