@@ -1,0 +1,14 @@
+#------------------------------------------------------------------------------
+# file(1) magic(5) data for xdelta
+#
+0	string	%XDELTA%	Xdelta binary patch file 0.14
+0	string	%XDZ000%	Xdelta binary patch file 0.18
+0	string	%XDZ001%	Xdelta binary patch file 0.20
+0	string	This\ is\ an\ Xdelta\ (apply\ with\ `	Xdelta base64-encoded patch file 0.20
+# >46	string	%%%
+# >>50	string	>\0		%s
+# >47	string	%%%
+# >>51	string	>\0		%s
+
+# This represents %XDZ001 and the upper 4 bits of %.
+0	string	JVhEWjAwMS	Xdelta base64-encoded patch-body 0.20
