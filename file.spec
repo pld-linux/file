@@ -6,7 +6,7 @@ Summary(tr):	Dosya tipini belirleme aracý
 Name:		file
 Version:	3.37
 Release:	1
-License:	Distributable
+License:	distributable
 Group:		Applications/File
 Group(de):	Applikationen/Datei
 Group(pl):	Aplikacje/Pliki
