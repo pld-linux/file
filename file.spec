@@ -73,10 +73,10 @@ make LDFLAGS="-s"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/usr/man
+install -d $RPM_BUILD_ROOT%{_mandir}
 make prefix=$RPM_BUILD_ROOT/usr install
 
-gzip -9nf $RPM_BUILD_ROOT/usr/man/man{1,4}/*
+gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man{1,4}/*
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -85,7 +85,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) /usr/bin/file
 /usr/share/magic
-/usr/man/man[14]/*
+%{_mandir}/man[14]/*
 
 %changelog
 * Mon Apr 19 1999 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
