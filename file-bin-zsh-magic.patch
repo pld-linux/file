@@ -1,0 +1,11 @@
+--- file-3.38.orig/Magdir/commands	2002-05-16 20:45:57.000000000 +0200
++++ file-3.38/Magdir/commands	2002-06-21 08:14:54.000000000 +0200
+@@ -13,6 +13,8 @@
+ 
+ #
+ # zsh/ash/ae/nawk/gawk magic from cameron@cs.unsw.oz.au (Cameron Simpson)
++0	string/b	#!\ /usr/bin/zsh	Paul Falstad's zsh script text executable
++0	string/b	#!\ /bin/zsh		Paul Falstad's zsh script text executable
+ 0	string/b	#!\ /usr/local/bin/zsh	Paul Falstad's zsh script text executable
+ 0	string/b	#!\ /usr/local/bin/ash	Neil Brown's ash script text executable
+ 0	string/b	#!\ /usr/local/bin/ae	Neil Brown's ae script text executable
