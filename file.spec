@@ -4,7 +4,7 @@ Summary(fr):	Commande file(1)
 Summary(pl):	komenda file(1)
 Summary(tr):	Dosya tipini belirleme aracý
 Name:		file
-Version:	3.33
+Version:	3.34
 Release:	1
 License:	Distributable
 Group:		Applications/File
