@@ -1,3 +1,6 @@
+#
+%bcond_without	python # build python-magic module
+#
 Summary:	A utility for determining file types
 Summary(cs):	Program pro zji¹»ování typu souborù
 Summary(da):	Et værktøj til bestemmelse af filtyper
@@ -23,7 +26,7 @@ Summary(zh_CN):	ÅÐ¶¨ÎÄ¼þÀàÐÍµÄ¹¤¾ß¡£
 Summary(zh_TW):	¥Î©ó¨M©wÀÉ®×Ãþ«¬ªº¤@­Ó¤u¨ãµ{¦¡¡C
 Name:		file
 Version:	4.10
-Release:	1
+Release:	2
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/%{name}/%{name}-%{version}.tar.gz
@@ -38,9 +41,14 @@ Patch2:		%{name}-ia64.patch
 Patch3:		%{name}-mime-elf.patch
 Patch4:		%{name}-unicode.patch
 Patch5:		%{name}-readelf-fix.patch
+Patch6:		%{name}-dicom.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
+%if %{with python}
+BuildRequires:	python-devel
+BuildRequires:	python-modules
+%endif
 Requires:	libmagic = %{version}-%{release}
 Conflicts:	xdelta < 1.0.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -217,6 +225,14 @@ Biblioteka funkcji operuj±cych na pliku bazy danych magic.
 
 Ten pakiet zawiera statyczn± wersjê biblioteki.
 
+%package -n python-magic
+Summary:	Python bindings for libmagic
+Group:		Libraries/Python
+Requires:	libmagic = %{version}-%{release}
+
+%description -n python-magic
+Python bindings for libmagic.
+
 %prep
 %setup -q
 %patch0 -p1
@@ -225,6 +241,7 @@ Ten pakiet zawiera statyczn± wersjê biblioteki.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 %build
 %{__libtoolize}
@@ -237,11 +254,25 @@ Ten pakiet zawiera statyczn± wersjê biblioteki.
 
 %{__make}
 
+%if %{with python}
+cd python
+python setup.py build
+cd ..
+%endif
+
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
+
+%if %{with python}
+cd python
+python setup.py install \
+	--root=$RPM_BUILD_ROOT \
+	--optimize=2
+cd ..	
+%endif
 
 install -D magic/magic.local $RPM_BUILD_ROOT%{_sysconfdir}/magic
 
@@ -293,3 +324,9 @@ rm -rf $RPM_BUILD_ROOT
 %files -n libmagic-static
 %defattr(644,root,root,755)
 %{_libdir}/lib*.a
+
+%if %{with python}
+%files -n python-magic
+%defattr(644,root,root,755)
+%attr(755,root,root) %{py_sitedir}/*.so
+%endif
