@@ -80,7 +80,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 ./file -m magic -c -C
-install magic.mgc %{_datadir}/
+install magic.mgc $RPM_BUILD_ROOT%{_datadir}/
 
 %clean
 rm -rf $RPM_BUILD_ROOT
