@@ -12,11 +12,3 @@
  		p = fn;
  	snprintf(buf, bufsiz, "%s%s", p, ext);
  	return buf;
---- file-4.00/magic/Makefile.am.orig	Tue Mar 25 23:55:09 2003
-+++ file-4.00/magic/Makefile.am	Wed Mar 26 00:00:14 2003
-@@ -1,4 +1,4 @@
--data_DATA = magic magic.mime magic.mgc magic.mime.mgc
-+pkgdata_DATA = magic magic.mime magic.mgc magic.mime.mgc
- 
- EXTRA_DIST = magic2mime Localstuff Header magic.mime $(magic_FRAGMENTS)
- 
