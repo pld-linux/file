@@ -5,14 +5,14 @@ Summary(pl):	komenda file(1)
 Summary(tr):	Dosya tipini belirleme aracý
 Name:		file
 Version:	3.26
-Release:	5
+Release:	6
 Copyright:	distributable
 Group:		Utilities/File
 Group(pl):	Narzêdzia/Pliki
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
 Source1:	file.gimp
 Source2:	file.xdelta
-Patch0:		file-glibc.patch
+Patch0:		file-fhs.patch
 Patch1:		file-sparcv9.patch
 Buildroot:	/tmp/%{name}-%{version}-root
 Conflicts:	xdelta < 1.0.0
@@ -65,16 +65,22 @@ install %{SOURCE1} ./Magdir/gimp
 install %{SOURCE2} ./Magdir/xdelta
 
 %build
+chmod +w configure && autoconf
 CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="-s" \
-./configure %{_target} \
-	--prefix=/usr
+    ./configure \
+	--prefix=%{_prefix} \
+	%{_target_platform}
 	
 make LDFLAGS="-s"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_mandir}
-make prefix=$RPM_BUILD_ROOT/usr install
+
+install -d $RPM_BUILD_ROOT%{_prefix}/{bin,share/man/man{1,4}}
+
+make \
+    prefix=$RPM_BUILD_ROOT%{_prefix} \
+    install
 
 gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man{1,4}/*
 
@@ -83,11 +89,15 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/file
-%{_datadir}/magic
+
+%attr(755,root,root) %{_bindir}/*
+%{_datadir}/misc/*
 %{_mandir}/man[14]/*
 
 %changelog
+* Mon May 31 1999 Wojtek ¦lusarczyk <wojtek@shadow.eu.org>
+- FHS 2.0 
+
 * Mon Apr 19 1999 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
   [3.26-5]
 - new xdelta magic description,
@@ -119,29 +129,9 @@ rm -rf $RPM_BUILD_ROOT
 - removed %defattr,
 - added using %%{name} and %%{version} in Source.
 
-* Mon Aug 24 1998 Jeff Johnson <jbj@redhat.com>
-  [3.25-1]
-- update to 3.25.
-- detect gimp XCF versions.
-
 * Thu Jul 23 1998 Wojtek Slusarczyk <wojtek@shadow.eu.org>
   [3.24-2]
 - build against glibc-2.1,
 - added pl translation,
-- moved %changelog at the end of spec.
-
-* Thu May 07 1998 Prospector System <bugs@redhat.com>
-- translations modified for de, fr, tr
-
-* Wed Apr 08 1998 Erik Troan <ewt@redhat.com>
-- updated to 3.24
-- buildrooted
-
-* Mon Jun 02 1997 Erik Troan <ewt@redhat.com>
-- built against glibc
-
-* Mon Mar 31 1997 Erik Troan <ewt@redhat.com>
-  Fixed problems caused by 64 bit time_t.
-
-* Thu Mar 06 1997 Michael K. Johnson <johnsonm@redhat.com>
-  Improved recognition of Linux kernel images.
+- moved %changelog at the end of spec,
+- start at RH spec file.
