@@ -26,12 +26,12 @@ Summary(uk):	Утил╕та для визначення тип╕в файл╕в
 Summary(zh_CN):	еп╤╗нд╪ЧюЮпм╣д╧╓╬ъ║ё
 Summary(zh_TW):	╔н╘С╗M╘wюи╝вцЧ╚╛╙╨╓@╜с╓u╗Ц╣{╕║║C
 Name:		file
-Version:	4.12
-Release:	2
+Version:	4.13
+Release:	1
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
-# Source0-md5:	09488a9d62bc6627b48a8c93e12d72f8
+# Source0-md5:	2bfc0f878ee22e50441b68df2ccbb984
 Source1:	zisofs.magic
 Source2:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-non-english-man-pages.tar.bz2
 # Source2-md5:	c157a183b64156f8baafaefd9cbf04c1
