@@ -5,7 +5,7 @@ Summary(pl):	komenda file(1)
 Summary(tr):	Dosya tipini belirleme aracý
 Name:		file
 Version:	3.36
-Release:	2
+Release:	3
 License:	Distributable
 Group:		Applications/File
 Group(de):	Applikationen/Datei
@@ -13,7 +13,7 @@ Group(pl):	Aplikacje/Pliki
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
 Source1:	zisofs.magic
 Source2:	magic.mime
-Source3:	file.1.pl
+Source3:	%{name}.1.pl
 Source4:	magic.5.pl
 Patch0:		%{name}-sparc.patch
 Patch1:		%{name}-tfm.patch
