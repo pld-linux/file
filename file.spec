@@ -10,7 +10,7 @@ Summary(ru):	Утилита для определения типов файлов
 Summary(tr):	Dosya tipini belirleme aracЩ
 Summary(uk):	Утил╕та для визначення тип╕в файл╕в
 Name:		file
-Version:	3.40
+Version:	3.41
 Release:	1
 License:	distributable
 Group:		Applications/File
