@@ -1,19 +1,19 @@
-Summary:     file(1) command
-Summary(de): Befehl file(1)
-Summary(fr): Commande file(1)
-Summary(pl): komenda file(1)
-Summary(tr): Dosya tipini belirleme aracý
-Name:        file
-Version:     3.26
-Release:     3
-Copyright:   distributable
-Group:       Utilities/File
-Source0:     ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
-Source1:     file.gimp
-Source2:     file.xdelta
-Patch1:      file-3.22-glibc.patch
-Buildroot:   /tmp/%{name}-%{version}-root
-Conflicts:   xdelta < 1.0.0
+Summary:	file(1) command
+Summary(de):	Befehl file(1)
+Summary(fr):	Commande file(1)
+Summary(pl):	komenda file(1)
+Summary(tr):	Dosya tipini belirleme aracý
+Name:		file
+Version:	3.26
+Release:	4
+Copyright:	distributable
+Group:		Utilities/File
+Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
+Source1:	file.gimp
+Source2:	file.xdelta
+Patch1:		file-glibc.patch
+Buildroot:	/tmp/%{name}-%{version}-root
+Conflicts:	xdelta < 1.0.0
 
 %description
 This package is useful for finding out what type of file you are looking at
@@ -80,9 +80,13 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %attr(755, root, root) /usr/bin/file
 %attr(644, root, root) /usr/share/magic
-%attr(644, root,  man) /usr/man/man[14]/*
+/usr/man/man[14]/*
 
 %changelog
+* Thu Mar 11 1999 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
+  [3.26-4]
+- removed man group from man pages.
+
 * Wed Dec 23 1998 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
   [3.26-3]
 - added gzipping man pages,
