@@ -10,7 +10,7 @@ Summary(ru):	õÔÉÌÉÔÁ ÄÌÑ ÏÐÒÅÄÅÌÅÎÉÑ ÔÉÐÏ× ÆÁÊÌÏ×
 Summary(tr):	Dosya tipini belirleme aracý
 Summary(uk):	õÔÉÌ¦ÔÁ ÄÌÑ ×ÉÚÎÁÞÅÎÎÑ ÔÉÐ¦× ÆÁÊÌ¦×
 Name:		file
-Version:	3.41
+Version:	4.00
 Release:	1
 License:	distributable
 Group:		Applications/File
@@ -21,11 +21,10 @@ Source3:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-non-english-ma
 Source4:	%{name}-magic.mscompress
 Patch0:		%{name}-sparc.patch
 Patch1:		%{name}-ia64.patch
-Patch2:		%{name}-man.patch
-Patch3:		%{name}-palm.patch
-Patch4:		%{name}-mime-elf.patch
-Patch5:		%{name}-unicode.patch
-Patch6:		%{name}-bin-zsh-magic.patch
+Patch2:		%{name}-palm.patch
+Patch3:		%{name}-mime-elf.patch
+Patch4:		%{name}-unicode.patch
+Patch5:		%{name}-bin-zsh-magic.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -110,6 +109,37 @@ kitaplýklarýný vs. tanýyabilir.
 ÆÁÊÌ¦×, Õ ÔÏÍÕ ÞÉÓÌ¦ Â¦ÎÁÒÎ¦ ÆÁÊÌÉ ÆÏÒÍÁÔÕ ELF, ÓÉÓÔÅÍÎ¦ Â¦ÂÌ¦ÏÔÅËÉ,
 ÐÁËÅÔÉ RPM, Ò¦ÚÎÏÍÁÎ¦ÔÎ¦ ÇÒÁÆ¦ÞÎ¦ ÆÏÒÍÁÔÉ ÔÁ ÂÁÇÁÔÏ ¦ÎÛÉÈ.
 
+%package -n libmagic
+Summary:	libmagic library
+Summary(pl):    Biblioteka libmagic
+Group:		Libraries
+
+%description -n libmagic
+Library of functions which operate on magic database file.
+
+%package -n libmagic-devel
+Summary:	libmagic library
+Summary(pl):	Biblioteka libmagic
+Group:		Development/Libraries
+Requires:	libmagic = %{version}
+
+%description -n libmagic-devel
+Library of functions which operate on magic database file.
+
+This package contains the header files needed to develop programs that
+use these libmagic.
+
+%package -n libmagic-static
+Summary:	libmagic library
+Summary(pl):	Biblioteka libmagic
+Group:		Development/Libraries
+Requires:	libmagic-devel = %{version}
+
+%description -n libmagic-static
+Library of functions which operate on magic database file.
+
+This package contains the static libmagic.
+
 %prep
 %setup  -q
 %patch0 -p1
@@ -118,10 +148,10 @@ kitaplýklarýný vs. tanýyabilir.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
-%patch6 -p1
 
 %build
-rm -f install-sh missing mkinstalldirs
+rm -f install-sh ltmain.sh missing mkinstalldirs
+%{__libtoolize}
 %{__aclocal}
 %{__autoheader}
 %{__autoconf}
@@ -141,10 +171,13 @@ cat %{SOURCE1} %{SOURCE4} >>$RPM_BUILD_ROOT%{_datadir}/magic
 
 bzip2 -dc %{SOURCE3} | tar xf - -C $RPM_BUILD_ROOT%{_mandir}
 
-./file -m $RPM_BUILD_ROOT%{_datadir}/magic -c -C
+./src/file -m $RPM_BUILD_ROOT%{_datadir}/magic -c -C
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post	-n libmagic -p /sbin/ldconfig
+%postun	-n libmagic -p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
@@ -159,3 +192,18 @@ rm -rf $RPM_BUILD_ROOT
 %lang(ja) %{_mandir}/ja/man[15]/*
 %lang(nl) %{_mandir}/nl/man[15]/*
 %lang(pl) %{_mandir}/pl/man[15]/*
+
+%files -n libmagic
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/lib*.so.*.*
+
+%files -n libmagic-devel
+%defattr(644,root,root,755}
+%{_includedir}/magic.h
+%{_libdir}/lib*.la
+%{_libdir}/lib*.so
+%{_mandir}/man3/*
+
+%files -n libmagic-static
+%defattr(644,root,root,755)
+%{_libdir}/lib*.a
