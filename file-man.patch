@@ -1,0 +1,100 @@
+--- file.man.orig	Tue Apr  9 22:55:30 2002
++++ file.man	Tue Apr  9 23:11:05 2002
+@@ -23,13 +23,14 @@
+ .B -C
+ [
+ .B \-m 
+-magicfile ]
++.I magicfile
++]
+ .SH DESCRIPTION
+ This manual page documents version __VERSION__ of the
+ .B file
+ command.
+ .PP
+-.B File
++.B file
+ tests each argument in an attempt to classify it.
+ There are three sets of tests, performed in this order:
+ filesystem tests, magic number tests, and language tests.
+@@ -96,7 +97,7 @@
+ offset into the file can usually be described in this way.
+ The information identifying these files is read from the compiled
+ magic file
+-.I __MAGIC__.mgc ,
++.IR __MAGIC__.mgc ,
+ or 
+ .I __MAGIC__
+ if the compile file does not exist.
+@@ -186,9 +187,10 @@
+ .B \-k
+ Don't stop at the first match, keep going.
+ .TP 8
+-.BI \-m " list"
++.BI \-m " magicfiles"
+ Specify an alternate list of files containing magic numbers.
+-This can be a single file, or a colon-separated list of files.
++.I magicfiles
++can be a single file, or a colon-separated list of files.
+ .TP 8
+ .B \-n
+ Force stdout to be flushed after checking each file. This is only useful if
+@@ -387,7 +389,7 @@
+ Then the program would run as fast as the Version 7 program of the same name,
+ with the flexibility of the System V version.
+ .PP
+-.B File
++.B file
+ uses several algorithms that favor speed over accuracy,
+ thus it can be misled about the contents of
+ text
+--- magic.man.orig	Tue Apr  9 22:30:45 2002
++++ magic.man	Tue Apr  9 22:55:18 2002
+@@ -42,8 +42,8 @@
+ blanks, the target needs at least "n" consecutive blanks to match. The ``b''
+ flag treats every blank in the target as an optional blank. Finally the ``c''
+ flag, specifies case insensitive matching: lowercase characters in the magic
+-match both lower and upper case characters in the targer, whereas upper case
+-characters in the magic, only much uppercase characters in the target.
++match both lower and upper case characters in the target, whereas upper case
++characters in the magic, only match uppercase characters in the target.
+ .IP date
+ A four-byte value interpreted as a UNIX date.
+ .IP ldate
+@@ -130,7 +130,7 @@
+ .IP message
+ The message to be printed if the comparison succeeds.  If the string
+ contains a
+-.BR printf (3S)
++.BR printf (3)
+ format specification, the value from the file (with any specified masking
+ performed) is printed using the message as the format string.
+ .PP
+@@ -163,14 +163,14 @@
+ That means that the number after the parenthesis is used as an offset in
+ the file. The value at that offset is read, and is used again as an offset
+ in the file. Indirect offsets are of the form:
+-.BI (( x [.[bslBSL]][+-][ y ]).
++.BI ( x [.[bslBSL]][+-][ y ])\fR.
+ The value of 
+ .I x
+ is used as an offset in the file. A byte, short or long is read at that offset
+ depending on the 
+ .B [bslBSL] 
+ type specifier. The capitalized types interpret the number as a big endian
+-value, whereas the small letter versions interpet the number as a little
++value, whereas the small letter versions interpret the number as a little
+ endian value. To that number the value of
+ .I y
+ is added and the result is used as an offset in the file. The default type
+@@ -180,8 +180,8 @@
+ preceding fields. You can specify an offset relative to the end of the
+ last uplevel field (of course this may only be done for sublevel tests, i.e.
+ test beginning with 
+-.B >
+-). Such a relative offset is specified using
++.BR > ).
++Such a relative offset is specified using
+ .B &
+ as a prefix to the offset.
+ .SH BUGS
