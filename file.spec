@@ -119,8 +119,8 @@ kitaplýklarýný vs. tanýyabilir.
 
 %build
 rm -f install-sh missing mkinstalldirs
-aclocal
-autoheader
+%{__aclocal}
+%{__autoheader}
 %{__autoconf}
 %{__automake}
 %configure \
