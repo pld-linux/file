@@ -13,7 +13,7 @@ Group(pl):	Aplikacje/Pliki
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
 Source1:	zisofs.magic
 Source2:	magic.mime
-Source3:	%{name}-non-english-man-pages.tar.bz2
+Source3:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-non-english-man-pages.tar.bz2
 Source4:	%{name}-magic.mscompress
 Patch0:		%{name}-sparc.patch
 Patch1:		%{name}-tfm.patch
