@@ -1,8 +1,12 @@
 Summary:	file(1) command
 Summary(de):	Befehl file(1)
+Summary(es):	Comando file
 Summary(fr):	Commande file(1)
 Summary(pl):	Polecenie file(1)
+Summary(pt_BR):	Um utilitАrio para determinar tipos de arquivos
 Summary(tr):	Dosya tipini belirleme aracЩ
+Summary(ru):	Утилита для определения типов файлов
+Summary(uk):	Утил╕та для визначення тип╕в файл╕в
 Name:		file
 Version:	3.37
 Release:	5
@@ -41,6 +45,15 @@ sie mit 'more' einsehen kЖnnen, oder ob es sich um ein BinДrprogramm
 handelt Das Programm erkennt u.a. ELF-BinДrprogramme,
 System-Libraries, RPM-Pakete und viele Grafikformate.
 
+%description -l es
+Este paquete es Зtil para descubrir que tipo de archivo estАs buscando
+en tu sistema. Por ejemplo, si fsck resulta un archivo que fue
+almacenado en el "lost+found", tu puedes ejecutar file en Иl para
+descubrir si es seguro leerlo con el "more" o si es un binario.
+Reconoce varios tipos de archivos, incluyendo binarios ELF,
+bibliotecas de sistema, paquetes RPM y varios formatos grАficos
+diferentes.
+
 %description -l fr
 Ce paquetage sert Ю trouver le type du fichier que vous recherchez sur
 votre systХme. Par exemple, si un fsck fait qu'un fichier a ИtИ stockИ
@@ -58,6 +71,15 @@ wzglЙdu na to, ©e to mo©e byФ plik binarny. File potrafi rozpoznaФ
 wiele typСw plikСw np. binarny ELF, biblioteki systemowe, pakiety RPM
 oraz wiele rС©nych formatСw graficznych i d╪wiЙkowych.
 
+%description -l pt_BR
+Este pacote И Зtil para descobrir que tipo de arquivo vocЙ estА
+procurando em seu sistema. Por exemplo, se um fsck resulta em um
+arquivo forem armazenado no "lost+found", vocЙ pode rodar file nele
+para descobrir se И seguro lЙ-lo com o "more" ou se ele И um binАrio.
+Ele reconhece vАrios tipos de arquivos, incluindo binАrios ELF,
+bibliotecas de sistema, pacotes RPM e vАrios formatos grАficos
+diferentes.
+
 %description -l tr
 file, bir dosyayЩ inceleyerek ne tЭr bir dosya olduПu konusunda size
 bir fikir verebilir. BЖylece uzantЩsЩndan ve adЩndan ne olduПunu
@@ -65,6 +87,18 @@ bir fikir verebilir. BЖylece uzantЩsЩndan ve adЩndan ne olduПunu
 da ne yapacaПЩnЩza karar verebilisiniz. file, temel dosya tiplerini,
 ГoПu grafik formatЩnЩ, ГalЩЧtЩrЩlabilir dosyalarЩ, sistem
 kitaplЩklarЩnЩ vs. tanЩyabilir.
+
+%description -l ru
+Команда file используется для определения типа файла по данным, в нем
+содержащимся. Она может определить множество разнообразных типов
+файлов, включая бинарные файлы формата ELF, системные библиотеки,
+пакеты RPM, различные графические форматы и много других.
+
+%description -l uk
+Команда file використову╓ться для визначення типу файлу по даних, як╕
+в╕н м╕стить. Вона може визначити велику к╕льк╕сть р╕зноман╕тних тип╕в
+файл╕в, у тому числ╕ б╕нарн╕ файли формату ELF, системн╕ б╕бл╕отеки,
+пакети RPM, р╕зноман╕тн╕ граф╕чн╕ формати та багато ╕нших.
 
 %prep
 %setup  -q
@@ -75,9 +109,9 @@ kitaplЩklarЩnЩ vs. tanЩyabilir.
 %patch4 -p0
 
 %build
+rm -f install-sh missing mkinstalldirs
 aclocal
 autoconf
-rm -f install-sh missing mkinstalldirs
 automake -a -c -f
 %configure \
 	--enable-fsect-man5
