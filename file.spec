@@ -3,13 +3,14 @@ Summary(de):	Befehl file(1)
 Summary(es):	Comando file
 Summary(fr):	Commande file(1)
 Summary(ja):	¥Õ¥¡¥¤¥ë¤Î¼ïÎà¤òÈ½ÊÌ¤¹¤ë¥æ¡¼¥Æ¥£¥ê¥Æ¥£¡¼
+Summary(ko):	ÆÄÀÏ Á¾·ù¸¦ ¾Ë¾Æ³»´Â µµ±¸
 Summary(pl):	Polecenie file(1)
 Summary(pt_BR):	Um utilitário para determinar tipos de arquivos
 Summary(ru):	õÔÉÌÉÔÁ ÄÌÑ ÏĞÒÅÄÅÌÅÎÉÑ ÔÉĞÏ× ÆÁÊÌÏ×
 Summary(tr):	Dosya tipini belirleme aracı
 Summary(uk):	õÔÉÌ¦ÔÁ ÄÌÑ ×ÉÚÎÁŞÅÎÎÑ ÔÉĞ¦× ÆÁÊÌ¦×
 Name:		file
-Version:	3.39
+Version:	3.40
 Release:	1
 License:	distributable
 Group:		Applications/File
@@ -24,6 +25,7 @@ Patch2:		%{name}-man.patch
 Patch3:		%{name}-palm.patch
 Patch4:		%{name}-mime-elf.patch
 Patch5:		%{name}-unicode.patch
+Patch6:		%{name}-bin-zsh-magic.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -112,10 +114,11 @@ kitaplıklarını vs. tanıyabilir.
 %setup  -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p0
+%patch2 -p1
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 %build
 rm -f install-sh missing mkinstalldirs
