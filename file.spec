@@ -5,7 +5,7 @@ Summary(pl):	komenda file(1)
 Summary(tr):	Dosya tipini belirleme aracý
 Name:		file
 Version:	3.26
-Release:	4
+Release:	5
 Copyright:	distributable
 Group:		Utilities/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
