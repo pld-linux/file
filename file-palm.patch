@@ -1,11 +1,11 @@
---- file-3.34/magic/Magdir/palm.palm	Fri Jan 15 00:54:33 1999
-+++ file-3.34/magic/Magdir/palm	Tue Mar 13 11:43:52 2001
-@@ -13,3 +13,8 @@
- # HACK
- 60      belong                  0x4841434b      HackMaster hack
- >0      string                  >\0             "%s"
+--- file-4.03/magic/Magdir/palm.orig	Wed May 28 17:01:15 2003
++++ file-4.03/magic/Magdir/palm	Wed May 28 17:02:35 2003
+@@ -85,3 +85,8 @@
+ >0		string		>\0		"%s"
+ 0x3C		string		ptch		Palm OS operating system patch data
+ >0		string		>\0		"%s"
 +#
 +# Pilot Image Viewer pdb files.
 +#
-+60	string	vIMGView	Pilot Image Viewer,
-+>0	string	x		"%s"
++60     string  vIMGView        Pilot Image Viewer,
++>0     string  x               "%s"
