@@ -8,8 +8,8 @@ Summary(tr):	Dosya tipini belirleme aracЩ
 Summary(ru):	Утилита для определения типов файлов
 Summary(uk):	Утил╕та для визначення тип╕в файл╕в
 Name:		file
-Version:	3.37
-Release:	6
+Version:	3.38
+Release:	1
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
@@ -22,7 +22,6 @@ Patch1:		%{name}-tfm.patch
 Patch2:		%{name}-ia64.patch
 Patch3:		%{name}-elf.patch
 Patch4:		%{name}-man.patch
-Patch5:		%{name}-ac25x.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -108,7 +107,6 @@ kitaplЩklarЩnЩ vs. tanЩyabilir.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p0
-%patch5 -p1
 
 %build
 rm -f install-sh missing mkinstalldirs
