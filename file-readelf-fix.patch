@@ -1,5 +1,5 @@
---- file-4.07/src/readelf.c.orig	2003-11-18 20:42:33.000000000 +0100
-+++ file-4.07/src/readelf.c	2004-03-19 22:54:46.236372725 +0100
+--- file-4.08/src/readelf.c.orig	2004-03-22 21:28:40.000000000 +0100
++++ file-4.08/src/readelf.c	2004-03-28 23:25:50.806604968 +0200
 @@ -147,6 +147,9 @@
  			    getu32(swap, ph32.p_align) : 4) \
  			 : (off_t) (ph64.p_align ?	\
@@ -10,7 +10,7 @@
  #define nh_size		(class == ELFCLASS32		\
  			 ? sizeof nh32			\
  			 : sizeof nh64)
-@@ -249,7 +252,7 @@
+@@ -250,7 +253,7 @@
  			file_badseek(ms);
  			return -1;
  		}
@@ -19,25 +19,25 @@
  		if (bufsize == -1) {
  			file_badread(ms);
  			return -1;
-@@ -297,7 +297,7 @@
+@@ -313,7 +316,7 @@
  	noff = offset;
- 	doff = ELF_ALIGN(offset + nh_namesz);
+ 	doff = ELF_ALIGN(offset + namesz);
  
--	if (offset + nh_namesz >= size) {
-+	if (doff > size) {
+-	if (offset + namesz >= size) {
++	if (offset + namesz > size) {
  		/*
  		 * We're past the end of the buffer.
  		 */
-@@ -305,7 +305,7 @@
+@@ -321,7 +324,7 @@
  	}
  
- 	offset = ELF_ALIGN(doff + nh_descsz);
--	if (offset + nh_descsz >= size)
-+	if (offset > size)
+ 	offset = ELF_ALIGN(doff + descsz);
+-	if (offset + descsz >= size) {
++	if (doff + descsz > size) {
  		return offset;
+ 	}
  
- 	if (nh_namesz == 4 && strcmp((char *)&nbuf[noff], "GNU") == 0 &&
-@@ -622,7 +625,8 @@
+@@ -670,7 +673,8 @@
  				file_badseek(ms);
  				return -1;
  			}
@@ -47,9 +47,9 @@
  			if (bufsize == -1) {
  				file_badread(ms);
  				return -1;
-@@ -634,7 +638,7 @@
- 				offset = donote(ms, nbuf, offset,
- 				    (size_t)bufsize, class, swap, ph_align);
+@@ -684,7 +688,7 @@
+ 				if (offset == 0)
+ 					break;
  			}
 -			if (lseek(fd, savedoffset + offset, SEEK_SET)
 +			if (lseek(fd, savedoffset, SEEK_SET)
