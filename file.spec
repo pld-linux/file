@@ -44,6 +44,7 @@ Patch4:		%{name}-unicode.patch
 Patch5:		%{name}-readelf-fix.patch
 Patch6:		%{name}-dicom.patch
 Patch6:		%{name}-lmagic.patch
+Patch7:		%{name}-segv.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
@@ -248,6 +249,7 @@ Wi±zania Pythona dla libmagic.
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
+%patch7 -p1
 
 %build
 %{__libtoolize}
