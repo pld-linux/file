@@ -1,11 +1,11 @@
---- file.man	Mon May 20 09:36:04 2002
-+++ file.man.org	Mon May 20 09:40:05 2002
-@@ -229,7 +229,7 @@
- .BR stat (2)
- since on some systems it reports a zero size for raw disk partitions.
- .SH FILES
--.I __MAGIC__.mgc
-+.IR __MAGIC__.mgc
- \- defaults compiled list of magic numbers
- .PP
+--- file-3.40/file.man.orig	Sat Feb  8 19:33:53 2003
++++ file-3.40/file.man	Mon Feb 10 00:03:24 2003
+@@ -99,7 +99,7 @@
+ offset into the file can usually be described in this way.
+ The information identifying these files is read from the compiled
+ magic file
+-.I __MAGIC__.mgc ,
++.IR __MAGIC__.mgc ,
+ or
  .I __MAGIC__
+ if the compile file does not exist.
