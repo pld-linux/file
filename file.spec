@@ -1,11 +1,11 @@
 Summary:	file(1) command
 Summary(de):	Befehl file(1)
 Summary(fr):	Commande file(1)
-Summary(pl):	Komenda file(1)
+Summary(pl):	Polecenie file(1)
 Summary(tr):	Dosya tipini belirleme aracý
 Name:		file
 Version:	3.37
-Release:	4
+Release:	5
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
@@ -17,6 +17,7 @@ Patch0:		%{name}-sparc.patch
 Patch1:		%{name}-tfm.patch
 Patch2:		%{name}-ia64.patch
 Patch3:		%{name}-elf.patch
+Patch4:		%{name}-man.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -71,6 +72,7 @@ kitaplýklarýný vs. tanýyabilir.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p0
 
 %build
 aclocal
