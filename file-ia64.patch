@@ -1,7 +1,6 @@
-diff -Nru file-3.32/Magdir/elf file-3.32.new/Magdir/elf
---- file-3.32/Magdir/elf	Mon Aug  7 15:59:14 2000
-+++ file-3.32.new/Magdir/elf	Mon Aug  7 15:57:54 2000
-@@ -59,7 +59,7 @@
+--- file-3.38/Magdir/elf	Thu May 16 20:45:57 2002
++++ file-3.38/Magdir/elf.org	Mon May 20 09:23:02 2002
+@@ -91,7 +91,7 @@
  >>18	leshort		47		Hitachi H8/300H,
  >>18	leshort		48		Hitachi H8S,
  >>18	leshort		49		Hitachi H8/500,
@@ -10,7 +9,7 @@ diff -Nru file-3.32/Magdir/elf file-3.32.new/Magdir/elf
  >>18	leshort		51		Stanford MIPS-X,
  >>18	leshort		52		Motorola Coldfire,
  >>18	leshort		53		Motorola M68HC12,
-@@ -134,7 +134,7 @@
+@@ -177,7 +177,7 @@
  >>18	beshort		47		Hitachi H8/300H,
  >>18	beshort		48		Hitachi H8S,
  >>18	beshort		49		Hitachi H8/500,
@@ -19,39 +18,15 @@ diff -Nru file-3.32/Magdir/elf file-3.32.new/Magdir/elf
  >>18	beshort		51		Stanford MIPS-X,
  >>18	beshort		52		Motorola Coldfire,
  >>18	beshort		53		Motorola M68HC12,
-diff -Nru file-3.32/readelf.c file-3.32.new/readelf.c
---- file-3.32/readelf.c	Mon Aug  7 15:59:15 2000
-+++ file-3.32.new/readelf.c	Mon Aug  7 15:58:50 2000
-@@ -425,7 +425,7 @@
- 	    return;
- 
- 
--	class = buf[4];
-+	class = buf[EI_CLASS];
- 
- 	if (class == ELFCLASS32) {
- 		Elf32_Ehdr elfhdr;
-@@ -433,9 +433,9 @@
- 			return;
- 
- 
--		u.l = 1;
+--- file-3.38/readelf.c	Mon May 20 09:23:02 2002
++++ file-3.38/readelf.c.org	Mon May 20 09:27:36 2002
+@@ -632,7 +632,8 @@
+ 		u.l = 1;
  		(void) memcpy(&elfhdr, buf, sizeof elfhdr);
--		swap = (u.c[sizeof(int32) - 1] + 1) != elfhdr.e_ident[5];
-+		u.l = 1;
-+		swap = (u.c[sizeof(u.l) - 1] + 1) != elfhdr.e_ident[EI_DATA];
- 
+ 		swap = (u.c[sizeof(int32) - 1] + 1) != elfhdr.e_ident[5];
+-
++            	u.l = 1;
++	        swap = (u.c[sizeof(u.l) - 1] + 1) != elfhdr.e_ident[EI_DATA];
  		if (getu16(swap, elfhdr.e_type) == ET_CORE) 
  #ifdef ELFCORE
-@@ -470,9 +470,9 @@
- 			return;
- 
- 
--		u.l = 1;
- 		(void) memcpy(&elfhdr, buf, sizeof elfhdr);
--		swap = (u.c[sizeof(int32) - 1] + 1) != elfhdr.e_ident[5];
-+		u.l = 1;
-+		swap = (u.c[sizeof(u.l) - 1] + 1) != elfhdr.e_ident[EI_DATA];
- 
- 		if (getu16(swap, elfhdr.e_type) == ET_CORE) 
- #ifdef ELFCORE
+ 			dophn_core(class, swap,
