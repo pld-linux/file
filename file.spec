@@ -112,8 +112,8 @@ kitaplýklarýný vs. tanýyabilir.
 rm -f install-sh missing mkinstalldirs
 aclocal
 autoheader
-autoconf
-automake -a -c -f
+%{__autoconf}
+%{__automake}
 %configure \
 	--enable-fsect-man5
 
