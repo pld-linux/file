@@ -23,7 +23,7 @@ Summary(zh_CN):	ÅÐ¶¨ÎÄ¼þÀàÐÍµÄ¹¤¾ß¡£
 Summary(zh_TW):	¥Î©ó¨M©wÀÉ®×Ãþ«¬ªº¤@­Ó¤u¨ãµ{¦¡¡C
 Name:		file
 Version:	4.04
-Release:	1
+Release:	2
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
@@ -33,12 +33,13 @@ Source2:	magic.mime
 Source3:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-non-english-man-pages.tar.bz2
 # Source3-md5:	c157a183b64156f8baafaefd9cbf04c1
 Source4:	%{name}-magic.mscompress
-Patch0:		%{name}-sparc.patch
-Patch1:		%{name}-ia64.patch
-Patch2:		%{name}-palm.patch
-Patch3:		%{name}-mime-elf.patch
-Patch4:		%{name}-unicode.patch
-Patch5:		%{name}-am_fix.patch
+Patch0:		%{name}-debian.patch
+Patch1:		%{name}-sparc.patch
+Patch2:		%{name}-ia64.patch
+Patch3:		%{name}-palm.patch
+Patch4:		%{name}-mime-elf.patch
+Patch5:		%{name}-unicode.patch
+Patch6:		%{name}-am_fix.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
@@ -226,6 +227,7 @@ Ten pakiet zawiera statyczn± wersjê biblioteki.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 %build
 rm -f install-sh ltmain.sh missing mkinstalldirs
