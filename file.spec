@@ -79,7 +79,7 @@ rm -f install-sh missing mkinstalldirs
 automake -a -c
 %configure \
 	--enable-fsect-man5
-	
+
 %{__make}
 
 %install
