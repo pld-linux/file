@@ -102,8 +102,8 @@ vari formati grafici.
 ファイルの種類を見分けることが可能である。
 
 %description -l ko
-督析拭 煽舌吉 切戟 政莫拭 魚虞 督析聖 縦紺馬澗 file 誤敬. 
-File精 ELF 郊戚格軒, 獣什奴 虞戚崎君軒, RPM 鳶徹走人 
+督析拭 煽舌吉 切戟 政莫拭 魚虞 督析聖 縦紺馬澗 file 誤敬.
+File精 ELF 郊戚格軒, 獣什奴 虞戚崎君軒, RPM 鳶徹走人
 陥献 益掘波 政莫聖 匂敗廃 食君 弦精 督析 政莫聖 縦紺 亜管杯艦陥.
 
 %description -l no
