@@ -1,0 +1,22 @@
+--- file-4.00/src/apprentice.c.orig	Mon Mar 24 02:16:28 2003
++++ file-4.00/src/apprentice.c	Tue Mar 25 23:54:10 2003
+@@ -1068,9 +1068,9 @@
+ mkdbname(struct magic_set *ms, const char *fn, char *buf, size_t bufsiz)
+ {
+ 	const char *p;
+-	if ((p = strrchr(fn, '/')) != NULL)
++/*	if ((p = strrchr(fn, '/')) != NULL)
+ 		p++;
+-	else
++	else */  /* huh? why searching .mck in current directory??? */
+ 		p = fn;
+ 	snprintf(buf, bufsiz, "%s%s", p, ext);
+ 	return buf;
+--- file-4.00/magic/Makefile.am.orig	Tue Mar 25 23:55:09 2003
++++ file-4.00/magic/Makefile.am	Wed Mar 26 00:00:14 2003
+@@ -1,4 +1,4 @@
+-data_DATA = magic magic.mime magic.mgc magic.mime.mgc
++pkgdata_DATA = magic magic.mime magic.mgc magic.mime.mgc
+ 
+ EXTRA_DIST = magic2mime Localstuff Header magic.mime $(magic_FRAGMENTS)
+ 

@@ -11,7 +11,7 @@ Summary(tr):	Dosya tipini belirleme aracý
 Summary(uk):	õÔÉÌ¦ÔÁ ÄÌÑ ×ÉÚÎÁÞÅÎÎÑ ÔÉÐ¦× ÆÁÊÌ¦×
 Name:		file
 Version:	4.00
-Release:	1
+Release:	2
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
@@ -25,12 +25,13 @@ Patch2:		%{name}-palm.patch
 Patch3:		%{name}-mime-elf.patch
 Patch4:		%{name}-unicode.patch
 Patch5:		%{name}-bin-zsh-magic.patch
+Patch6:		%{name}-magic-path.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	libtool
+Requires:	libmagic = %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Conflicts:	xdelta < 1.0.0
-
-%define		_datadir	%{_prefix}/share/misc
 
 %description
 This package is useful for finding out what type of file you are
@@ -117,9 +118,12 @@ Group:		Libraries
 %description -n libmagic
 Library of functions which operate on magic database file.
 
+%description -n libmagic -l pl
+Biblioteka funkcji operuj±cych na pliku bazy danych magic.
+
 %package -n libmagic-devel
-Summary:	libmagic library
-Summary(pl):	Biblioteka libmagic
+Summary:	Header files for libmagic library
+Summary(pl):	Pliki nag³ówkowe biblioteki libmagic
 Group:		Development/Libraries
 Requires:	libmagic = %{version}
 
@@ -129,9 +133,15 @@ Library of functions which operate on magic database file.
 This package contains the header files needed to develop programs that
 use these libmagic.
 
+%description -n libmagic-devel -l pl
+Biblioteka funkcji operuj±cych na pliku bazy danych magic.
+
+Ten pakiet zawiera pliki nag³ówkowe potrzebne do tworzenia programów
+u¿ywaj±cych libmagic.
+
 %package -n libmagic-static
-Summary:	libmagic library
-Summary(pl):	Biblioteka libmagic
+Summary:	Static libmagic library
+Summary(pl):	Statyczna biblioteka libmagic
 Group:		Development/Libraries
 Requires:	libmagic-devel = %{version}
 
@@ -139,6 +149,11 @@ Requires:	libmagic-devel = %{version}
 Library of functions which operate on magic database file.
 
 This package contains the static libmagic.
+
+%description -n libmagic-static -l pl
+Biblioteka funkcji operuj±cych na pliku bazy danych magic.
+
+Ten pakiet zawiera statyczn± wersjê biblioteki.
 
 %prep
 %setup  -q
@@ -148,6 +163,7 @@ This package contains the static libmagic.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 %build
 rm -f install-sh ltmain.sh missing mkinstalldirs
@@ -166,12 +182,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
-cat %{SOURCE1} %{SOURCE4} >>$RPM_BUILD_ROOT%{_datadir}/magic
+cat %{SOURCE1} %{SOURCE4} >>$RPM_BUILD_ROOT%{_datadir}/file/magic
 # install %{SOURCE2} $RPM_BUILD_ROOT%{_datadir}
 
 bzip2 -dc %{SOURCE3} | tar xf - -C $RPM_BUILD_ROOT%{_mandir}
 
-./src/file -m $RPM_BUILD_ROOT%{_datadir}/magic -c -C
+./src/file -m $RPM_BUILD_ROOT%{_datadir}/file/magic -c -C
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -182,7 +198,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/*
-%{_datadir}/*
+%{_datadir}/file
 %{_mandir}/man[15]/*
 %lang(de) %{_mandir}/de/man[15]/*
 %lang(es) %{_mandir}/es/man[15]/*
