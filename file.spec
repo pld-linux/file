@@ -1,5 +1,5 @@
 #
-%bcond_without	python # build python-magic module
+%bcond_without	python	# don't build python-magic module
 #
 Summary:	A utility for determining file types
 Summary(cs):	Program pro zji¹»ování typu souborù
