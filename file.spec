@@ -10,8 +10,8 @@ Summary(ru):	Утилита для определения типов файлов
 Summary(tr):	Dosya tipini belirleme aracЩ
 Summary(uk):	Утил╕та для визначення тип╕в файл╕в
 Name:		file
-Version:	4.00
-Release:	2
+Version:	4.01
+Release:	1
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
