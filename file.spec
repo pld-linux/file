@@ -4,15 +4,15 @@ Summary(fr):	Commande file(1)
 Summary(pl):	komenda file(1)
 Summary(tr):	Dosya tipini belirleme aracý
 Name:		file
-Version:	3.28
+Version:	3.31
 Release:	1
 Copyright:	distributable
 Group:		Utilities/File
 Group(pl):	Narzêdzia/Pliki
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
-Source1:	file.xdelta
 Patch0:		file-sparc.patch
 Patch1:		file-tfm.patch
+Patch2:		file-ia64.patch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Conflicts:	xdelta < 1.0.0
 
@@ -63,8 +63,7 @@ kitaplýklarýný vs. tanýyabilir.
 %setup  -q
 %patch0 -p1
 %patch1 -p1
-
-install %{SOURCE1} ./Magdir/xdelta
+%patch2 -p1
 
 %build
 aclocal
