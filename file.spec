@@ -5,7 +5,7 @@ Summary(pl): komenda file(1)
 Summary(tr): Dosya tipini belirleme aracý
 Name:        file
 Version:     3.26
-Release:     1
+Release:     2
 Copyright:   distributable
 Group:       Utilities/File
 Source0:     ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
@@ -13,6 +13,7 @@ Source1:     file.gimp
 Source2:     file.xdelta
 Patch1:      file-3.22-glibc.patch
 Buildroot:   /tmp/%{name}-%{version}-root
+Conflicts:   xdelta < 1.0.0
 
 %description
 This package is useful for finding out what type of file you are looking at
@@ -80,6 +81,11 @@ rm -rf $RPM_BUILD_ROOT
 %attr(644, root,  man) /usr/man/man[14]/*
 
 %changelog
+* Thu Nov 26 1998 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
+  [3.26-2]
+- updated file.xdelta from xdelta-1.0.0 and added
+  "Conflicts: xdelta < 1.0.0".
+
 * Fri Sep 18 1998 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
   [3.26-1]
 - added -q %setup parameter,
@@ -96,7 +102,7 @@ rm -rf $RPM_BUILD_ROOT
 - update to 3.25.
 - detect gimp XCF versions.
 
-* Thu Jul 23 1998 Wojtek ¦lusarczyk <wojtek@shadow.eu.org>
+* Thu Jul 23 1998 Wojtek Slusarczyk <wojtek@shadow.eu.org>
   [3.24-2]
 - build against glibc-2.1,
 - added pl translation,
