@@ -5,7 +5,7 @@ Summary(pl):	komenda file(1)
 Summary(tr):	Dosya tipini belirleme aracý
 Name:		file
 Version:	3.34
-Release:	2
+Release:	3
 License:	Distributable
 Group:		Applications/File
 Group(de):	Applikationen/Datei
@@ -14,6 +14,7 @@ Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
 Patch0:		%{name}-sparc.patch
 Patch1:		%{name}-tfm.patch
 Patch2:		%{name}-ia64.patch
+Patch3:		%{name}-gtktalog.patch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Conflicts:	xdelta < 1.0.0
 
@@ -65,6 +66,7 @@ kitaplýklarýný vs. tanýyabilir.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 aclocal

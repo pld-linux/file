@@ -1,0 +1,19 @@
+diff -Nur file-3.34.orig/Magdir/archive file-3.34/Magdir/archive
+--- file-3.34.orig/Magdir/archive	Mon Mar 12 06:05:00 2001
++++ file-3.34/Magdir/archive	Sun Apr  1 12:50:22 2001
+@@ -243,9 +243,9 @@
+ 
+ # GTKtalog catalogs 
+ # by David Necas (Yeti) <yeti@physics.muni.cz>
+-0	lelong	<20
+->4	string	gtktalog\ 	GTKtalog catalog data,
+->>13	string	3		version 3
+->>>14	beshort	0x677a		(gzipped)
+->>>14	beshort	!0x677a		(not gzipped)
+->>13	string	>3		version %s
++#0	lelong	<20		# commented out - it broke identification of many types
++4	string	gtktalog\ 	GTKtalog catalog data,
++>13	string	3		version 3
++>>14	beshort	0x677a		(gzipped)
++>>14	beshort	!0x677a		(not gzipped)
++>13	string	>3		version %s
