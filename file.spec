@@ -27,7 +27,7 @@ Summary(zh_CN):	判定文件类型的工具。
 Summary(zh_TW):	ノ∕﹚郎摸ㄣ祘Α
 Name:		file
 Version:	4.13
-Release:	1
+Release:	2
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
@@ -42,6 +42,7 @@ Patch2:		%{name}-ia64.patch
 Patch3:		%{name}-unicode.patch
 Patch4:		%{name}-dicom.patch
 Patch5:		%{name}-lmagic.patch
+Patch6:		%{name}-python2.4.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
@@ -246,6 +247,7 @@ Wi眤ania Pythona dla libmagic.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 %build
 %{__libtoolize}
