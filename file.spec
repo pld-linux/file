@@ -37,6 +37,7 @@ Patch1:		%{name}-sparc.patch
 Patch2:		%{name}-ia64.patch
 Patch3:		%{name}-mime-elf.patch
 Patch4:		%{name}-unicode.patch
+Patch5:		%{name}-readelf-fix.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
@@ -223,6 +224,7 @@ Ten pakiet zawiera statyczn± wersjê biblioteki.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 %{__libtoolize}
