@@ -12,6 +12,9 @@ Group(de):	Applikationen/Datei
 Group(pl):	Aplikacje/Pliki
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
 Source1:	zisofs.magic
+Source2:	mime.magic
+Source3:	file.1.pl
+Source4:	magic.5.pl
 Patch0:		%{name}-sparc.patch
 Patch1:		%{name}-tfm.patch
 Patch2:		%{name}-ia64.patch
@@ -78,16 +81,22 @@ aclocal
 autoconf
 rm -f install-sh missing mkinstalldirs
 automake --copy --add-missing
-%configure
+%configure \
+	--disable-elf
 	
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT%{_mandir}/pl/man{1,5}
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
 cat %{SOURCE1} >>$RPM_BUILD_ROOT%{_datadir}/magic
+install %{SOURCE3} $RPM_BUILD_ROOT%{_datadir}
+
+install %{SOURCE3} $RPM_BUILD_ROOT%{_mandir}/pl/man1/file.1
+install %{SOURCE4} $RPM_BUILD_ROOT%{_mandir}/pl/man5/magick.5
 
 ./file -m $RPM_BUILD_ROOT%{_datadir}/magic -c -C
 
@@ -100,3 +109,4 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/*
 %{_datadir}/*
 %{_mandir}/man[15]/*
+%lang(pl) %{_mandir}/pl/man[15]/*
