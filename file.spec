@@ -187,6 +187,12 @@ cat %{SOURCE1} %{SOURCE4} >>$RPM_BUILD_ROOT%{_datadir}/file/magic
 
 bzip2 -dc %{SOURCE3} | tar xf - -C $RPM_BUILD_ROOT%{_mandir}
 
+# somebody forgot about patching in tarball
+mv -f $RPM_BUILD_ROOT%{_mandir}/pt_BR/man{4,5}
+sed -e 's/MAGIC 4/MAGIC 5/' $RPM_BUILD_ROOT%{_mandir}/pt_BR/man5/magic.4 \
+	> $RPM_BUILD_ROOT%{_mandir}/pt_BR/man5/magic.5
+rm -f $RPM_BUILD_ROOT%{_mandir}/pt_BR/man5/magic.4
+
 ./src/file -m $RPM_BUILD_ROOT%{_datadir}/file/magic -c -C
 
 %clean
