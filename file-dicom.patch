@@ -1,0 +1,17 @@
+--- file-4.10/magic/magic2mime.dicom	2004-08-31 13:05:53.000000000 +0200
++++ file-4.10/magic/magic2mime	2004-08-31 13:08:47.000000000 +0200
+@@ -42,6 +42,7 @@
+ 	'^Sun/NeXT audio data', 'audio/basic',
+     '^MPEG', 'video/mpeg',
+     '^Apple QuickTime movie', 'video/quicktime',
++    '^DICOM medical imaging data', 'application/dicom',
+ 	# made up by me
+     '^bitmap', 'image/x-bitmap',
+     '^PC bitmap data, Windows 3.x format', 'image/x-msw3bmp',
+--- file-4.10/magic/magic.mime.dicom	2004-08-31 13:28:00.007154653 +0200
++++ file-4.10/magic/magic.mime	2004-08-31 13:13:27.000000000 +0200
+@@ -918,2 +918,4 @@
+ # they will ordinarily reported as "compressed", but at least -z helps
+ 39      string          =<gmr:Workbook           application/x-gnumeric
++# 
++128	string		DICM		application/dicom
