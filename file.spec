@@ -69,6 +69,8 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/usr/man
 make prefix=$RPM_BUILD_ROOT/usr install
 
+strip $RPM_BUILD_ROOT/usr/bin/file
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -85,6 +87,7 @@ rm -rf $RPM_BUILD_ROOT
 - corrected group on man pages,
 - updated base Source Url to ftp://ftp.astron.com/pub/file/,
 - added xdelta magic,
+- added striping /usr/bin/file,
 - removed %defattr,
 - added using %%{name} and %%{version} in Source.
 
