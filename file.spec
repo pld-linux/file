@@ -22,17 +22,16 @@ Summary(uk):	õÔÉÌ¦ÔÁ ÄÌÑ ×ÉÚÎÁÞÅÎÎÑ ÔÉÐ¦× ÆÁÊÌ¦×
 Summary(zh_CN):	ÅÐ¶¨ÎÄ¼þÀàÐÍµÄ¹¤¾ß¡£
 Summary(zh_TW):	¥Î©ó¨M©wÀÉ®×Ãþ«¬ªº¤@­Ó¤u¨ãµ{¦¡¡C
 Name:		file
-Version:	4.08
+Version:	4.09
 Release:	1
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/%{name}/%{name}-%{version}.tar.gz
-# Source0-md5:	fe7867fbdacee30b294cd8238008d92b
+# Source0-md5:	46209022d57dbca7bb3cc07aa63bd008
 Source1:	zisofs.magic
-Source2:	magic.mime
-Source3:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-non-english-man-pages.tar.bz2
-# Source3-md5:	c157a183b64156f8baafaefd9cbf04c1
-Source4:	%{name}-magic.mscompress
+Source2:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-non-english-man-pages.tar.bz2
+# Source2-md5:	c157a183b64156f8baafaefd9cbf04c1
+Source3:	%{name}-magic.mscompress
 Patch0:		%{name}-debian.patch
 Patch1:		%{name}-sparc.patch
 Patch2:		%{name}-ia64.patch
@@ -246,10 +245,9 @@ rm -rf $RPM_BUILD_ROOT
 
 install -D magic/magic.local $RPM_BUILD_ROOT%{_sysconfdir}/magic
 
-cat %{SOURCE1} %{SOURCE4} >>$RPM_BUILD_ROOT%{_datadir}/file/magic
-# install %{SOURCE2} $RPM_BUILD_ROOT%{_datadir}
+cat %{SOURCE1} %{SOURCE3} >>$RPM_BUILD_ROOT%{_datadir}/file/magic
 
-bzip2 -dc %{SOURCE3} | tar xf - -C $RPM_BUILD_ROOT%{_mandir}
+bzip2 -dc %{SOURCE2} | tar xf - -C $RPM_BUILD_ROOT%{_mandir}
 
 # somebody forgot about patching in tarball
 mv -f $RPM_BUILD_ROOT%{_mandir}/pt_BR/man{4,5}
