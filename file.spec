@@ -26,12 +26,12 @@ Summary(uk):	õÔÉÌ¦ÔÁ ÄÌÑ ×ÉÚÎÁŞÅÎÎÑ ÔÉĞ¦× ÆÁÊÌ¦×
 Summary(zh_CN):	ÅĞ¶¨ÎÄ¼şÀàĞÍµÄ¹¤¾ß¡£
 Summary(zh_TW):	¥Î©ó¨M©wÀÉ®×Ãş«¬ªº¤@­Ó¤u¨ãµ{¦¡¡C
 Name:		file
-Version:	4.11
+Version:	4.12
 Release:	1
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
-# Source0-md5:	9e08e2fe47c06eeb0cd2280e9c490c5d
+# Source0-md5:	09488a9d62bc6627b48a8c93e12d72f8
 Source1:	zisofs.magic
 Source2:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-non-english-man-pages.tar.bz2
 # Source2-md5:	c157a183b64156f8baafaefd9cbf04c1
@@ -39,12 +39,9 @@ Source3:	%{name}-magic.mscompress
 Patch0:		%{name}-debian.patch
 Patch1:		%{name}-sparc.patch
 Patch2:		%{name}-ia64.patch
-Patch3:		%{name}-mime-elf.patch
-Patch4:		%{name}-unicode.patch
-Patch5:		%{name}-readelf-fix.patch
-Patch6:		%{name}-dicom.patch
-Patch6:		%{name}-lmagic.patch
-Patch7:		%{name}-segv.patch
+Patch3:		%{name}-unicode.patch
+Patch4:		%{name}-dicom.patch
+Patch5:		%{name}-lmagic.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
@@ -248,8 +245,6 @@ Wi±zania Pythona dla libmagic.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
-%patch6 -p1
-%patch7 -p1
 
 %build
 %{__libtoolize}
