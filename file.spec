@@ -27,7 +27,7 @@ Summary(zh_CN):	判定文件类型的工具。
 Summary(zh_TW):	ノ∕﹚郎摸ㄣ祘Α
 Name:		file
 Version:	4.12
-Release:	1
+Release:	2
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
@@ -230,6 +230,7 @@ Summary:	Python bindings for libmagic
 Summary(pl):	Wi眤ania Pythona dla libmagic
 Group:		Libraries/Python
 Requires:	libmagic = %{version}-%{release}
+%pyrequires_eq	python-libs
 
 %description -n python-magic
 Python bindings for libmagic.
