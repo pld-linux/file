@@ -8,6 +8,7 @@ Version:	3.26
 Release:	5
 Copyright:	distributable
 Group:		Utilities/File
+Group(pl):	Narzêdzia/Pliki
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
 Source1:	file.gimp
 Source2:	file.xdelta
@@ -65,8 +66,9 @@ install %{SOURCE2} ./Magdir/xdelta
 
 %build
 CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="-s" \
-./configure \
+./configure %{_target} \
 	--prefix=/usr
+	
 make LDFLAGS="-s"
 
 %install
