@@ -9,7 +9,7 @@ Summary(is):	Tól til şess ağ komast ağ tegund skráar
 Summary(it):	Utility per determinare il tipo di file
 Summary(ja):	¥Õ¥¡¥¤¥ë¤Î¼ïÎà¤òÈ½ÃÇ¤¹¤ë¤¿¤á¤Î¥æ¡¼¥Æ¥£¥ê¥Æ¥£
 Summary(ko):	ÆÄÀÏ Á¾·ù¸¦ °áÁ¤ÇÏ´Â À¯Æ¿¸®Æ¼
-Summary(no):	Et verktøy for å bestemme filtyper
+Summary(nb):	Et verktøy for å bestemme filtyper
 Summary(pl):	Polecenie okre¶laj±ce rodzaj pliku
 Summary(pt):	Um utilitário para determinar o tipo dos ficheiros
 Summary(pt_BR):	Um utilitário para determinar tipos de arquivos
@@ -107,7 +107,7 @@ vari formati grafici.
 FileÀº ELF ¹ÙÀÌ³Ê¸®, ½Ã½ºÅÛ ¶óÀÌºê·¯¸®, RPM ÆĞÅ°Áö¿Í
 ´Ù¸¥ ±×·¡ÇÈ À¯ÇüÀ» Æ÷ÇÔÇÑ ¿©·¯ ¸¹Àº ÆÄÀÏ À¯ÇüÀ» ½Äº° °¡´ÉÇÕ´Ï´Ù.
 
-%description -l no
+%description -l nb
 Programmet "file" brukes for å identifisere filer basert på innhold.
 "file" kan identifisere mange ulike filtyper, inkl. ELF-filer,
 systembibliotek, RPM-pakker og bildefiler i ulike formater.
