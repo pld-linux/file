@@ -1,0 +1,11 @@
+--- file-3.34/Magdir/palm.palm	Fri Jan 15 00:54:33 1999
++++ file-3.34/Magdir/palm	Tue Mar 13 11:43:52 2001
+@@ -13,3 +13,8 @@
+ # HACK
+ 60      belong                  0x4841434b      HackMaster hack
+ >0      string                  >\0             "%s"
++#
++# Pilot Image Viewer pdb files.
++#
++60	string	vIMGView	Pilot Image Viewer,
++>0	string	x		"%s"
