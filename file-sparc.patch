@@ -1,0 +1,94 @@
+--- file-3.27/Magdir/sun.more	Mon Aug 23 17:50:30 1999
++++ file-3.27/Magdir/sun	Mon Aug 23 17:53:45 1999
+@@ -5,18 +5,18 @@
+ # Values for big-endian Sun (MC680x0, SPARC) binaries on pre-5.x
+ # releases.  (5.x uses ELF.)
+ #
+-0	belong&077777777	0600413		sparc demand paged
++0	belong&077777777	0600413		SPARC demand paged
+ >0	byte		&0x80
+ >>20	belong		<4096		shared library
+ >>20	belong		=4096		dynamically linked executable
+ >>20	belong		>4096		dynamically linked executable
+ >0	byte		^0x80		executable
+ >16	belong		>0		not stripped
+-0	belong&077777777	0600410		sparc pure
++0	belong&077777777	0600410		SPARC pure
+ >0	byte		&0x80		dynamically linked executable
+ >0	byte		^0x80		executable
+ >16	belong		>0		not stripped
+-0	belong&077777777	0600407		sparc
++0	belong&077777777	0600407		SPARC
+ >0	byte		&0x80		dynamically linked executable
+ >0	byte		^0x80		executable
+ >16	belong		>0		not stripped
+--- file-3.27/Magdir/bsdi.more	Mon Aug 23 17:53:52 1999
++++ file-3.27/Magdir/bsdi	Mon Aug 23 17:54:06 1999
+@@ -19,7 +19,7 @@
+ >32	byte		0x6a		(uses shared libs)
+ 
+ # same as in SunOS 4.x, except for static shared libraries
+-0	belong&077777777	0600413		sparc demand paged
++0	belong&077777777	0600413		SPARC demand paged
+ >0	byte		&0x80
+ >>20	belong		<4096		shared library
+ >>20	belong		=4096		dynamically linked executable
+@@ -28,13 +28,13 @@
+ >16	belong		>0		not stripped
+ >36	belong		0xb4100001	(uses shared libs)
+ 
+-0	belong&077777777	0600410		sparc pure
++0	belong&077777777	0600410		SPARC pure
+ >0	byte		&0x80		dynamically linked executable
+ >0	byte		^0x80		executable
+ >16	belong		>0		not stripped
+ >36	belong		0xb4100001	(uses shared libs)
+ 
+-0	belong&077777777	0600407		sparc
++0	belong&077777777	0600407		SPARC
+ >0	byte		&0x80		dynamically linked executable
+ >0	byte		^0x80		executable
+ >16	belong		>0		not stripped
+--- file-3.27/Magdir/netbsd.more	Mon Aug 23 17:54:39 1999
++++ file-3.27/Magdir/netbsd	Mon Aug 23 17:54:53 1999
+@@ -94,25 +94,25 @@
+ 0	belong&0377777777	042200507	NetBSD/ns32532 core
+ >12	string			>\0		from '%s'
+ 
+-0	belong&0377777777	042400413	NetBSD/sparc demand paged
++0	belong&0377777777	042400413	NetBSD/SPARC demand paged
+ >0	byte			&0x80		
+ >>20	belong			<8192		shared library
+ >>20	belong			=8192		dynamically linked executable
+ >>20	belong			>8192		dynamically linked executable
+ >0	byte			^0x80		executable
+ >16	belong			>0		not stripped
+-0	belong&0377777777	042400410	NetBSD/sparc pure
++0	belong&0377777777	042400410	NetBSD/SPARC pure
+ >0	byte			&0x80		dynamically linked executable
+ >0	byte			^0x80		executable
+ >16	belong			>0		not stripped
+-0	belong&0377777777	042400407	NetBSD/sparc
++0	belong&0377777777	042400407	NetBSD/SPARC
+ >0	byte			&0x80		dynamically linked executable
+ >0	byte			^0x80
+ >>0	byte			&0x40		position independent
+ >>20	belong			!0		executable
+ >>20	belong			=0		object file
+ >16	belong			>0		not stripped
+-0	belong&0377777777	042400507	NetBSD/sparc core
++0	belong&0377777777	042400507	NetBSD/SPARC core
+ >12	string			>\0		from '%s'
+ 
+ 0	belong&0377777777	042600413	NetBSD/pmax demand paged
+--- file-3.27/Magdir/mach.more	Mon Aug 23 17:55:21 1999
++++ file-3.27/Magdir/mach	Mon Aug 23 17:55:32 1999
+@@ -34,7 +34,7 @@
+ >4	belong		11		hp pa-risc
+ >4	belong		12		acorn
+ >4	belong		13		m88k
+->4	belong		14		sparc
++>4	belong		14		SPARC
+ >4	belong		15		i860-big
+ >4	belong		16		i860
+ >4	belong		17		rs6000
