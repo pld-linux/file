@@ -18,8 +18,7 @@ Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
 # Source0-md5:	679d8982035167160c2d7bd2112fdf85
 Source1:	zisofs.magic
 Source2:	magic.mime
-#Source3:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-non-english-man-pages.tar.bz2
-Source3:	%{name}-non-english-man-pages.tar.bz2
+Source3:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-non-english-man-pages.tar.bz2
 # Source3-md5:	c157a183b64156f8baafaefd9cbf04c1
 Source4:	%{name}-magic.mscompress
 Patch0:		%{name}-sparc.patch
