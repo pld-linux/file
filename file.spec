@@ -23,7 +23,7 @@ Summary(zh_CN):	ÅÐ¶¨ÎÄ¼þÀàÐÍµÄ¹¤¾ß¡£
 Summary(zh_TW):	¥Î©ó¨M©wÀÉ®×Ãþ«¬ªº¤@­Ó¤u¨ãµ{¦¡¡C
 Name:		file
 Version:	4.07
-Release:	1
+Release:	2
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/%{name}/%{name}-%{version}.tar.gz
@@ -39,10 +39,11 @@ Patch2:		%{name}-ia64.patch
 Patch3:		%{name}-palm.patch
 Patch4:		%{name}-mime-elf.patch
 Patch5:		%{name}-unicode.patch
+Patch6:		%{name}-readelf-fix.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
-Requires:	libmagic = %{version}
+Requires:	libmagic = %{version}-%{release}
 Conflicts:	xdelta < 1.0.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -188,7 +189,7 @@ Biblioteka funkcji operuj±cych na pliku bazy danych magic.
 Summary:	Header files for libmagic library
 Summary(pl):	Pliki nag³ówkowe biblioteki libmagic
 Group:		Development/Libraries
-Requires:	libmagic = %{version}
+Requires:	libmagic = %{version}-%{release}
 
 %description -n libmagic-devel
 Library of functions which operate on magic database file.
@@ -206,7 +207,7 @@ u¿ywaj±cych libmagic.
 Summary:	Static libmagic library
 Summary(pl):	Statyczna biblioteka libmagic
 Group:		Development/Libraries
-Requires:	libmagic-devel = %{version}
+Requires:	libmagic-devel = %{version}-%{release}
 
 %description -n libmagic-static
 Library of functions which operate on magic database file.
@@ -226,6 +227,7 @@ Ten pakiet zawiera statyczn± wersjê biblioteki.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 %build
 %{__libtoolize}
