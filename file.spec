@@ -22,12 +22,12 @@ Summary(uk):	õÔÉÌ¦ÔÁ ÄÌÑ ×ÉÚÎÁŞÅÎÎÑ ÔÉĞ¦× ÆÁÊÌ¦×
 Summary(zh_CN):	ÅĞ¶¨ÎÄ¼şÀàĞÍµÄ¹¤¾ß¡£
 Summary(zh_TW):	¥Î©ó¨M©wÀÉ®×Ãş«¬ªº¤@­Ó¤u¨ãµ{¦¡¡C
 Name:		file
-Version:	4.03
-Release:	3
+Version:	4.04
+Release:	1
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
-# Source0-md5:	679d8982035167160c2d7bd2112fdf85
+# Source0-md5:	b041591227905db8ed3c952bee17b458
 Source1:	zisofs.magic
 Source2:	magic.mime
 Source3:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-non-english-man-pages.tar.bz2
@@ -38,6 +38,7 @@ Patch1:		%{name}-ia64.patch
 Patch2:		%{name}-palm.patch
 Patch3:		%{name}-mime-elf.patch
 Patch4:		%{name}-unicode.patch
+Patch5:		%{name}-am_fix.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
@@ -224,6 +225,7 @@ Ten pakiet zawiera statyczn± wersjê biblioteki.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 rm -f install-sh ltmain.sh missing mkinstalldirs
