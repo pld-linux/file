@@ -9,7 +9,7 @@ Summary(ru):	Утилита для определения типов файлов
 Summary(tr):	Dosya tipini belirleme aracЩ
 Summary(uk):	Утил╕та для визначення тип╕в файл╕в
 Name:		file
-Version:	3.38
+Version:	3.39
 Release:	1
 License:	distributable
 Group:		Applications/File
@@ -19,14 +19,11 @@ Source2:	magic.mime
 Source3:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-non-english-man-pages.tar.bz2
 Source4:	%{name}-magic.mscompress
 Patch0:		%{name}-sparc.patch
-Patch1:		%{name}-tfm.patch
-Patch2:		%{name}-ia64.patch
-Patch3:		%{name}-elf.patch
-Patch4:		%{name}-man.patch
-Patch5:		%{name}-palm.patch
-Patch6:		%{name}-mime-elf.patch
-Patch7:		%{name}-unicode.patch
-Patch8:		%{name}-mng.patch
+Patch1:		%{name}-ia64.patch
+Patch2:		%{name}-man.patch
+Patch3:		%{name}-palm.patch
+Patch4:		%{name}-mime-elf.patch
+Patch5:		%{name}-unicode.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -115,13 +112,10 @@ kitaplЩklarЩnЩ vs. tanЩyabilir.
 %setup  -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
+%patch2 -p0
 %patch3 -p1
-%patch4 -p0
+%patch4 -p1
 %patch5 -p1
-%patch6 -p1
-%patch7 -p1
-%patch8 -p1
 
 %build
 rm -f install-sh missing mkinstalldirs
