@@ -10,24 +10,22 @@ Summary(ru):	õÔÉÌÉÔÁ ÄÌÑ ÏÐÒÅÄÅÌÅÎÉÑ ÔÉÐÏ× ÆÁÊÌÏ×
 Summary(tr):	Dosya tipini belirleme aracý
 Summary(uk):	õÔÉÌ¦ÔÁ ÄÌÑ ×ÉÚÎÁÞÅÎÎÑ ÔÉÐ¦× ÆÁÊÌ¦×
 Name:		file
-Version:	4.02
-Release:	1
+Version:	4.03
+Release:	0.9
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
-# Source0-md5: 5a853ecdf3b440915bda1d1a03240a5f
+# Source0-md5:	679d8982035167160c2d7bd2112fdf85
 Source1:	zisofs.magic
 Source2:	magic.mime
 Source3:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-non-english-man-pages.tar.bz2
-# Source3-md5: c157a183b64156f8baafaefd9cbf04c1
+# Source3-md5:	c157a183b64156f8baafaefd9cbf04c1
 Source4:	%{name}-magic.mscompress
 Patch0:		%{name}-sparc.patch
 Patch1:		%{name}-ia64.patch
 Patch2:		%{name}-palm.patch
 Patch3:		%{name}-mime-elf.patch
 Patch4:		%{name}-unicode.patch
-Patch5:		%{name}-bin-zsh-magic.patch
-Patch6:		%{name}-magic-path.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
@@ -164,8 +162,6 @@ Ten pakiet zawiera statyczn± wersjê biblioteki.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
-%patch5 -p1
-%patch6 -p1
 
 %build
 rm -f install-sh ltmain.sh missing mkinstalldirs
@@ -190,10 +186,10 @@ cat %{SOURCE1} %{SOURCE4} >>$RPM_BUILD_ROOT%{_datadir}/file/magic
 bzip2 -dc %{SOURCE3} | tar xf - -C $RPM_BUILD_ROOT%{_mandir}
 
 # somebody forgot about patching in tarball
-mv -f $RPM_BUILD_ROOT%{_mandir}/pt_BR/man{4,5}
-sed -e 's/MAGIC 4/MAGIC 5/' $RPM_BUILD_ROOT%{_mandir}/pt_BR/man5/magic.4 \
-	> $RPM_BUILD_ROOT%{_mandir}/pt_BR/man5/magic.5
-rm -f $RPM_BUILD_ROOT%{_mandir}/pt_BR/man5/magic.4
+#mv -f $RPM_BUILD_ROOT%{_mandir}/pt_BR/man{4,5}
+#sed -e 's/MAGIC 4/MAGIC 5/' $RPM_BUILD_ROOT%{_mandir}/pt_BR/man5/magic.4 \
+#	> $RPM_BUILD_ROOT%{_mandir}/pt_BR/man5/magic.5
+#rm -f $RPM_BUILD_ROOT%{_mandir}/pt_BR/man5/magic.4
 
 ./src/file -m $RPM_BUILD_ROOT%{_datadir}/file/magic -c -C
 
@@ -216,7 +212,7 @@ rm -rf $RPM_BUILD_ROOT
 %lang(ja) %{_mandir}/ja/man[15]/*
 %lang(nl) %{_mandir}/nl/man[15]/*
 %lang(pl) %{_mandir}/pl/man[15]/*
-%lang(pt_BR) %{_mandir}/pt_BR/man[15]/*
+#%lang(pt_BR) %{_mandir}/pt_BR/man[15]/*
 
 %files -n libmagic
 %defattr(644,root,root,755)
