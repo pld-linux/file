@@ -75,8 +75,8 @@
 +# Don't edit this file, edit /etc/magic or send your suggested inclusions to
 +# this file as a wishlist bug against file (using the reportbug utility).
 +
---- file-4.07.orig/magic/magic.mime
-+++ file-4.07/magic/magic.mime
+--- file-4.09/magic/magic.mime.orig	2004-04-07 02:22:12.000000000 +0200
++++ file-4.09/magic/magic.mime	2004-04-11 16:47:50.872755872 +0200
 @@ -96,7 +96,7 @@
  
  
@@ -135,14 +135,18 @@
  #>14	byte		12		(OS/2 1.x format)
  #>14	byte		64		(OS/2 2.x format)
  #>14	byte		40		(Windows 3.x format)
-@@ -623,3 +618,12 @@
- >>0xbc  string          DIVX            video/x-DivX
- >8      string          WAVE            audio/x-wav
+@@ -652,6 +647,7 @@
+ #
+ 0	string		FWS             
+ >3	byte		x			application/x-shockwave-flash
++0	string		CWS			application/x-shockwave-flash
  
-+
-+0	string		FWS		application/x-shockwave-flash
-+0	string		CWS		application/x-shockwave-flash
-+
+ # The following paramaters are created for Namazu.
+ # <http://www.namazu.org/>
+@@ -788,3 +784,8 @@
+ # From: stephane.loeuillet@tiscali.f
+ # http://www.djvuzone.org/
+ 0	string		AT&TFORM	image/x.djvu
 +
 +# Gnumeric spreadsheet
 +# This entry is only semi-helpful, as Gnumeric compresses its files, so
