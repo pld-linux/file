@@ -144,9 +144,9 @@
  # The following paramaters are created for Namazu.
  # <http://www.namazu.org/>
 @@ -788,3 +784,8 @@
- # From: stephane.loeuillet@tiscali.f
- # http://www.djvuzone.org/
- 0	string		AT&TFORM	image/x.djvu
+ # files, and checked them.
+ #0       belong          0x3C423FC9
+ #>4      belong          0x6A87C2CF application/x-adrift
 +
 +# Gnumeric spreadsheet
 +# This entry is only semi-helpful, as Gnumeric compresses its files, so
