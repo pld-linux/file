@@ -4,18 +4,20 @@ Summary(fr):	Commande file(1)
 Summary(pl):	komenda file(1)
 Summary(tr):	Dosya tipini belirleme aracý
 Name:		file
-Version:	3.26
-Release:	6
+Version:	3.28
+Release:	1
 Copyright:	distributable
 Group:		Utilities/File
 Group(pl):	Narzêdzia/Pliki
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
-Source1:	file.gimp
-Source2:	file.xdelta
-Patch0:		file-fhs.patch
-Patch1:		file-sparcv9.patch
+Source1:	file.xdelta
+Patch0:		file-sparcv9.patch
+Patch1:		file-sparc.patch
+Patch2:		file-tfm.patch
 Buildroot:	/tmp/%{name}-%{version}-root
 Conflicts:	xdelta < 1.0.0
+
+%define		_datadir	%{_prefix}/share/misc
 
 %description
 This package is useful for finding out what type of file you are looking at
@@ -60,27 +62,24 @@ karar verebilisiniz. file, temel dosya tiplerini, çoðu grafik formatýný,
 %setup  -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
-install %{SOURCE1} ./Magdir/gimp
-install %{SOURCE2} ./Magdir/xdelta
+install %{SOURCE1} ./Magdir/xdelta
 
 %build
-chmod +w configure && autoconf
-CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="-s" \
-    ./configure \
-	--prefix=%{_prefix} \
-	%{_target_platform}
+aclocal
+autoconf
+rm -f install-sh missing mkinstalldirs
+automake --copy --add-missing
+LDFLAGS="-s"; export LDFLAGS
+%configure
 	
 make LDFLAGS="-s"
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT%{_prefix}/{bin,share/man/man{1,4}}
-
-make \
-    prefix=$RPM_BUILD_ROOT%{_prefix} \
-    install
+make install DESTDIR=$RPM_BUILD_ROOT
 
 gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man{1,4}/*
 
@@ -91,5 +90,5 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 
 %attr(755,root,root) %{_bindir}/*
-%{_datadir}/misc/*
+%{_datadir}/*
 %{_mandir}/man[14]/*
