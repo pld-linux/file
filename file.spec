@@ -11,7 +11,8 @@ Group:		Utilities/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
 Source1:	file.gimp
 Source2:	file.xdelta
-Patch1:		file-glibc.patch
+Patch0:		file-glibc.patch
+Patch1:		file-sparcv9.patch
 Buildroot:	/tmp/%{name}-%{version}-root
 Conflicts:	xdelta < 1.0.0
 
@@ -55,8 +56,9 @@ karar verebilisiniz. file, temel dosya tiplerini, çoðu grafik formatýný,
 çalýþtýrýlabilir dosyalarý, sistem kitaplýklarýný vs. tanýyabilir.
 
 %prep
-%setup -q
-%patch1 -p1 -b .glibc
+%setup  -q
+%patch0 -p1
+%patch1 -p1
 
 install %{SOURCE1} ./Magdir/gimp
 install %{SOURCE2} ./Magdir/xdelta
@@ -78,11 +80,18 @@ gzip -9nf $RPM_BUILD_ROOT/usr/man/man{1,4}/*
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%attr(755, root, root) /usr/bin/file
-%attr(644, root, root) /usr/share/magic
+%attr(644,root,root,755)
+%attr(755,root,root) /usr/bin/file
+/usr/share/magic
 /usr/man/man[14]/*
 
 %changelog
+* Mon Apr 19 1999 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
+  [3.26-5]
+- new xdelta magic description,
+- added patch for sparcv9,
+- recompiles on new rpm.
+
 * Thu Mar 11 1999 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
   [3.26-4]
 - removed man group from man pages.
