@@ -2,6 +2,7 @@ Summary:	file(1) command
 Summary(de):	Befehl file(1)
 Summary(es):	Comando file
 Summary(fr):	Commande file(1)
+Summary(ja): ¥Õ¥¡¥¤¥ë¤Î¼ïÎà¤òÈ½ÊÌ¤¹¤ë¥æ¡¼¥Æ¥£¥ê¥Æ¥£¡¼
 Summary(pl):	Polecenie file(1)
 Summary(pt_BR):	Um utilitário para determinar tipos de arquivos
 Summary(tr):	Dosya tipini belirleme aracý
@@ -22,6 +23,10 @@ Patch1:		%{name}-tfm.patch
 Patch2:		%{name}-ia64.patch
 Patch3:		%{name}-elf.patch
 Patch4:		%{name}-man.patch
+Patch5:		%{name}-palm.patch
+Patch6:		%{name}-mime-elf.patch
+Patch7:		%{name}-unicode.patch
+Patch8:		%{name}-mng.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -61,6 +66,12 @@ dans lost+found, vous pouvez lancer file dessus pour savoir si on peut
 faire un more, ou s'il s'agit d'un binaire. Il reconnaît de nombreux
 types de fichiers dont les binaires ELF, les bibliothèques systèmes,
 les paquetages RPM et de nombreux formats graphiques différents.
+
+%description -l ja
+¥Õ¥¡¥¤¥ë¥³¥Þ¥ó¥É¤Ï¥Õ¥¡¥¤¥ë¤Ë´Þ¤Þ¤ì¤ë¥Ç¡¼¥¿¤Î¼ïÎà¤Ë¤è¤ê¸Ä¡¹¤Î¥Õ¥¡¥¤¥ë¤ò
+¸«Ê¬¤±¤ë¤¿¤á¤Ë»È¤ï¤ì¤ë¡£file ¤Ï ELF ¥Ð¥¤¥Ê¥ê¡¢¥·¥¹¥Æ¥à¥é¥¤¥Ö¥é¥ê¡¢
+RPM ¥Ñ¥Ã¥±¡¼¥¸¡¢¤½¤·¤Æ¼ï¡¹¤Î¥°¥é¥Õ¥£¥Ã¥¯¥Õ¥©¡¼¥Þ¥Ã¥È¤ò´Þ¤à¡¢Â¿¤¯¤Î°Û¤Ê¤ë
+¥Õ¥¡¥¤¥ë¤Î¼ïÎà¤ò¸«Ê¬¤±¤ë¤³¤È¤¬²ÄÇ½¤Ç¤¢¤ë¡£
 
 %description -l pl
 Pakiet ten jest przydatny je¿eli chcesz rozpoznaæ typ plików w twoim
@@ -107,6 +118,10 @@ kitaplýklarýný vs. tanýyabilir.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p0
+%patch5 -p1
+%patch6 -p1
+%patch7 -p1
+%patch8 -p1
 
 %build
 rm -f install-sh missing mkinstalldirs
