@@ -1,5 +1,5 @@
 --- /dev/null	Tue May  5 22:32:27 1998
-+++ file-3.38/Magdir/unicode	Thu May 23 19:59:50 2002
++++ file-3.38/magic/Magdir/unicode	Thu May 23 19:59:50 2002
 @@ -0,0 +1,14 @@
 +#---------------------------------------------------------------------------
 +# Unicode:  BOM prefixed text files - Adrian Havill <havill@turbolinux.co.jp>
@@ -15,8 +15,8 @@
 +0	string	\376\377		Unicode text, UTF-16, big-endian
 +0	string	\377\376		Unicode text, UTF-16, little-endian
 +0	string	\016\376\377		Unicode text, SCSU (Standard Compression Scheme for Unicode)
---- file-3.38/Makefile.am~	Mon May 20 12:44:34 2002
-+++ file-3.38/Makefile.am	Mon May 20 12:44:34 2002
+--- file-3.38/magic/Makefile.am~	Mon May 20 12:44:34 2002
++++ file-3.38/magic/Makefile.am	Mon May 20 12:44:34 2002
 @@ -194,6 +194,7 @@
  Magdir/troff \
  Magdir/tuxedo \

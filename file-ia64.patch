@@ -1,5 +1,5 @@
---- file-3.38/Magdir/elf	Thu May 16 20:45:57 2002
-+++ file-3.38/Magdir/elf.org	Mon May 20 09:23:02 2002
+--- file-3.38/magic/Magdir/elf	Thu May 16 20:45:57 2002
++++ file-3.38/magic/Magdir/elf.org	Mon May 20 09:23:02 2002
 @@ -91,7 +91,7 @@
  >>18	leshort		47		Hitachi H8/300H,
  >>18	leshort		48		Hitachi H8S,
@@ -18,15 +18,3 @@
  >>18	beshort		51		Stanford MIPS-X,
  >>18	beshort		52		Motorola Coldfire,
  >>18	beshort		53		Motorola M68HC12,
---- file-3.38/readelf.c	Mon May 20 09:23:02 2002
-+++ file-3.38/readelf.c.org	Mon May 20 09:27:36 2002
-@@ -632,7 +632,8 @@
- 		u.l = 1;
- 		(void) memcpy(&elfhdr, buf, sizeof elfhdr);
- 		swap = (u.c[sizeof(int32_t) - 1] + 1) != elfhdr.e_ident[5];
--
-+            	u.l = 1;
-+	        swap = (u.c[sizeof(u.l) - 1] + 1) != elfhdr.e_ident[EI_DATA];
- 		if (getu16(swap, elfhdr.e_type) == ET_CORE) 
- #ifdef ELFCORE
- 			dophn_core(class, swap,

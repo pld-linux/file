@@ -1,5 +1,5 @@
---- file-3.38.orig/Magdir/commands	2002-05-16 20:45:57.000000000 +0200
-+++ file-3.38/Magdir/commands	2002-06-21 08:14:54.000000000 +0200
+--- file-3.38.orig/magic/Magdir/commands	2002-05-16 20:45:57.000000000 +0200
++++ file-3.38/magic/Magdir/commands	2002-06-21 08:14:54.000000000 +0200
 @@ -13,6 +13,8 @@
  
  #
