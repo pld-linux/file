@@ -11,9 +11,8 @@ Group:		Utilities/File
 Group(pl):	Narzêdzia/Pliki
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
 Source1:	file.xdelta
-Patch0:		file-sparcv9.patch
-Patch1:		file-sparc.patch
-Patch2:		file-tfm.patch
+Patch0:		file-sparc.patch
+Patch1:		file-tfm.patch
 Buildroot:	/tmp/%{name}-%{version}-root
 Conflicts:	xdelta < 1.0.0
 
@@ -62,7 +61,6 @@ karar verebilisiniz. file, temel dosya tiplerini, çoðu grafik formatýný,
 %setup  -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 install %{SOURCE1} ./Magdir/xdelta
 
