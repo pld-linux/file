@@ -5,7 +5,7 @@ Summary(pl):	komenda file(1)
 Summary(tr):	Dosya tipini belirleme aracý
 Name:		file
 Version:	3.37
-Release:	1
+Release:	2
 License:	distributable
 Group:		Applications/File
 Group(de):	Applikationen/Datei
@@ -91,7 +91,7 @@ install -d $RPM_BUILD_ROOT%{_mandir}/pl/man{1,5}
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
 cat %{SOURCE1} >>$RPM_BUILD_ROOT%{_datadir}/magic
-install %{SOURCE3} $RPM_BUILD_ROOT%{_datadir}
+# install %{SOURCE3} $RPM_BUILD_ROOT%{_datadir}
 
 install %{SOURCE3} $RPM_BUILD_ROOT%{_mandir}/pl/man1/file.1
 install %{SOURCE4} $RPM_BUILD_ROOT%{_mandir}/pl/man5/magic.5
