@@ -9,7 +9,7 @@ Summary(ru):	Утилита для определения типов файлов
 Summary(uk):	Утил╕та для визначення тип╕в файл╕в
 Name:		file
 Version:	3.37
-Release:	5
+Release:	6
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
@@ -22,6 +22,7 @@ Patch1:		%{name}-tfm.patch
 Patch2:		%{name}-ia64.patch
 Patch3:		%{name}-elf.patch
 Patch4:		%{name}-man.patch
+Patch5:		%{name}-ac25x.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -107,10 +108,12 @@ kitaplЩklarЩnЩ vs. tanЩyabilir.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p0
+%patch5 -p1
 
 %build
 rm -f install-sh missing mkinstalldirs
 aclocal
+autoheader
 autoconf
 automake -a -c -f
 %configure \
@@ -135,7 +138,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-
 %attr(755,root,root) %{_bindir}/*
 %{_datadir}/*
 %{_mandir}/man[15]/*

@@ -1,0 +1,20 @@
+--- file-3.37/acinclude.m4.orig	Tue Aug  7 18:01:25 2001
++++ file-3.37/acinclude.m4	Thu Apr 11 00:11:59 2002
+@@ -30,7 +30,7 @@
+ #include <$ac_cv_struct_tm>], [struct tm tm; tm.tm_zone;],
+   ac_cv_struct_tm_zone=yes, ac_cv_struct_tm_zone=no)])
+ if test "$ac_cv_struct_tm_zone" = yes; then
+-  AC_DEFINE(HAVE_TM_ZONE)
++  AC_DEFINE(HAVE_TM_ZONE,,[Define if system has tm_zone in struct tm])
+ fi
+ AC_CACHE_CHECK(for tzname, ac_cv_var_tzname,
+ [AC_TRY_LINK(
+@@ -42,7 +42,7 @@
+ changequote([, ])dnl
+ [atoi(*tzname);], ac_cv_var_tzname=yes, ac_cv_var_tzname=no)])
+   if test $ac_cv_var_tzname = yes; then
+-    AC_DEFINE(HAVE_TZNAME)
++    AC_DEFINE(HAVE_TZNAME,,[Define if system has tzname])
+   fi
+ 
+ AC_CACHE_CHECK([for tm_isdst in struct tm], ac_cv_struct_tm_isdst,
