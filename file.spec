@@ -174,7 +174,7 @@ File 可以辨認許多不同的檔案類型，
 
 %package -n libmagic
 Summary:	libmagic library
-Summary(pl):    Biblioteka libmagic
+Summary(pl):	Biblioteka libmagic
 Group:		Libraries
 
 %description -n libmagic
