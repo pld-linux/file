@@ -19,6 +19,8 @@ Patch0:		%{name}-sparc.patch
 Patch1:		%{name}-tfm.patch
 Patch2:		%{name}-ia64.patch
 Patch3:		%{name}-elf.patch
+BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Conflicts:	xdelta < 1.0.0
 
@@ -76,7 +78,7 @@ kitaplýklarýný vs. tanýyabilir.
 aclocal
 autoconf
 rm -f install-sh missing mkinstalldirs
-automake --copy --add-missing
+automake -a -c
 %configure \
 	--enable-fsect-man5
 	
