@@ -8,8 +8,6 @@ Version:	3.37
 Release:	4
 License:	distributable
 Group:		Applications/File
-Group(de):	Applikationen/Datei
-Group(pl):	Aplikacje/Pliki
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
 Source1:	zisofs.magic
 Source2:	magic.mime
