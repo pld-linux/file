@@ -83,7 +83,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) /usr/bin/file
+%attr(755,root,root) %{_bindir}/file
 %{_datadir}/magic
 %{_mandir}/man[14]/*
 
@@ -115,7 +115,7 @@ rm -rf $RPM_BUILD_ROOT
 - corrected group on man pages,
 - updated base Source Url to ftp://ftp.astron.com/pub/file/,
 - added xdelta magic,
-- added stripping /usr/bin/file,
+- added stripping %{_bindir}/file,
 - removed %defattr,
 - added using %%{name} and %%{version} in Source.
 
