@@ -5,7 +5,7 @@ Summary(pl):	komenda file(1)
 Summary(tr):	Dosya tipini belirleme aracý
 Name:		file
 Version:	3.34
-Release:	1
+Release:	2
 License:	Distributable
 Group:		Applications/File
 Group(de):	Applikationen/Datei
@@ -79,6 +79,8 @@ automake --copy --add-missing
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
+./file -m magic -c -C
+install magic.mgc %{_datadir}/
 
 %clean
 rm -rf $RPM_BUILD_ROOT
