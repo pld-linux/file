@@ -208,6 +208,7 @@ rm -rf $RPM_BUILD_ROOT
 %lang(ja) %{_mandir}/ja/man[15]/*
 %lang(nl) %{_mandir}/nl/man[15]/*
 %lang(pl) %{_mandir}/pl/man[15]/*
+%lang(pt_BR) %{_mandir}/pt_BR/man[15]/*
 
 %files -n libmagic
 %defattr(644,root,root,755)
