@@ -1,4 +1,5 @@
 #
+# Conditional build:
 %bcond_without	python	# don't build python-magic module
 #
 Summary:	A utility for determining file types
@@ -227,11 +228,15 @@ Ten pakiet zawiera statyczn± wersjê biblioteki.
 
 %package -n python-magic
 Summary:	Python bindings for libmagic
+Summary(pl):	Wi±zania Pythona dla libmagic
 Group:		Libraries/Python
 Requires:	libmagic = %{version}-%{release}
 
 %description -n python-magic
 Python bindings for libmagic.
+
+%description -n python-magic -l pl
+Wi±zania Pythona dla libmagic.
 
 %prep
 %setup -q
