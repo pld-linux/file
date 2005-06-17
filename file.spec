@@ -1,6 +1,7 @@
 #
 # Conditional build:
 %bcond_without	python	# don't build python-magic module
+%bcond_without	static_libs # don't build static libraries
 #
 Summary:	A utility for determining file types
 Summary(cs):	Program pro zji¹»ování typu souborù
@@ -258,7 +259,8 @@ Wi±zania Pythona dla libmagic.
 %{__autoconf}
 %{__automake}
 %configure \
-	--enable-fsect-man5
+	--enable-fsect-man5 \
+	%{!?with_static_libs:--enable-static=no}
 
 %{__make}
 
@@ -279,7 +281,7 @@ cd python
 python setup.py install \
 	--root=$RPM_BUILD_ROOT \
 	--optimize=2
-cd ..	
+cd ..
 %endif
 
 install -D magic/magic.local $RPM_BUILD_ROOT%{_sysconfdir}/magic
@@ -330,9 +332,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/magic.h
 %{_mandir}/man3/*
 
+%if %{with static_libs}
 %files -n libmagic-static
 %defattr(644,root,root,755)
 %{_libdir}/lib*.a
+%endif
 
 %if %{with python}
 %files -n python-magic
