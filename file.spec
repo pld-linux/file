@@ -27,12 +27,12 @@ Summary(uk):	õÔÉÌ¦ÔÁ ÄÌÑ ×ÉÚÎÁŞÅÎÎÑ ÔÉĞ¦× ÆÁÊÌ¦×
 Summary(zh_CN):	ÅĞ¶¨ÎÄ¼şÀàĞÍµÄ¹¤¾ß¡£
 Summary(zh_TW):	¥Î©ó¨M©wÀÉ®×Ãş«¬ªº¤@­Ó¤u¨ãµ{¦¡¡C
 Name:		file
-Version:	4.13
-Release:	3
+Version:	4.14
+Release:	1
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
-# Source0-md5:	2bfc0f878ee22e50441b68df2ccbb984
+# Source0-md5:	66983e60087e8bcd588c8ab38a861af0
 Source1:	zisofs.magic
 Source2:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-non-english-man-pages.tar.bz2
 # Source2-md5:	c157a183b64156f8baafaefd9cbf04c1
@@ -45,6 +45,7 @@ Patch4:		%{name}-dicom.patch
 Patch5:		%{name}-lmagic.patch
 Patch6:		%{name}-python2.4.patch
 Patch7:		%{name}-greedy-dump.patch
+Patch8:		ftp://ftp.astron.com/pub/file/%{name}-4.14.patch1
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
@@ -251,6 +252,10 @@ Wi±zania Pythona dla libmagic.
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
+%patch8 -p0
+
+# temporary workaround
+touch magic/Magdir/mup
 
 %build
 %{__libtoolize}
