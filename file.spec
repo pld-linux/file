@@ -54,6 +54,7 @@ BuildRequires:	python-devel
 BuildRequires:	python-modules
 %endif
 Requires:	libmagic = %{version}-%{release}
+Conflicts:	rpm-build < 4.4.1-9
 Conflicts:	xdelta < 1.0.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
