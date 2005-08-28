@@ -1,8 +1,8 @@
---- file-4.13.orig/doc/file.man
-+++ file-4.13/doc/file.man
+--- file-4.15/doc/file.man.orig	2005-08-18 17:18:22.000000000 +0200
++++ file-4.15/doc/file.man	2005-08-28 22:16:00.615271312 +0200
 @@ -1,4 +1,4 @@
 -.TH FILE __CSECTION__ "Copyright but distributable"
-+.TH FILE __CSECTION__ "January 2004" "Copyrighted but distributable"
++.TH FILE __CSECTION__ "August 2005" "Copyrighted but distributable"
  .\" $Id$
  .SH NAME
  file
@@ -31,7 +31,7 @@
  magic file
  .I __MAGIC__.mgc ,
  or 
-@@ -339,12 +340,6 @@
+@@ -368,12 +369,6 @@
  The order of entries in the magic file is significant.
  Depending on what system you are using, the order that
  they are put together may be incorrect.
@@ -44,7 +44,7 @@
  .SH EXAMPLES
  .nf
  $ file file.c file /dev/{wd0a,hda}
-@@ -498,3 +493,7 @@
+@@ -527,3 +522,7 @@
  .B ftp.astron.com
  in the directory
  .I /pub/file/file-X.YZ.tar.gz
