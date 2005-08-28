@@ -27,25 +27,23 @@ Summary(uk):	õÔÉÌ¦ÔÁ ÄÌÑ ×ÉÚÎÁÞÅÎÎÑ ÔÉÐ¦× ÆÁÊÌ¦×
 Summary(zh_CN):	ÅÐ¶¨ÎÄ¼þÀàÐÍµÄ¹¤¾ß¡£
 Summary(zh_TW):	¥Î©ó¨M©wÀÉ®×Ãþ«¬ªº¤@­Ó¤u¨ãµ{¦¡¡C
 Name:		file
-Version:	4.14
+Version:	4.15
 Release:	1
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
-# Source0-md5:	66983e60087e8bcd588c8ab38a861af0
+# Source0-md5:	09a6603dadbe06e577e98a2547201fab
 Source1:	zisofs.magic
 Source2:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-non-english-man-pages.tar.bz2
 # Source2-md5:	c157a183b64156f8baafaefd9cbf04c1
 Source3:	%{name}-magic.mscompress
 Patch0:		%{name}-debian.patch
 Patch1:		%{name}-sparc.patch
-Patch2:		%{name}-ia64.patch
-Patch3:		%{name}-unicode.patch
-Patch4:		%{name}-dicom.patch
-Patch5:		%{name}-lmagic.patch
-Patch6:		%{name}-python2.4.patch
-Patch7:		%{name}-greedy-dump.patch
-Patch8:		ftp://ftp.astron.com/pub/file/%{name}-4.14.patch1
+Patch2:		%{name}-unicode.patch
+Patch3:		%{name}-dicom.patch
+Patch4:		%{name}-lmagic.patch
+Patch5:		%{name}-python2.4.patch
+Patch6:		%{name}-greedy-dump.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
@@ -252,11 +250,6 @@ Wi±zania Pythona dla libmagic.
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
-%patch7 -p1
-%patch8 -p0
-
-# temporary workaround
-touch magic/Magdir/mup
 
 %build
 %{__libtoolize}
