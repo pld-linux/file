@@ -273,9 +273,14 @@ cd ..
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT/%{_lib}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
+
+mv $RPM_BUILD_ROOT%{_libdir}/libmagic.so.*.* $RPM_BUILD_ROOT/%{_lib}
+ln -sf /%{_lib}/$(cd $RPM_BUILD_ROOT/%{_lib} ; echo libmagic.so.*.*) \
+        $RPM_BUILD_ROOT%{_libdir}/libmagic.so
 
 %if %{with python}
 cd python
@@ -324,7 +329,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n libmagic
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/lib*.so.*.*
+%attr(755,root,root) /%{_lib}/lib*.so.*.*
 
 %files -n libmagic-devel
 %defattr(644,root,root,755)
