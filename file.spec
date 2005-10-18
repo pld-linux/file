@@ -1,7 +1,7 @@
 #
 # Conditional build:
-%bcond_without	python	# don't build python-magic module
-%bcond_without	static_libs # don't build static libraries
+%bcond_without	python		# don't build python-magic module
+%bcond_without	static_libs	# don't build static libraries
 #
 Summary:	A utility for determining file types
 Summary(cs):	Program pro zji¹»ování typu souborù
