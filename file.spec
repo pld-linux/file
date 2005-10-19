@@ -27,12 +27,12 @@ Summary(uk):	õÔÉÌ¦ÔÁ ÄÌÑ ×ÉÚÎÁŞÅÎÎÑ ÔÉĞ¦× ÆÁÊÌ¦×
 Summary(zh_CN):	ÅĞ¶¨ÎÄ¼şÀàĞÍµÄ¹¤¾ß¡£
 Summary(zh_TW):	¥Î©ó¨M©wÀÉ®×Ãş«¬ªº¤@­Ó¤u¨ãµ{¦¡¡C
 Name:		file
-Version:	4.15
-Release:	3
+Version:	4.16
+Release:	1
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
-# Source0-md5:	09a6603dadbe06e577e98a2547201fab
+# Source0-md5:	9bc5a7017ab7bd544f288fd931ec741a
 Source1:	zisofs.magic
 Source2:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-non-english-man-pages.tar.bz2
 # Source2-md5:	c157a183b64156f8baafaefd9cbf04c1
@@ -44,9 +44,8 @@ Patch3:		%{name}-dicom.patch
 Patch4:		%{name}-lmagic.patch
 Patch5:		%{name}-python2.4.patch
 Patch6:		%{name}-greedy-dump.patch
-Patch7:		%{name}-stdin-noclose.patch
-Patch8:		%{name}-magic.patch
-Patch9:		%{name}-selinux.patch
+Patch7:		%{name}-magic.patch
+Patch8:		%{name}-selinux.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
@@ -255,7 +254,6 @@ Wi±zania Pythona dla libmagic.
 %patch6 -p1
 %patch7 -p1
 %patch8 -p1
-%patch9 -p1
 
 %build
 %{__libtoolize}
