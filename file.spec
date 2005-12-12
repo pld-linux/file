@@ -115,9 +115,9 @@ vari formati grafici.
 ¥Õ¥¡¥¤¥ë¤Î¼ïÎà¤ò¸«Ê¬¤±¤ë¤³¤È¤¬²ÄÇ½¤Ç¤¢¤ë¡£
 
 %description -l ko
-ÆÄÀÏ¿¡ ÀúÀåµÈ ÀÚ·á À¯Çü¿¡ µû¶ó ÆÄÀÏÀ» ½Äº°ÇÏ´Â file ¸í·É.
-FileÀº ELF ¹ÙÀÌ³Ê¸®, ½Ã½ºÅÛ ¶óÀÌºê·¯¸®, RPM ÆĞÅ°Áö¿Í
-´Ù¸¥ ±×·¡ÇÈ À¯ÇüÀ» Æ÷ÇÔÇÑ ¿©·¯ ¸¹Àº ÆÄÀÏ À¯ÇüÀ» ½Äº° °¡´ÉÇÕ´Ï´Ù.
+ÆÄÀÏ¿¡ ÀúÀåµÈ ÀÚ·á À¯Çü¿¡ µû¶ó ÆÄÀÏÀ» ½Äº°ÇÏ´Â file ¸í·É. FileÀº ELF
+¹ÙÀÌ³Ê¸®, ½Ã½ºÅÛ ¶óÀÌºê·¯¸®, RPM ÆĞÅ°Áö¿Í ´Ù¸¥ ±×·¡ÇÈ À¯ÇüÀ» Æ÷ÇÔÇÑ
+¿©·¯ ¸¹Àº ÆÄÀÏ À¯ÇüÀ» ½Äº° °¡´ÉÇÕ´Ï´Ù.
 
 %description -l nb
 Programmet "file" brukes for å identifisere filer basert på innhold.
@@ -156,7 +156,7 @@ diferentes.
 
 %description -l sv
 Kommandot file används för att identifera en fil vad avser vilken typ
-av data filen innehåller.  File kan identifiera många olika filtyper,
+av data filen innehåller. File kan identifiera många olika filtyper,
 inklusive ELF-binärer, systembibliotek, RPM-paket och olika
 grafikformat.
 
@@ -175,15 +175,14 @@ kitaplıklarını vs. tanıyabilir.
 ĞÁËÅÔÉ RPM, Ò¦ÚÎÏÍÁÎ¦ÔÎ¦ ÇÒÁÆ¦ŞÎ¦ ÆÏÒÍÁÔÉ ÔÁ ÂÁÇÁÔÏ ¦ÎÛÉÈ.
 
 %description -l zh_CN
-file ÃüÁîÓÃÀ´¸ù¾İÎÄ¼şÖĞ°üº¬µÄÊı¾İÀàĞÍÀ´Ê¶±ğÎÄ¼şÀàĞÍ¡£
-file ¿ÉÒÔÊ¶±ğĞí¶à²»Í¬µÄÎÄ¼şÀàĞÍ£¬°üÀ¨ ELF ¶ş½øÖÆ¡¢ÏµÍ³
-¿â¡¢RPM Èí¼ş°ü¡¢ºÍ²»Í¬µÄÍ¼ĞÎ¸ñÊ½¡£
+file ÃüÁîÓÃÀ´¸ù¾İÎÄ¼şÖĞ°üº¬µÄÊı¾İÀàĞÍÀ´Ê¶±ğÎÄ¼şÀàĞÍ¡£ file
+¿ÉÒÔÊ¶±ğĞí¶à²»Í¬µÄÎÄ¼şÀàĞÍ£¬°üÀ¨ ELF ¶ş½øÖÆ¡¢ÏµÍ³ ¿â¡¢RPM
+Èí¼ş°ü¡¢ºÍ²»Í¬µÄÍ¼ĞÎ¸ñÊ½¡£
 
 %description -l zh_TW
-file «ü¥O¬O®Ú¾ÚÀÉ®×¥]§tªº¸ê®ÆÃş«¬¨Ó¿ë»{ÀÉ®×¡C
-File ¥i¥H¿ë»{³\¦h¤£¦PªºÀÉ®×Ãş«¬¡A
-¥]§t ELF binaries¡A¨t²Î¨ç¦¡®w¡ARPM ®M¥ó¡A¥H¤Î¤£¦Pªº
-¹Ï¹³®æ¦¡¡C
+file «ü¥O¬O®Ú¾ÚÀÉ®×¥]§tªº¸ê®ÆÃş«¬¨Ó¿ë»{ÀÉ®×¡C File
+¥i¥H¿ë»{³\¦h¤£¦PªºÀÉ®×Ãş«¬¡A ¥]§t ELF binaries¡A¨t²Î¨ç¦¡®w¡ARPM
+®M¥ó¡A¥H¤Î¤£¦Pªº ¹Ï¹³®æ¦¡¡C
 
 %package -n libmagic
 Summary:	libmagic library
@@ -317,7 +316,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc ChangeLog LEGAL.NOTICE README
 %attr(755,root,root) %{_bindir}/*
 %{_datadir}/file
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/magic
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/magic
 %{_mandir}/man[15]/*
 %lang(de) %{_mandir}/de/man[15]/*
 %lang(es) %{_mandir}/es/man[15]/*
