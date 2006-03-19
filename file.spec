@@ -27,12 +27,12 @@ Summary(uk):	õÔÉÌ¦ÔÁ ÄÌÑ ×ÉÚÎÁŞÅÎÎÑ ÔÉĞ¦× ÆÁÊÌ¦×
 Summary(zh_CN):	ÅĞ¶¨ÎÄ¼şÀàĞÍµÄ¹¤¾ß¡£
 Summary(zh_TW):	¥Î©ó¨M©wÀÉ®×Ãş«¬ªº¤@­Ó¤u¨ãµ{¦¡¡C
 Name:		file
-Version:	4.16
+Version:	4.17
 Release:	1
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
-# Source0-md5:	9bc5a7017ab7bd544f288fd931ec741a
+# Source0-md5:	50919c65e0181423d66bb25d7fe7b0fd
 Source1:	zisofs.magic
 Source2:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-non-english-man-pages.tar.bz2
 # Source2-md5:	c157a183b64156f8baafaefd9cbf04c1
@@ -42,16 +42,16 @@ Patch1:		%{name}-sparc.patch
 Patch2:		%{name}-unicode.patch
 Patch3:		%{name}-dicom.patch
 Patch4:		%{name}-lmagic.patch
-Patch5:		%{name}-python2.4.patch
-Patch6:		%{name}-greedy-dump.patch
-Patch7:		%{name}-magic.patch
-Patch8:		%{name}-selinux.patch
+Patch5:		%{name}-greedy-dump.patch
+Patch6:		%{name}-magic.patch
+Patch7:		%{name}-selinux.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
 %if %{with python}
 BuildRequires:	python-devel
 BuildRequires:	python-modules
+BuildRequires:	rpm-pythonprov
 %endif
 Requires:	libmagic = %{version}-%{release}
 Conflicts:	rpm-build < 4.4.1-9
@@ -252,7 +252,6 @@ Wi±zania Pythona dla libmagic.
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
-%patch8 -p1
 
 %build
 %{__libtoolize}
@@ -314,7 +313,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc ChangeLog LEGAL.NOTICE README
-%attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %{_bindir}/file
 %{_datadir}/file
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/magic
 %{_mandir}/man[15]/*
@@ -330,19 +329,19 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n libmagic
 %defattr(644,root,root,755)
-%attr(755,root,root) /%{_lib}/lib*.so.*.*
+%attr(755,root,root) /%{_lib}/libmagic.so.*.*.*
 
 %files -n libmagic-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/lib*.so
-%{_libdir}/lib*.la
+%attr(755,root,root) %{_libdir}/libmagic.so
+%{_libdir}/libmagic.la
 %{_includedir}/magic.h
 %{_mandir}/man3/*
 
 %if %{with static_libs}
 %files -n libmagic-static
 %defattr(644,root,root,755)
-%{_libdir}/lib*.a
+%{_libdir}/libmagic.a
 %endif
 
 %if %{with python}
