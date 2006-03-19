@@ -75,10 +75,10 @@
 +# Don't edit this file, edit /etc/magic or send your suggested inclusions to
 +# this file as a wishlist bug against file (using the reportbug utility).
 +
---- file-4.14/magic/magic.mime.orig	2005-06-25 17:39:18.000000000 +0200
-+++ file-4.14/magic/magic.mime	2005-07-18 22:02:05.196917536 +0200
+--- file-4.17/magic/magic.mime.orig	2006-03-02 22:50:32.000000000 +0100
++++ file-4.17/magic/magic.mime	2006-03-19 11:46:24.803922750 +0100
 @@ -195,7 +195,7 @@
- 0       beshort         0x4DE1          audio/MP4A-LATM
+ 0       beshort         0x4De1          audio/MP4A-LATM
  
  # MPEG Layer 3 sound files
 -0       beshort		&0xffe0		audio/mpeg
@@ -86,7 +86,7 @@
  #MP3 with ID3 tag
  0	string		ID3		audio/mpeg
  # Ogg/Vorbis
-@@ -294,10 +294,10 @@
+@@ -295,10 +295,10 @@
  # because it tries to uncompress it to figure out what's inside.
  
  # standard unix compress
@@ -99,7 +99,7 @@
  
  0		string			PK\003\004		application/x-zip
  
-@@ -398,19 +398,14 @@
+@@ -399,19 +399,14 @@
  #
  # from Daniel Quinlan <quinlan@yggdrasil.com>
  #
@@ -126,7 +126,7 @@
  
  #------------------------------------------------------------------------------
  # images:  file(1) magic for image formats (see also "c-lang" for XPM bitmaps)
-@@ -473,7 +468,7 @@
+@@ -474,7 +469,7 @@
  0	beshort		0xffd8		image/jpeg
  
  # PC bitmaps (OS/2, Windoze BMP files)  (Greg Roelofs, newt@uchicago.edu)
@@ -135,7 +135,7 @@
  #>14	byte		12		(OS/2 1.x format)
  #>14	byte		64		(OS/2 2.x format)
  #>14	byte		40		(Windows 3.x format)
-@@ -788,6 +783,7 @@
+@@ -789,6 +784,7 @@
  #
  0	string		FWS             
  >3	byte		x			application/x-shockwave-flash
@@ -143,10 +143,10 @@
  
  # The following paramaters are created for Namazu.
  # <http://www.namazu.org/>
-@@ -919,3 +915,8 @@
- # EET archive
- # From: Tilman Sauerbeck <tilman@code-monkey.de>
- 0	belong	0x1ee7ff00	application/x-eet
+@@ -924,3 +920,8 @@
+ # From: Denis Knauf, via gentoo.
+ 0	string	fLaC		audio/x-flac
+ 0	string	CWS		application/x-shockwave-flash
 +
 +# Gnumeric spreadsheet
 +# This entry is only semi-helpful, as Gnumeric compresses its files, so
