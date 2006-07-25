@@ -1,0 +1,26 @@
+--- file-4.15/magic/Magdir/msdos.orig	2005-08-18 17:00:48.000000000 +0200
++++ file-4.15/magic/Magdir/msdos	2006-07-25 15:29:32.434440000 +0200
+@@ -255,15 +255,15 @@
+ # Uncommenting only the first two lines will cover about 2/3 of COM files,
+ # but it isn't feasible to match all COM files since there must be at least
+ # two dozen different one-byte "magics".
+-0	byte		0xe9		MS-DOS executable (COM)
+->6	string		SFX\ of\ LHarc	(%s)
+-0	byte		0x8c		MS-DOS executable (COM)
++#0	byte		0xe9		MS-DOS executable (COM)
++#>6	string		SFX\ of\ LHarc	(%s)
++#0	byte		0x8c		MS-DOS executable (COM)
+ # 0xeb conflicts with "sequent" magic
+-0	byte		0xeb		MS-DOS executable (COM)
+->4	string		\ $ARX		\b, ARX self-extracting archive
+->4	string		\ $LHarc	\b, LHarc self-extracting archive
+->0x20e	string		SFX\ by\ LARC	\b, LARC self-extracting archive
+-0	byte		0xb8		COM executable for MS-DOS
++#0	byte		0xeb		MS-DOS executable (COM)
++#>4	string		\ $ARX		\b, ARX self-extracting archive
++#>4	string		\ $LHarc	\b, LHarc self-extracting archive
++#>0x20e	string		SFX\ by\ LARC	\b, LARC self-extracting archive
++#0	byte		0xb8		COM executable for MS-DOS
+ # many compressed/converted COMs start with a copy loop instead of a jump
+ 0x6	search/0xa	\xfc\x57\xf3\xa5\xc3	COM executable for MS-DOS
+ 0x6	search/0xa	\xfc\x57\xf3\xa4\xc3	COM executable for MS-DOS
