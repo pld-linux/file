@@ -28,7 +28,7 @@ Summary(zh_CN):	判定文件类型的工具。
 Summary(zh_TW):	ノ∕﹚郎摸ㄣ祘Α
 Name:		file
 Version:	4.15
-Release:	3
+Release:	4
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
@@ -47,6 +47,7 @@ Patch6:		%{name}-greedy-dump.patch
 Patch7:		%{name}-stdin-noclose.patch
 Patch8:		%{name}-magic.patch
 Patch9:		%{name}-selinux.patch
+Patch10:	%{name}-msdos.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
@@ -256,6 +257,7 @@ Wi眤ania Pythona dla libmagic.
 %patch7 -p1
 %patch8 -p1
 %patch9 -p1
+%patch10 -p1
 
 %build
 %{__libtoolize}
