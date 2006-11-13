@@ -308,6 +308,9 @@ rm -f $RPM_BUILD_ROOT%{_mandir}/pt_BR/man5/magic.4
 
 ./src/file -m $RPM_BUILD_ROOT%{_datadir}/file/magic -c -C
 
+rm -f $RPM_BUILD_ROOT%{_mandir}/README.file-non-english-man-pages
+rm -f $RPM_BUILD_ROOT%{_mandir}/file-magic4.diff
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
