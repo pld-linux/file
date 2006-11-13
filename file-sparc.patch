@@ -71,10 +71,9 @@ diff -Nru file-4.02.bak/magic/Magdir/netbsd file-4.02/magic/Magdir/netbsd
  >12	string			>\0		from '%s'
  >32	belong			!0		(signal %d)
  
-diff -Nru file-4.02.bak/magic/Magdir/sun file-4.02/magic/Magdir/sun
---- file-4.02.bak/magic/Magdir/sun	Fri Feb  7 17:26:01 1997
-+++ file-4.02/magic/Magdir/sun	Thu Apr  3 09:14:25 2003
-@@ -5,18 +5,18 @@
+--- file-4.18/magic/Magdir/sun.orig	2006-06-14 00:17:00.000000000 +0200
++++ file-4.18/magic/Magdir/sun	2006-11-13 16:16:59.029505000 +0100
+@@ -5,7 +5,7 @@
  # Values for big-endian Sun (MC680x0, SPARC) binaries on pre-5.x
  # releases.  (5.x uses ELF.)
  #
@@ -83,14 +82,16 @@ diff -Nru file-4.02.bak/magic/Magdir/sun file-4.02/magic/Magdir/sun
  >0	byte		&0x80
  >>20	belong		<4096		shared library
  >>20	belong		=4096		dynamically linked executable
- >>20	belong		>4096		dynamically linked executable
+@@ -13,12 +13,12 @@
  >0	byte		^0x80		executable
  >16	belong		>0		not stripped
+ 
 -0	belong&077777777	0600410		sparc pure
 +0	belong&077777777	0600410		SPARC pure
  >0	byte		&0x80		dynamically linked executable
  >0	byte		^0x80		executable
  >16	belong		>0		not stripped
+ 
 -0	belong&077777777	0600407		sparc
 +0	belong&077777777	0600407		SPARC
  >0	byte		&0x80		dynamically linked executable

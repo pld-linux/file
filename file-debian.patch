@@ -1,8 +1,8 @@
---- file-4.15/doc/file.man.orig	2005-08-18 17:18:22.000000000 +0200
-+++ file-4.15/doc/file.man	2005-08-28 22:16:00.615271312 +0200
+--- file-4.18/doc/file.man.orig	2006-05-03 21:20:25.000000000 +0200
++++ file-4.18/doc/file.man	2006-11-13 16:15:03.159505000 +0100
 @@ -1,4 +1,4 @@
 -.TH FILE __CSECTION__ "Copyright but distributable"
-+.TH FILE __CSECTION__ "August 2005" "Copyrighted but distributable"
++.TH FILE __CSECTION__ "May 2006" "Copyright but distributable"
  .\" $Id$
  .SH NAME
  file
@@ -31,7 +31,7 @@
  magic file
  .I __MAGIC__.mgc ,
  or 
-@@ -368,12 +369,6 @@
+@@ -369,12 +370,6 @@
  The order of entries in the magic file is significant.
  Depending on what system you are using, the order that
  they are put together may be incorrect.
@@ -44,7 +44,7 @@
  .SH EXAMPLES
  .nf
  $ file file.c file /dev/{wd0a,hda}
-@@ -527,3 +522,7 @@
+@@ -528,3 +523,7 @@
  .B ftp.astron.com
  in the directory
  .I /pub/file/file-X.YZ.tar.gz
@@ -158,23 +158,23 @@
 +# Magic local data for file(1) command.
 +# Insert here your local magic data. Format is described in magic(5).
 +
---- file-4.14/src/magic.c.debian	2005-06-25 17:52:14.000000000 +0200
-+++ file-4.14/src/magic.c	2005-07-14 09:43:18.000000000 +0200
-@@ -213,7 +213,7 @@
+--- file-4.18/src/magic.c.orig	2006-10-31 20:37:17.000000000 +0100
++++ file-4.18/src/magic.c	2006-11-13 16:15:31.219505000 +0100
+@@ -238,7 +238,7 @@
  	int	fd = 0;
  	int	rv = -1;
  	unsigned char *buf;
 -	struct stat	sb;
 +	struct stat	sb, *st = &sb;
  	ssize_t nbytes = 0;	/* number of bytes read from a datafile */
+ 	int	ispipe = 0;
  
- 	/*
-@@ -227,7 +227,7 @@
+@@ -253,7 +253,7 @@
  	if (file_reset(ms) == -1)
  		goto done;
  
 -	switch (file_fsmagic(ms, inname, &sb)) {
 +	switch (file_fsmagic(ms, inname, st)) {
- 	case -1:
+ 	case -1:		/* error */
  		goto done;
- 	case 0:
+ 	case 0:			/* nothing found */
