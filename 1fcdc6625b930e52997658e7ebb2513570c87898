@@ -1,0 +1,5 @@
+- updated to 3.28,
+- removed file.gimp Source2 (integrated in current version),
+- redefined %{_datadir} to %{_prefix}/share/misc instead using fhs patch,
+- added tfm and parc patches which based on patches from rawhide,
+- added using %configure macro and DESTDIR style %install.
