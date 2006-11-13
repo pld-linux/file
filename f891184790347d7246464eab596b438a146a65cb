@@ -1,0 +1,7 @@
+- merge translations from Kondra,
+- added patches:
+  - palm: Pilot Image Viewer pdb files (patch from Kondra),
+  - mime-elf: regiter ELF files in magic.mime file (patch from Conectiva),
+  - unicode: BOM prefixed text files (Adrian Havill <havill@turbolinux.co.jp>
+    (based on patch from TurboLinux),
+  - mng: register mng files in mime.magick (patch from RH).
