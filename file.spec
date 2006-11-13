@@ -27,12 +27,12 @@ Summary(uk):	õÔÉÌ¦ÔÁ ÄÌÑ ×ÉÚÎÁŞÅÎÎÑ ÔÉĞ¦× ÆÁÊÌ¦×
 Summary(zh_CN):	ÅĞ¶¨ÎÄ¼şÀàĞÍµÄ¹¤¾ß¡£
 Summary(zh_TW):	¥Î©ó¨M©wÀÉ®×Ãş«¬ªº¤@­Ó¤u¨ãµ{¦¡¡C
 Name:		file
-Version:	4.17
-Release:	4
+Version:	4.18
+Release:	1
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
-# Source0-md5:	50919c65e0181423d66bb25d7fe7b0fd
+# Source0-md5:	ce1aa9b0316feb57d40a48cfe6b606e4
 Source1:	zisofs.magic
 Source2:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-non-english-man-pages.tar.bz2
 # Source2-md5:	c157a183b64156f8baafaefd9cbf04c1
