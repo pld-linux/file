@@ -51,8 +51,8 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
 %if %{with python}
-BuildRequires:	python-devel >= 2.5
-BuildRequires:	python-modules >= 2.5
+BuildRequires:	python-devel >= 1:2.5
+BuildRequires:	python-modules >= 1:2.5
 BuildRequires:	rpm-pythonprov
 %endif
 Requires:	libmagic = %{version}-%{release}
@@ -355,4 +355,5 @@ rm -rf $RPM_BUILD_ROOT
 %files -n python-magic
 %defattr(644,root,root,755)
 %attr(755,root,root) %{py_sitedir}/*.so
+%{py_sitedir}/Magic_file_extensions-*.egg-info
 %endif
