@@ -1,5 +1,27 @@
+diff -urN file-4.18.org/src/apprentice.c file-4.18/src/apprentice.c
+--- file-4.18.org/src/apprentice.c	2006-10-31 20:37:17.000000000 +0100
++++ file-4.18/src/apprentice.c	2006-11-25 01:27:51.000000000 +0100
+@@ -623,7 +623,7 @@
+         }
+ 
+ 	/* get offset, then skip over it */
+-	m->offset = (uint32_t)strtoul(l, &t, 0);
++	m->dummy4 = m->offset = (uint32_t)strtoul(l, &t, 0);
+         if (l == t)
+ 		if (ms->flags & MAGIC_CHECK)
+ 			file_magwarn(ms, "offset `%s' invalid", l);
+@@ -1487,7 +1487,7 @@
+ bs1(struct magic *m)
+ {
+ 	m->cont_level = swap2(m->cont_level);
+-	m->offset = swap4((uint32_t)m->offset);
++	m->dummy4 = m->offset = swap4((uint32_t)m->offset);
+ 	m->in_offset = swap4((uint32_t)m->in_offset);
+ 	if (!IS_STRING(m->type))
+ 		m->value.q = swap8(m->value.q);
+diff -urN file-4.18.org/src/funcs.c file-4.18/src/funcs.c
 --- file-4.18.org/src/funcs.c	2006-10-31 20:37:17.000000000 +0100
-+++ file/src/funcs.c	2006-11-25 00:52:17.259907000 +0100
++++ file-4.18/src/funcs.c	2006-11-25 01:27:51.000000000 +0100
 @@ -151,10 +151,16 @@
  protected int
  file_reset(struct magic_set *ms)
@@ -12,8 +34,9 @@
 +	for (ml = ms->mlist->next; ml != ms->mlist; ml = ml->next) {
 +		uint32_t magindex;
 +		for (magindex = 0; magindex < ml->nmagic; magindex++)
-+			ml->magic[magindex].offset = 0;
++			ml->magic[magindex].offset = ml->magic[magindex].dummy4;
 +	}
  	ms->o.ptr = ms->o.buf;
  	ms->haderr = 0;
  	ms->error = -1;
+
