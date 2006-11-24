@@ -28,7 +28,7 @@ Summary(zh_CN):	判定文件类型的工具。
 Summary(zh_TW):	ノ∕﹚郎摸ㄣ祘Α
 Name:		file
 Version:	4.18
-Release:	2
+Release:	3
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
