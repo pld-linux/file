@@ -28,7 +28,7 @@ Summary(zh_CN):	判定文件类型的工具。
 Summary(zh_TW):	ノ∕﹚郎摸ㄣ祘Α
 Name:		file
 Version:	4.18
-Release:	1
+Release:	4
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
@@ -47,12 +47,13 @@ Patch6:		%{name}-magic.patch
 Patch7:		%{name}-selinux.patch
 Patch8:		%{name}-msdos.patch
 Patch9:		%{name}-python-2.5.patch
+Patch10:	%{name}-offset.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
 %if %{with python}
-BuildRequires:	python-devel >= 2.5
-BuildRequires:	python-modules >= 2.5
+BuildRequires:	python-devel >= 1:2.4
+BuildRequires:	python-modules >= 1:2.4
 BuildRequires:	rpm-pythonprov
 %endif
 Requires:	libmagic = %{version}-%{release}
@@ -256,6 +257,7 @@ Wi眤ania Pythona dla libmagic.
 %patch7 -p1
 %patch8 -p1
 %patch9 -p1
+%patch10 -p1
 
 %build
 %{__libtoolize}
