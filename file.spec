@@ -27,27 +27,23 @@ Summary(uk):	õÔÉÌ¦ÔÁ ÄÌÑ ×ÉÚÎÁÞÅÎÎÑ ÔÉÐ¦× ÆÁÊÌ¦×
 Summary(zh_CN):	ÅÐ¶¨ÎÄ¼þÀàÐÍµÄ¹¤¾ß¡£
 Summary(zh_TW):	¥Î©ó¨M©wÀÉ®×Ãþ«¬ªº¤@­Ó¤u¨ãµ{¦¡¡C
 Name:		file
-Version:	4.18
-Release:	4
+Version:	4.19
+Release:	1
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
-# Source0-md5:	ce1aa9b0316feb57d40a48cfe6b606e4
+# Source0-md5:	a61ef3aa8339d5987148089afde25f60
 Source1:	zisofs.magic
 Source2:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-non-english-man-pages.tar.bz2
 # Source2-md5:	c157a183b64156f8baafaefd9cbf04c1
 Source3:	%{name}-magic.mscompress
 Patch0:		%{name}-debian.patch
 Patch1:		%{name}-sparc.patch
-Patch2:		%{name}-unicode.patch
-Patch3:		%{name}-dicom.patch
-Patch4:		%{name}-lmagic.patch
-Patch5:		%{name}-greedy-dump.patch
-Patch6:		%{name}-magic.patch
-Patch7:		%{name}-selinux.patch
-Patch8:		%{name}-msdos.patch
-Patch9:		%{name}-python-2.5.patch
-Patch10:	%{name}-offset.patch
+Patch2:		%{name}-lmagic.patch
+Patch3:		%{name}-greedy-dump.patch
+Patch4:		%{name}-magic.patch
+Patch5:		%{name}-selinux.patch
+Patch6:		%{name}-msdos.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
@@ -254,10 +250,6 @@ Wi±zania Pythona dla libmagic.
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
-%patch7 -p1
-%patch8 -p1
-%patch9 -p1
-%patch10 -p1
 
 %build
 %{__libtoolize}
