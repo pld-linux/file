@@ -1,5 +1,5 @@
---- file-4.17/magic/Magdir/msdos.orig	2006-03-02 22:50:36.000000000 +0100
-+++ file-4.17/magic/Magdir/msdos	2006-07-25 13:13:03.874440000 +0200
+--- file-4.19/magic/Magdir/msdos.orig	2006-11-17 16:56:05.000000000 +0100
++++ file-4.19/magic/Magdir/msdos	2006-12-20 19:48:05.070673271 +0100
 @@ -5,11 +5,10 @@
  
  # .BAT files (Daniel Quinlan, quinlan@yggdrasil.com)
@@ -16,7 +16,7 @@
  
  
  # OS/2 batch files are REXX. the second regex is a bit generic, oh well
-@@ -261,9 +260,9 @@
+@@ -262,9 +261,9 @@
  # Uncommenting only the first two lines will cover about 2/3 of COM files,
  # but it isn't feasible to match all COM files since there must be at least
  # two dozen different one-byte "magics".
@@ -29,7 +29,7 @@
  0	belong	0xffffffff		DOS executable (device driver)
  #CMD640X2.SYS
  >10	string	>\x23			
-@@ -285,49 +284,48 @@
+@@ -286,49 +285,48 @@
  >>77	string	>\x40			
  >>>77	string	<\x5B			
  >>>>77	string	x			\b, name: %.8s
@@ -103,3 +103,11 @@
  # many compressed/converted COMs start with a copy loop instead of a jump
  0x6	search/0xa	\xfc\x57\xf3\xa5\xc3	COM executable for MS-DOS
  0x6	search/0xa	\xfc\x57\xf3\xa4\xc3	COM executable for DOS
+@@ -617,5 +615,6 @@
+ 0	lelong	0x02468ace			Bochs Sparse disk image
+ 
+ # from http://filext.com by Derek M Jones <derek@knosof.co.uk>
+-0	string	\xD0\xCF\x11\xE0\xA1\xB1\x1A\xE1\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x3E\x00\x03\x00\xFE\xFF	Microsoft Installer
++# already noted as "false positive" above - it matches most of XLS/DOC files!
++#0	string	\xD0\xCF\x11\xE0\xA1\xB1\x1A\xE1\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x3E\x00\x03\x00\xFE\xFF	Microsoft Installer
+ 0	string	\320\317\021\340\241\261\032\341	Microsoft Office Document
