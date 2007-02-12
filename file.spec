@@ -4,28 +4,28 @@
 %bcond_without	static_libs	# don't build static libraries
 #
 Summary:	A utility for determining file types
-Summary(cs):	Program pro zji¹»ování typu souborù
-Summary(da):	Et værktøj til bestemmelse af filtyper
-Summary(de):	Ein Befehl zur Bestimmung von Dateitypen
-Summary(es):	Utilidad para determinar el tipo de fichero
-Summary(fr):	Utilitaire permettant d'identifier des types de fichier
-Summary(id):	Utility untuk menentukan tipe file
-Summary(is):	Tól til şess ağ komast ağ tegund skráar
-Summary(it):	Utility per determinare il tipo di file
-Summary(ja):	¥Õ¥¡¥¤¥ë¤Î¼ïÎà¤òÈ½ÃÇ¤¹¤ë¤¿¤á¤Î¥æ¡¼¥Æ¥£¥ê¥Æ¥£
-Summary(ko):	ÆÄÀÏ Á¾·ù¸¦ °áÁ¤ÇÏ´Â À¯Æ¿¸®Æ¼
-Summary(nb):	Et verktøy for å bestemme filtyper
-Summary(pl):	Polecenie okre¶laj±ce rodzaj pliku
-Summary(pt):	Um utilitário para determinar o tipo dos ficheiros
-Summary(pt_BR):	Um utilitário para determinar tipos de arquivos
-Summary(ru):	õÔÉÌÉÔÁ ÄÌÑ ÏĞÒÅÄÅÌÅÎÉÑ ÔÉĞÏ× ÆÁÊÌÏ×
-Summary(sk):	Pomocnı program pre urèenie typu súboru
-Summary(sl):	Pripomoèek za ugotavljanje vrste datotek
-Summary(sv):	Ett verktyg för att bestämma filtyper
-Summary(tr):	Dosya türünü öğrenmek için bir araç
-Summary(uk):	õÔÉÌ¦ÔÁ ÄÌÑ ×ÉÚÎÁŞÅÎÎÑ ÔÉĞ¦× ÆÁÊÌ¦×
-Summary(zh_CN):	ÅĞ¶¨ÎÄ¼şÀàĞÍµÄ¹¤¾ß¡£
-Summary(zh_TW):	¥Î©ó¨M©wÀÉ®×Ãş«¬ªº¤@­Ó¤u¨ãµ{¦¡¡C
+Summary(cs.UTF-8):   Program pro zjiÅ¡Å¥ovÃ¡nÃ­ typu souborÅ¯
+Summary(da.UTF-8):   Et vÃ¦rktÃ¸j til bestemmelse af filtyper
+Summary(de.UTF-8):   Ein Befehl zur Bestimmung von Dateitypen
+Summary(es.UTF-8):   Utilidad para determinar el tipo de fichero
+Summary(fr.UTF-8):   Utilitaire permettant d'identifier des types de fichier
+Summary(id.UTF-8):   Utility untuk menentukan tipe file
+Summary(is.UTF-8):   TÃ³l til Ã¾ess aÃ° komast aÃ° tegund skrÃ¡ar
+Summary(it.UTF-8):   Utility per determinare il tipo di file
+Summary(ja.UTF-8):   ãƒ•ã‚¡ã‚¤ãƒ«ã®ç¨®é¡ã‚’åˆ¤æ–­ã™ã‚‹ãŸã‚ã®ãƒ¦ãƒ¼ãƒ†ã‚£ãƒªãƒ†ã‚£
+Summary(ko.UTF-8):   íŒŒì¼ ì¢…ë¥˜ë¥¼ ê²°ì •í•˜ëŠ” ìœ í‹¸ë¦¬í‹°
+Summary(nb.UTF-8):   Et verktÃ¸y for Ã¥ bestemme filtyper
+Summary(pl.UTF-8):   Polecenie okreÅ›lajÄ…ce rodzaj pliku
+Summary(pt.UTF-8):   Um utilitÃ¡rio para determinar o tipo dos ficheiros
+Summary(pt_BR.UTF-8):   Um utilitÃ¡rio para determinar tipos de arquivos
+Summary(ru.UTF-8):   Ğ£Ñ‚Ğ¸Ğ»Ğ¸Ñ‚Ğ° Ğ´Ğ»Ñ Ğ¾Ğ¿Ñ€ĞµĞ´ĞµĞ»ĞµĞ½Ğ¸Ñ Ñ‚Ğ¸Ğ¿Ğ¾Ğ² Ñ„Ğ°Ğ¹Ğ»Ğ¾Ğ²
+Summary(sk.UTF-8):   PomocnÃ½ program pre urÄenie typu sÃºboru
+Summary(sl.UTF-8):   PripomoÄek za ugotavljanje vrste datotek
+Summary(sv.UTF-8):   Ett verktyg fÃ¶r att bestÃ¤mma filtyper
+Summary(tr.UTF-8):   Dosya tÃ¼rÃ¼nÃ¼ Ã¶ÄŸrenmek iÃ§in bir araÃ§
+Summary(uk.UTF-8):   Ğ£Ñ‚Ğ¸Ğ»Ñ–Ñ‚Ğ° Ğ´Ğ»Ñ Ğ²Ğ¸Ğ·Ğ½Ğ°Ñ‡ĞµĞ½Ğ½Ñ Ñ‚Ğ¸Ğ¿Ñ–Ğ² Ñ„Ğ°Ğ¹Ğ»Ñ–Ğ²
+Summary(zh_CN.UTF-8):   åˆ¤å®šæ–‡ä»¶ç±»å‹çš„å·¥å…·ã€‚
+Summary(zh_TW.UTF-8):   ç”¨æ–¼æ±ºå®šæª”æ¡ˆé¡å‹çš„ä¸€å€‹å·¥å…·ç¨‹å¼ã€‚
 Name:		file
 Version:	4.19
 Release:	1
@@ -65,138 +65,138 @@ safe to 'more' it or if it's a binary. It recognizes many file types,
 including ELF binaries, system libraries, RPM packages, and many
 different graphics formats.
 
-%description -l cs
-Pøíkaz file se pou¾ívá pro identifikaci zadaného souboru podle jeho
-obsahu. Je schopen identifikovat mno¾ství rùznıch typù souborù vèetnì
-binárních souborù ELF, systémovıch knihoven, RPM balíèkù a rùznıch
-grafickıch formátù.
+%description -l cs.UTF-8
+PÅ™Ã­kaz file se pouÅ¾Ã­vÃ¡ pro identifikaci zadanÃ©ho souboru podle jeho
+obsahu. Je schopen identifikovat mnoÅ¾stvÃ­ rÅ¯znÃ½ch typÅ¯ souborÅ¯ vÄetnÄ›
+binÃ¡rnÃ­ch souborÅ¯ ELF, systÃ©movÃ½ch knihoven, RPM balÃ­ÄkÅ¯ a rÅ¯znÃ½ch
+grafickÃ½ch formÃ¡tÅ¯.
 
-%description -l da
-Programmet "file" bruges til at identificere filer baseret på indhold.
+%description -l da.UTF-8
+Programmet "file" bruges til at identificere filer baseret pÃ¥ indhold.
 "file" kan identificere mange forskellige filtyper, inkl. ELF-filer,
 systembiblioteker, RPM-pakker og billedfiler i forskellige formater.
 
-%description -l de
-Sie können dieses Paket verwenden, um zu bestimmen, welches Format
+%description -l de.UTF-8
+Sie kÃ¶nnen dieses Paket verwenden, um zu bestimmen, welches Format
 eine bestimmte Datei hat. Wird durch fsck eine Datei in lost+found
-gespeichert, können Sie 'file' ausführen, um herauszufinden, ob Sie
-sie mit 'more' einsehen können, oder ob es sich um ein Binärprogramm
-handelt Das Programm erkennt u.a. ELF-Binärprogramme,
+gespeichert, kÃ¶nnen Sie 'file' ausfÃ¼hren, um herauszufinden, ob Sie
+sie mit 'more' einsehen kÃ¶nnen, oder ob es sich um ein BinÃ¤rprogramm
+handelt Das Programm erkennt u.a. ELF-BinÃ¤rprogramme,
 System-Libraries, RPM-Pakete und viele Grafikformate.
 
-%description -l es
-Este paquete es útil para descubrir que tipo de archivo estás buscando
+%description -l es.UTF-8
+Este paquete es Ãºtil para descubrir que tipo de archivo estÃ¡s buscando
 en tu sistema. Por ejemplo, si fsck resulta un archivo que fue
-almacenado en el "lost+found", tu puedes ejecutar file en él para
+almacenado en el "lost+found", tu puedes ejecutar file en Ã©l para
 descubrir si es seguro leerlo con el "more" o si es un binario.
 Reconoce varios tipos de archivos, incluyendo binarios ELF,
-bibliotecas de sistema, paquetes RPM y varios formatos gráficos
+bibliotecas de sistema, paquetes RPM y varios formatos grÃ¡ficos
 diferentes.
 
-%description -l fr
-Ce paquetage sert à trouver le type du fichier que vous recherchez sur
-votre système. Par exemple, si un fsck fait qu'un fichier a été stocké
+%description -l fr.UTF-8
+Ce paquetage sert Ã  trouver le type du fichier que vous recherchez sur
+votre systÃ¨me. Par exemple, si un fsck fait qu'un fichier a Ã©tÃ© stockÃ©
 dans lost+found, vous pouvez lancer file dessus pour savoir si on peut
-faire un more, ou s'il s'agit d'un binaire. Il reconnaît de nombreux
-types de fichiers dont les binaires ELF, les bibliothèques systèmes,
-les paquetages RPM et de nombreux formats graphiques différents.
+faire un more, ou s'il s'agit d'un binaire. Il reconnaÃ®t de nombreux
+types de fichiers dont les binaires ELF, les bibliothÃ¨ques systÃ¨mes,
+les paquetages RPM et de nombreux formats graphiques diffÃ©rents.
 
-%description -l it
-Il comando file è utilizzato per identificare il tipo di file in base
-ai tipi di dati che contiene. File può identificare molti tipi di
+%description -l it.UTF-8
+Il comando file Ã¨ utilizzato per identificare il tipo di file in base
+ai tipi di dati che contiene. File puÃ² identificare molti tipi di
 file, tra cui i binari ELF, le librerie di sistema, i pacchetti RPM e
 vari formati grafici.
 
-%description -l ja
-¥Õ¥¡¥¤¥ë¥³¥Ş¥ó¥É¤Ï¥Õ¥¡¥¤¥ë¤Ë´Ş¤Ş¤ì¤ë¥Ç¡¼¥¿¤Î¼ïÎà¤Ë¤è¤ê¸Ä¡¹¤Î¥Õ¥¡¥¤¥ë¤ò
-¸«Ê¬¤±¤ë¤¿¤á¤Ë»È¤ï¤ì¤ë¡£file ¤Ï ELF ¥Ğ¥¤¥Ê¥ê¡¢¥·¥¹¥Æ¥à¥é¥¤¥Ö¥é¥ê¡¢ RPM
-¥Ñ¥Ã¥±¡¼¥¸¡¢¤½¤·¤Æ¼ï¡¹¤Î¥°¥é¥Õ¥£¥Ã¥¯¥Õ¥©¡¼¥Ş¥Ã¥È¤ò´Ş¤à¡¢Â¿¤¯¤Î°Û¤Ê¤ë
-¥Õ¥¡¥¤¥ë¤Î¼ïÎà¤ò¸«Ê¬¤±¤ë¤³¤È¤¬²ÄÇ½¤Ç¤¢¤ë¡£
+%description -l ja.UTF-8
+ãƒ•ã‚¡ã‚¤ãƒ«ã‚³ãƒãƒ³ãƒ‰ã¯ãƒ•ã‚¡ã‚¤ãƒ«ã«å«ã¾ã‚Œã‚‹ãƒ‡ãƒ¼ã‚¿ã®ç¨®é¡ã«ã‚ˆã‚Šå€‹ã€…ã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’
+è¦‹åˆ†ã‘ã‚‹ãŸã‚ã«ä½¿ã‚ã‚Œã‚‹ã€‚file ã¯ ELF ãƒã‚¤ãƒŠãƒªã€ã‚·ã‚¹ãƒ†ãƒ ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã€ RPM
+ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ã€ãã—ã¦ç¨®ã€…ã®ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã‚’å«ã‚€ã€å¤šãã®ç•°ãªã‚‹
+ãƒ•ã‚¡ã‚¤ãƒ«ã®ç¨®é¡ã‚’è¦‹åˆ†ã‘ã‚‹ã“ã¨ãŒå¯èƒ½ã§ã‚ã‚‹ã€‚
 
-%description -l ko
-ÆÄÀÏ¿¡ ÀúÀåµÈ ÀÚ·á À¯Çü¿¡ µû¶ó ÆÄÀÏÀ» ½Äº°ÇÏ´Â file ¸í·É. FileÀº ELF
-¹ÙÀÌ³Ê¸®, ½Ã½ºÅÛ ¶óÀÌºê·¯¸®, RPM ÆĞÅ°Áö¿Í ´Ù¸¥ ±×·¡ÇÈ À¯ÇüÀ» Æ÷ÇÔÇÑ
-¿©·¯ ¸¹Àº ÆÄÀÏ À¯ÇüÀ» ½Äº° °¡´ÉÇÕ´Ï´Ù.
+%description -l ko.UTF-8
+íŒŒì¼ì— ì €ì¥ëœ ìë£Œ ìœ í˜•ì— ë”°ë¼ íŒŒì¼ì„ ì‹ë³„í•˜ëŠ” file ëª…ë ¹. Fileì€ ELF
+ë°”ì´ë„ˆë¦¬, ì‹œìŠ¤í…œ ë¼ì´ë¸ŒëŸ¬ë¦¬, RPM íŒ¨í‚¤ì§€ì™€ ë‹¤ë¥¸ ê·¸ë˜í”½ ìœ í˜•ì„ í¬í•¨í•œ
+ì—¬ëŸ¬ ë§ì€ íŒŒì¼ ìœ í˜•ì„ ì‹ë³„ ê°€ëŠ¥í•©ë‹ˆë‹¤.
 
-%description -l nb
-Programmet "file" brukes for å identifisere filer basert på innhold.
+%description -l nb.UTF-8
+Programmet "file" brukes for Ã¥ identifisere filer basert pÃ¥ innhold.
 "file" kan identifisere mange ulike filtyper, inkl. ELF-filer,
 systembibliotek, RPM-pakker og bildefiler i ulike formater.
 
-%description -l pl
-Pakiet ten jest przydatny je¿eli chcesz rozpoznaæ typ plików w twoim
-systemie. Na przyk³ad je¿eli fsck zdeponuje jakie¶ pliki w katalogu
-lost+found, mo¿esz uruchomiæ file na zdeponowanym pliku i zobaczyæ
-jaki to jest typ pliku, jest to metoda bezpieczniejsza ni¿ 'more', ze
-wzglêdu na to, ¿e to mo¿e byæ plik binarny. File potrafi rozpoznaæ
-wiele typów plików np. binarny ELF, biblioteki systemowe, pakiety RPM
-oraz wiele ró¿nych formatów graficznych i d¼wiêkowych.
+%description -l pl.UTF-8
+Pakiet ten jest przydatny jeÅ¼eli chcesz rozpoznaÄ‡ typ plikÃ³w w twoim
+systemie. Na przykÅ‚ad jeÅ¼eli fsck zdeponuje jakieÅ› pliki w katalogu
+lost+found, moÅ¼esz uruchomiÄ‡ file na zdeponowanym pliku i zobaczyÄ‡
+jaki to jest typ pliku, jest to metoda bezpieczniejsza niÅ¼ 'more', ze
+wzglÄ™du na to, Å¼e to moÅ¼e byÄ‡ plik binarny. File potrafi rozpoznaÄ‡
+wiele typÃ³w plikÃ³w np. binarny ELF, biblioteki systemowe, pakiety RPM
+oraz wiele rÃ³Å¼nych formatÃ³w graficznych i dÅºwiÄ™kowych.
 
-%description -l pt
-O comando file é usado para identificar um ficheiro em particular de
-acordo com o tipo de dados que contém. O file pode identificar vários
-formatos de ficheiros, incluindo binários ELF, bibliotecas de sistema,
-pacotes RPM e vários formatos gráficos diferentes.
+%description -l pt.UTF-8
+O comando file Ã© usado para identificar um ficheiro em particular de
+acordo com o tipo de dados que contÃ©m. O file pode identificar vÃ¡rios
+formatos de ficheiros, incluindo binÃ¡rios ELF, bibliotecas de sistema,
+pacotes RPM e vÃ¡rios formatos grÃ¡ficos diferentes.
 
-%description -l pt_BR
-Este pacote é útil para descobrir que tipo de arquivo você está
+%description -l pt_BR.UTF-8
+Este pacote Ã© Ãºtil para descobrir que tipo de arquivo vocÃª estÃ¡
 procurando em seu sistema. Por exemplo, se um fsck resulta em um
-arquivo forem armazenado no "lost+found", você pode rodar file nele
-para descobrir se é seguro lê-lo com o "more" ou se ele é um binário.
-Ele reconhece vários tipos de arquivos, incluindo binários ELF,
-bibliotecas de sistema, pacotes RPM e vários formatos gráficos
+arquivo forem armazenado no "lost+found", vocÃª pode rodar file nele
+para descobrir se Ã© seguro lÃª-lo com o "more" ou se ele Ã© um binÃ¡rio.
+Ele reconhece vÃ¡rios tipos de arquivos, incluindo binÃ¡rios ELF,
+bibliotecas de sistema, pacotes RPM e vÃ¡rios formatos grÃ¡ficos
 diferentes.
 
-%description -l ru
-ëÏÍÁÎÄÁ file ÉÓĞÏÌØÚÕÅÔÓÑ ÄÌÑ ÏĞÒÅÄÅÌÅÎÉÑ ÔÉĞÁ ÆÁÊÌÁ ĞÏ ÄÁÎÎÙÍ, × ÎÅÍ
-ÓÏÄÅÒÖÁİÉÍÓÑ. ïÎÁ ÍÏÖÅÔ ÏĞÒÅÄÅÌÉÔØ ÍÎÏÖÅÓÔ×Ï ÒÁÚÎÏÏÂÒÁÚÎÙÈ ÔÉĞÏ×
-ÆÁÊÌÏ×, ×ËÌÀŞÁÑ ÂÉÎÁÒÎÙÅ ÆÁÊÌÙ ÆÏÒÍÁÔÁ ELF, ÓÉÓÔÅÍÎÙÅ ÂÉÂÌÉÏÔÅËÉ,
-ĞÁËÅÔÙ RPM, ÒÁÚÌÉŞÎÙÅ ÇÒÁÆÉŞÅÓËÉÅ ÆÏÒÍÁÔÙ É ÍÎÏÇÏ ÄÒÕÇÉÈ.
+%description -l ru.UTF-8
+ĞšĞ¾Ğ¼Ğ°Ğ½Ğ´Ğ° file Ğ¸ÑĞ¿Ğ¾Ğ»ÑŒĞ·ÑƒĞµÑ‚ÑÑ Ğ´Ğ»Ñ Ğ¾Ğ¿Ñ€ĞµĞ´ĞµĞ»ĞµĞ½Ğ¸Ñ Ñ‚Ğ¸Ğ¿Ğ° Ñ„Ğ°Ğ¹Ğ»Ğ° Ğ¿Ğ¾ Ğ´Ğ°Ğ½Ğ½Ñ‹Ğ¼, Ğ² Ğ½ĞµĞ¼
+ÑĞ¾Ğ´ĞµÑ€Ğ¶Ğ°Ñ‰Ğ¸Ğ¼ÑÑ. ĞĞ½Ğ° Ğ¼Ğ¾Ğ¶ĞµÑ‚ Ğ¾Ğ¿Ñ€ĞµĞ´ĞµĞ»Ğ¸Ñ‚ÑŒ Ğ¼Ğ½Ğ¾Ğ¶ĞµÑÑ‚Ğ²Ğ¾ Ñ€Ğ°Ğ·Ğ½Ğ¾Ğ¾Ğ±Ñ€Ğ°Ğ·Ğ½Ñ‹Ñ… Ñ‚Ğ¸Ğ¿Ğ¾Ğ²
+Ñ„Ğ°Ğ¹Ğ»Ğ¾Ğ², Ğ²ĞºĞ»ÑÑ‡Ğ°Ñ Ğ±Ğ¸Ğ½Ğ°Ñ€Ğ½Ñ‹Ğµ Ñ„Ğ°Ğ¹Ğ»Ñ‹ Ñ„Ğ¾Ñ€Ğ¼Ğ°Ñ‚Ğ° ELF, ÑĞ¸ÑÑ‚ĞµĞ¼Ğ½Ñ‹Ğµ Ğ±Ğ¸Ğ±Ğ»Ğ¸Ğ¾Ñ‚ĞµĞºĞ¸,
+Ğ¿Ğ°ĞºĞµÑ‚Ñ‹ RPM, Ñ€Ğ°Ğ·Ğ»Ğ¸Ñ‡Ğ½Ñ‹Ğµ Ğ³Ñ€Ğ°Ñ„Ğ¸Ñ‡ĞµÑĞºĞ¸Ğµ Ñ„Ğ¾Ñ€Ğ¼Ğ°Ñ‚Ñ‹ Ğ¸ Ğ¼Ğ½Ğ¾Ğ³Ğ¾ Ğ´Ñ€ÑƒĞ³Ğ¸Ñ….
 
-%description -l sv
-Kommandot file används för att identifera en fil vad avser vilken typ
-av data filen innehåller. File kan identifiera många olika filtyper,
-inklusive ELF-binärer, systembibliotek, RPM-paket och olika
+%description -l sv.UTF-8
+Kommandot file anvÃ¤nds fÃ¶r att identifera en fil vad avser vilken typ
+av data filen innehÃ¥ller. File kan identifiera mÃ¥nga olika filtyper,
+inklusive ELF-binÃ¤rer, systembibliotek, RPM-paket och olika
 grafikformat.
 
-%description -l tr
-file, bir dosyayı inceleyerek ne tür bir dosya olduğu konusunda size
-bir fikir verebilir. Böylece uzantısından ve adından ne olduğunu
-çıkaramadığınız bir dosyayı hangi yazılım ile kullanabileceğinize ya
-da ne yapacağınıza karar verebilisiniz. file, temel dosya tiplerini,
-çoğu grafik formatını, çalıştırılabilir dosyaları, sistem
-kitaplıklarını vs. tanıyabilir.
+%description -l tr.UTF-8
+file, bir dosyayÄ± inceleyerek ne tÃ¼r bir dosya olduÄŸu konusunda size
+bir fikir verebilir. BÃ¶ylece uzantÄ±sÄ±ndan ve adÄ±ndan ne olduÄŸunu
+Ã§Ä±karamadÄ±ÄŸÄ±nÄ±z bir dosyayÄ± hangi yazÄ±lÄ±m ile kullanabileceÄŸinize ya
+da ne yapacaÄŸÄ±nÄ±za karar verebilisiniz. file, temel dosya tiplerini,
+Ã§oÄŸu grafik formatÄ±nÄ±, Ã§alÄ±ÅŸtÄ±rÄ±labilir dosyalarÄ±, sistem
+kitaplÄ±klarÄ±nÄ± vs. tanÄ±yabilir.
 
-%description -l uk
-ëÏÍÁÎÄÁ file ×ÉËÏÒÉÓÔÏ×Õ¤ÔØÓÑ ÄÌÑ ×ÉÚÎÁŞÅÎÎÑ ÔÉĞÕ ÆÁÊÌÕ ĞÏ ÄÁÎÉÈ, ÑË¦
-×¦Î Í¦ÓÔÉÔØ. ÷ÏÎÁ ÍÏÖÅ ×ÉÚÎÁŞÉÔÉ ×ÅÌÉËÕ Ë¦ÌØË¦ÓÔØ Ò¦ÚÎÏÍÁÎ¦ÔÎÉÈ ÔÉĞ¦×
-ÆÁÊÌ¦×, Õ ÔÏÍÕ ŞÉÓÌ¦ Â¦ÎÁÒÎ¦ ÆÁÊÌÉ ÆÏÒÍÁÔÕ ELF, ÓÉÓÔÅÍÎ¦ Â¦ÂÌ¦ÏÔÅËÉ,
-ĞÁËÅÔÉ RPM, Ò¦ÚÎÏÍÁÎ¦ÔÎ¦ ÇÒÁÆ¦ŞÎ¦ ÆÏÒÍÁÔÉ ÔÁ ÂÁÇÁÔÏ ¦ÎÛÉÈ.
+%description -l uk.UTF-8
+ĞšĞ¾Ğ¼Ğ°Ğ½Ğ´Ğ° file Ğ²Ğ¸ĞºĞ¾Ñ€Ğ¸ÑÑ‚Ğ¾Ğ²ÑƒÑ”Ñ‚ÑŒÑÑ Ğ´Ğ»Ñ Ğ²Ğ¸Ğ·Ğ½Ğ°Ñ‡ĞµĞ½Ğ½Ñ Ñ‚Ğ¸Ğ¿Ñƒ Ñ„Ğ°Ğ¹Ğ»Ñƒ Ğ¿Ğ¾ Ğ´Ğ°Ğ½Ğ¸Ñ…, ÑĞºÑ–
+Ğ²Ñ–Ğ½ Ğ¼Ñ–ÑÑ‚Ğ¸Ñ‚ÑŒ. Ğ’Ğ¾Ğ½Ğ° Ğ¼Ğ¾Ğ¶Ğµ Ğ²Ğ¸Ğ·Ğ½Ğ°Ñ‡Ğ¸Ñ‚Ğ¸ Ğ²ĞµĞ»Ğ¸ĞºÑƒ ĞºÑ–Ğ»ÑŒĞºÑ–ÑÑ‚ÑŒ Ñ€Ñ–Ğ·Ğ½Ğ¾Ğ¼Ğ°Ğ½Ñ–Ñ‚Ğ½Ğ¸Ñ… Ñ‚Ğ¸Ğ¿Ñ–Ğ²
+Ñ„Ğ°Ğ¹Ğ»Ñ–Ğ², Ñƒ Ñ‚Ğ¾Ğ¼Ñƒ Ñ‡Ğ¸ÑĞ»Ñ– Ğ±Ñ–Ğ½Ğ°Ñ€Ğ½Ñ– Ñ„Ğ°Ğ¹Ğ»Ğ¸ Ñ„Ğ¾Ñ€Ğ¼Ğ°Ñ‚Ñƒ ELF, ÑĞ¸ÑÑ‚ĞµĞ¼Ğ½Ñ– Ğ±Ñ–Ğ±Ğ»Ñ–Ğ¾Ñ‚ĞµĞºĞ¸,
+Ğ¿Ğ°ĞºĞµÑ‚Ğ¸ RPM, Ñ€Ñ–Ğ·Ğ½Ğ¾Ğ¼Ğ°Ğ½Ñ–Ñ‚Ğ½Ñ– Ğ³Ñ€Ğ°Ñ„Ñ–Ñ‡Ğ½Ñ– Ñ„Ğ¾Ñ€Ğ¼Ğ°Ñ‚Ğ¸ Ñ‚Ğ° Ğ±Ğ°Ğ³Ğ°Ñ‚Ğ¾ Ñ–Ğ½ÑˆĞ¸Ñ….
 
-%description -l zh_CN
-file ÃüÁîÓÃÀ´¸ù¾İÎÄ¼şÖĞ°üº¬µÄÊı¾İÀàĞÍÀ´Ê¶±ğÎÄ¼şÀàĞÍ¡£ file
-¿ÉÒÔÊ¶±ğĞí¶à²»Í¬µÄÎÄ¼şÀàĞÍ£¬°üÀ¨ ELF ¶ş½øÖÆ¡¢ÏµÍ³ ¿â¡¢RPM
-Èí¼ş°ü¡¢ºÍ²»Í¬µÄÍ¼ĞÎ¸ñÊ½¡£
+%description -l zh_CN.UTF-8
+file å‘½ä»¤ç”¨æ¥æ ¹æ®æ–‡ä»¶ä¸­åŒ…å«çš„æ•°æ®ç±»å‹æ¥è¯†åˆ«æ–‡ä»¶ç±»å‹ã€‚ file
+å¯ä»¥è¯†åˆ«è®¸å¤šä¸åŒçš„æ–‡ä»¶ç±»å‹ï¼ŒåŒ…æ‹¬ ELF äºŒè¿›åˆ¶ã€ç³»ç»Ÿ åº“ã€RPM
+è½¯ä»¶åŒ…ã€å’Œä¸åŒçš„å›¾å½¢æ ¼å¼ã€‚
 
-%description -l zh_TW
-file «ü¥O¬O®Ú¾ÚÀÉ®×¥]§tªº¸ê®ÆÃş«¬¨Ó¿ë»{ÀÉ®×¡C File
-¥i¥H¿ë»{³\¦h¤£¦PªºÀÉ®×Ãş«¬¡A ¥]§t ELF binaries¡A¨t²Î¨ç¦¡®w¡ARPM
-®M¥ó¡A¥H¤Î¤£¦Pªº ¹Ï¹³®æ¦¡¡C
+%description -l zh_TW.UTF-8
+file æŒ‡ä»¤æ˜¯æ ¹æ“šæª”æ¡ˆåŒ…å«çš„è³‡æ–™é¡å‹ä¾†è¾¨èªæª”æ¡ˆã€‚ File
+å¯ä»¥è¾¨èªè¨±å¤šä¸åŒçš„æª”æ¡ˆé¡å‹ï¼Œ åŒ…å« ELF binariesï¼Œç³»çµ±å‡½å¼åº«ï¼ŒRPM
+å¥—ä»¶ï¼Œä»¥åŠä¸åŒçš„ åœ–åƒæ ¼å¼ã€‚
 
 %package -n libmagic
 Summary:	libmagic library
-Summary(pl):	Biblioteka libmagic
+Summary(pl.UTF-8):   Biblioteka libmagic
 Group:		Libraries
 
 %description -n libmagic
 Library of functions which operate on magic database file.
 
-%description -n libmagic -l pl
-Biblioteka funkcji operuj±cych na pliku bazy danych magic.
+%description -n libmagic -l pl.UTF-8
+Biblioteka funkcji operujÄ…cych na pliku bazy danych magic.
 
 %package -n libmagic-devel
 Summary:	Header files for libmagic library
-Summary(pl):	Pliki nag³ówkowe biblioteki libmagic
+Summary(pl.UTF-8):   Pliki nagÅ‚Ã³wkowe biblioteki libmagic
 Group:		Development/Libraries
 Requires:	libmagic = %{version}-%{release}
 
@@ -206,15 +206,15 @@ Library of functions which operate on magic database file.
 This package contains the header files needed to develop programs that
 use these libmagic.
 
-%description -n libmagic-devel -l pl
-Biblioteka funkcji operuj±cych na pliku bazy danych magic.
+%description -n libmagic-devel -l pl.UTF-8
+Biblioteka funkcji operujÄ…cych na pliku bazy danych magic.
 
-Ten pakiet zawiera pliki nag³ówkowe potrzebne do tworzenia programów
-u¿ywaj±cych libmagic.
+Ten pakiet zawiera pliki nagÅ‚Ã³wkowe potrzebne do tworzenia programÃ³w
+uÅ¼ywajÄ…cych libmagic.
 
 %package -n libmagic-static
 Summary:	Static libmagic library
-Summary(pl):	Statyczna biblioteka libmagic
+Summary(pl.UTF-8):   Statyczna biblioteka libmagic
 Group:		Development/Libraries
 Requires:	libmagic-devel = %{version}-%{release}
 
@@ -223,14 +223,14 @@ Library of functions which operate on magic database file.
 
 This package contains the static libmagic.
 
-%description -n libmagic-static -l pl
-Biblioteka funkcji operuj±cych na pliku bazy danych magic.
+%description -n libmagic-static -l pl.UTF-8
+Biblioteka funkcji operujÄ…cych na pliku bazy danych magic.
 
-Ten pakiet zawiera statyczn± wersjê biblioteki.
+Ten pakiet zawiera statycznÄ… wersjÄ™ biblioteki.
 
 %package -n python-magic
 Summary:	Python bindings for libmagic
-Summary(pl):	Wi±zania Pythona dla libmagic
+Summary(pl.UTF-8):   WiÄ…zania Pythona dla libmagic
 Group:		Libraries/Python
 Requires:	libmagic = %{version}-%{release}
 %pyrequires_eq	python-libs
@@ -238,8 +238,8 @@ Requires:	libmagic = %{version}-%{release}
 %description -n python-magic
 Python bindings for libmagic.
 
-%description -n python-magic -l pl
-Wi±zania Pythona dla libmagic.
+%description -n python-magic -l pl.UTF-8
+WiÄ…zania Pythona dla libmagic.
 
 %prep
 %setup -q
