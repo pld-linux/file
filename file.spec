@@ -4,28 +4,28 @@
 %bcond_without	static_libs	# don't build static libraries
 #
 Summary:	A utility for determining file types
-Summary(cs.UTF-8):   Program pro zjišťování typu souborů
-Summary(da.UTF-8):   Et værktøj til bestemmelse af filtyper
-Summary(de.UTF-8):   Ein Befehl zur Bestimmung von Dateitypen
-Summary(es.UTF-8):   Utilidad para determinar el tipo de fichero
-Summary(fr.UTF-8):   Utilitaire permettant d'identifier des types de fichier
-Summary(id.UTF-8):   Utility untuk menentukan tipe file
-Summary(is.UTF-8):   Tól til þess að komast að tegund skráar
-Summary(it.UTF-8):   Utility per determinare il tipo di file
-Summary(ja.UTF-8):   ファイルの種類を判断するためのユーティリティ
-Summary(ko.UTF-8):   파일 종류를 결정하는 유틸리티
-Summary(nb.UTF-8):   Et verktøy for å bestemme filtyper
-Summary(pl.UTF-8):   Polecenie określające rodzaj pliku
-Summary(pt.UTF-8):   Um utilitário para determinar o tipo dos ficheiros
-Summary(pt_BR.UTF-8):   Um utilitário para determinar tipos de arquivos
-Summary(ru.UTF-8):   Утилита для определения типов файлов
-Summary(sk.UTF-8):   Pomocný program pre určenie typu súboru
-Summary(sl.UTF-8):   Pripomoček za ugotavljanje vrste datotek
-Summary(sv.UTF-8):   Ett verktyg för att bestämma filtyper
-Summary(tr.UTF-8):   Dosya türünü öğrenmek için bir araç
-Summary(uk.UTF-8):   Утиліта для визначення типів файлів
-Summary(zh_CN.UTF-8):   判定文件类型的工具。
-Summary(zh_TW.UTF-8):   用於決定檔案類型的一個工具程式。
+Summary(cs.UTF-8):	Program pro zjišťování typu souborů
+Summary(da.UTF-8):	Et værktøj til bestemmelse af filtyper
+Summary(de.UTF-8):	Ein Befehl zur Bestimmung von Dateitypen
+Summary(es.UTF-8):	Utilidad para determinar el tipo de fichero
+Summary(fr.UTF-8):	Utilitaire permettant d'identifier des types de fichier
+Summary(id.UTF-8):	Utility untuk menentukan tipe file
+Summary(is.UTF-8):	Tól til þess að komast að tegund skráar
+Summary(it.UTF-8):	Utility per determinare il tipo di file
+Summary(ja.UTF-8):	ファイルの種類を判断するためのユーティリティ
+Summary(ko.UTF-8):	파일 종류를 결정하는 유틸리티
+Summary(nb.UTF-8):	Et verktøy for å bestemme filtyper
+Summary(pl.UTF-8):	Polecenie określające rodzaj pliku
+Summary(pt.UTF-8):	Um utilitário para determinar o tipo dos ficheiros
+Summary(pt_BR.UTF-8):	Um utilitário para determinar tipos de arquivos
+Summary(ru.UTF-8):	Утилита для определения типов файлов
+Summary(sk.UTF-8):	Pomocný program pre určenie typu súboru
+Summary(sl.UTF-8):	Pripomoček za ugotavljanje vrste datotek
+Summary(sv.UTF-8):	Ett verktyg för att bestämma filtyper
+Summary(tr.UTF-8):	Dosya türünü öğrenmek için bir araç
+Summary(uk.UTF-8):	Утиліта для визначення типів файлів
+Summary(zh_CN.UTF-8):	判定文件类型的工具。
+Summary(zh_TW.UTF-8):	用於決定檔案類型的一個工具程式。
 Name:		file
 Version:	4.19
 Release:	1
@@ -185,7 +185,7 @@ file 指令是根據檔案包含的資料類型來辨認檔案。 File
 
 %package -n libmagic
 Summary:	libmagic library
-Summary(pl.UTF-8):   Biblioteka libmagic
+Summary(pl.UTF-8):	Biblioteka libmagic
 Group:		Libraries
 
 %description -n libmagic
@@ -196,7 +196,7 @@ Biblioteka funkcji operujących na pliku bazy danych magic.
 
 %package -n libmagic-devel
 Summary:	Header files for libmagic library
-Summary(pl.UTF-8):   Pliki nagłówkowe biblioteki libmagic
+Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libmagic
 Group:		Development/Libraries
 Requires:	libmagic = %{version}-%{release}
 
@@ -214,7 +214,7 @@ używających libmagic.
 
 %package -n libmagic-static
 Summary:	Static libmagic library
-Summary(pl.UTF-8):   Statyczna biblioteka libmagic
+Summary(pl.UTF-8):	Statyczna biblioteka libmagic
 Group:		Development/Libraries
 Requires:	libmagic-devel = %{version}-%{release}
 
@@ -230,7 +230,7 @@ Ten pakiet zawiera statyczną wersję biblioteki.
 
 %package -n python-magic
 Summary:	Python bindings for libmagic
-Summary(pl.UTF-8):   Wiązania Pythona dla libmagic
+Summary(pl.UTF-8):	Wiązania Pythona dla libmagic
 Group:		Libraries/Python
 Requires:	libmagic = %{version}-%{release}
 %pyrequires_eq	python-libs
