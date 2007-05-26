@@ -27,12 +27,12 @@ Summary(uk.UTF-8):	Утиліта для визначення типів фай�
 Summary(zh_CN.UTF-8):	判定文件类型的工具。
 Summary(zh_TW.UTF-8):	用於決定檔案類型的一個工具程式。
 Name:		file
-Version:	4.20
-Release:	3
+Version:	4.21
+Release:	1
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
-# Source0-md5:	402bdb26356791bd5d277099adacc006
+# Source0-md5:	9e3503116f4269a1be70220ee2234b0e
 Source1:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-non-english-man-pages.tar.bz2
 # Source1-md5:	c157a183b64156f8baafaefd9cbf04c1
 Source2:	%{name}-zisofs.magic
@@ -45,7 +45,6 @@ Patch4:		%{name}-magic.patch
 Patch5:		%{name}-selinux.patch
 Patch6:		%{name}-msdos.patch
 Patch7:		%{name}-DoS.patch
-Patch8:		ftp://ftp.astron.com/pub/file/patch-4.20-REG_STARTEND
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
@@ -252,9 +251,7 @@ Wiązania Pythona dla libmagic.
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
-%patch7 -p0
-cd src
-%patch8 -p0
+%patch7 -p1
 
 %build
 %{__libtoolize}
