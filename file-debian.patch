@@ -56,8 +56,8 @@
 +# Don't edit this file, edit /etc/magic or send your suggested inclusions to
 +# this file as a wishlist bug against file (using the reportbug utility).
 +
---- file-4.20/magic/magic.mime.orig	2007-01-25 23:10:35.000000000 +0100
-+++ file-4.20/magic/magic.mime	2007-03-18 13:39:47.458929612 +0100
+--- file-4.21/magic/magic.mime.orig	2007-04-03 23:11:32.000000000 +0200
++++ file-4.21/magic/magic.mime	2007-05-26 19:23:17.258702418 +0200
 @@ -196,7 +196,7 @@
  # modified by Joerg Jenderek
  # GRR the original test are too common for many DOS files
@@ -97,10 +97,10 @@
  
  # The following paramaters are created for Namazu.
  # <http://www.namazu.org/>
-@@ -951,3 +952,8 @@
- 
- # 
- 128	string		DICM		application/dicom
+@@ -955,3 +956,8 @@
+ # Symbian installation files
+ 8	lelong	0x10000419	application/vnd.symbian.install
+ 0	lelong	0x10201A7A	x-epoc/x-sisx-app
 +
 +# Gnumeric spreadsheet
 +# This entry is only semi-helpful, as Gnumeric compresses its files, so
