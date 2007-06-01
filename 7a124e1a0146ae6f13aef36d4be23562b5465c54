@@ -1,0 +1,2 @@
+- updated to 4.21 (fixes integer overflow [CVE-2007-2799])
+- updated debian,DoS patches, removed obsolete REG_STARTEND patch
