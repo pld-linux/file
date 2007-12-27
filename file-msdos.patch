@@ -103,11 +103,3 @@
  # many compressed/converted COMs start with a copy loop instead of a jump
  0x6	search/0xa	\xfc\x57\xf3\xa5\xc3	COM executable for MS-DOS
  0x6	search/0xa	\xfc\x57\xf3\xa4\xc3	COM executable for DOS
-@@ -617,5 +615,6 @@
- 0	lelong	0x02468ace			Bochs Sparse disk image
- 
- # from http://filext.com by Derek M Jones <derek@knosof.co.uk>
--0	string	\xD0\xCF\x11\xE0\xA1\xB1\x1A\xE1\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x3E\x00\x03\x00\xFE\xFF	Microsoft Installer
-+# already noted as "false positive" above - it matches most of XLS/DOC files!
-+#0	string	\xD0\xCF\x11\xE0\xA1\xB1\x1A\xE1\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x3E\x00\x03\x00\xFE\xFF	Microsoft Installer
- 0	string	\320\317\021\340\241\261\032\341	Microsoft Office Document
