@@ -27,16 +27,16 @@ Summary(uk.UTF-8):	Утиліта для визначення типів фай�
 Summary(zh_CN.UTF-8):	判定文件类型的工具。
 Summary(zh_TW.UTF-8):	用於決定檔案類型的一個工具程式。
 Name:		file
-Version:	4.20
+Version:	4.22
 Release:	1
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
-# Source0-md5:	402bdb26356791bd5d277099adacc006
-Source1:	zisofs.magic
-Source2:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-non-english-man-pages.tar.bz2
-# Source2-md5:	c157a183b64156f8baafaefd9cbf04c1
-Source3:	%{name}-magic.mscompress
+# Source0-md5:	b26b7bd713cb637bedbf1fb28ae3a271
+Source1:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-non-english-man-pages.tar.bz2
+# Source1-md5:	c157a183b64156f8baafaefd9cbf04c1
+Source2:	%{name}-zisofs.magic
+Source3:	%{name}-mscompress.magic
 Patch0:		%{name}-debian.patch
 Patch1:		%{name}-sparc.patch
 Patch2:		%{name}-lmagic.patch
@@ -44,6 +44,7 @@ Patch3:		%{name}-greedy-dump.patch
 Patch4:		%{name}-magic.patch
 Patch5:		%{name}-selinux.patch
 Patch6:		%{name}-msdos.patch
+Patch7:		%{name}-DoS.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
@@ -250,6 +251,7 @@ Wiązania Pythona dla libmagic.
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
+%patch7 -p1
 
 %build
 %{__libtoolize}
@@ -290,9 +292,9 @@ cd ..
 
 install -D magic/magic.local $RPM_BUILD_ROOT%{_sysconfdir}/magic
 
-cat %{SOURCE1} %{SOURCE3} >>$RPM_BUILD_ROOT%{_datadir}/file/magic
+cat %{SOURCE2} %{SOURCE3} >>$RPM_BUILD_ROOT%{_datadir}/file/magic
 
-bzip2 -dc %{SOURCE2} | tar xf - -C $RPM_BUILD_ROOT%{_mandir}
+bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT%{_mandir}
 
 # somebody forgot about patching in tarball
 mv -f $RPM_BUILD_ROOT%{_mandir}/pt_BR/man{4,5}
