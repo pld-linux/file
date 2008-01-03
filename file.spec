@@ -276,8 +276,8 @@ install -d $RPM_BUILD_ROOT/%{_lib}
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-mv $RPM_BUILD_ROOT%{_libdir}/libmagic.so.*.* $RPM_BUILD_ROOT/%{_lib}
-ln -sf /%{_lib}/$(cd $RPM_BUILD_ROOT/%{_lib} ; echo libmagic.so.*.*) \
+mv $RPM_BUILD_ROOT%{_libdir}/libmagic.so.* $RPM_BUILD_ROOT/%{_lib}
+ln -sf /%{_lib}/$(basename $RPM_BUILD_ROOT/%{_lib}/libmagic.so.*.*.*) \
         $RPM_BUILD_ROOT%{_libdir}/libmagic.so
 
 %if %{with python}
@@ -331,13 +331,14 @@ rm -rf $RPM_BUILD_ROOT
 %files -n libmagic
 %defattr(644,root,root,755)
 %attr(755,root,root) /%{_lib}/libmagic.so.*.*.*
+%attr(755,root,root) %ghost /%{_lib}/libmagic.so.1
 
 %files -n libmagic-devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libmagic.so
 %{_libdir}/libmagic.la
 %{_includedir}/magic.h
-%{_mandir}/man3/*
+%{_mandir}/man3/libmagic.3*
 
 %if %{with static_libs}
 %files -n libmagic-static
@@ -348,6 +349,6 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with python}
 %files -n python-magic
 %defattr(644,root,root,755)
-%attr(755,root,root) %{py_sitedir}/*.so
+%attr(755,root,root) %{py_sitedir}/magic.so
 %{py_sitedir}/Magic_file_extensions-*.egg-info
 %endif
