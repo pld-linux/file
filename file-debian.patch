@@ -1,0 +1,134 @@
+--- file-4.20/doc/file.man.orig	2007-01-25 22:05:46.000000000 +0100
++++ file-4.20/doc/file.man	2007-03-18 13:32:16.817249006 +0100
+@@ -47,9 +47,8 @@
+ or non-printable).
+ Exceptions are well-known file formats (core files, tar archives)
+ that are known to contain binary data.
+-When modifying the file
+-.Pa __MAGIC__
+-or the program itself, make sure to
++When adding local definitions to
++.Pa /etc/magic ,
+ .Em "preserve these keywords" .
+ People depend on knowing that all the readable files in a directory
+ have the word 
+@@ -99,7 +98,9 @@
+ has been applied by extension to data files.
+ Any file with some invariant identifier at a small fixed
+ offset into the file can usually be described in this way.
+-The information identifying these files is read from the compiled
++The information identifying these files is read from
++.I /etc/magic
++and the compiled
+ magic file
+ .Pa __MAGIC__.mgc ,
+ or 
+@@ -413,12 +414,6 @@
+ The order of entries in the magic file is significant.
+ Depending on what system you are using, the order that
+ they are put together may be incorrect.
+-If your old
+-.Nm
+-command uses a magic file,
+-keep the old magic file around for comparison purposes
+-(rename it to 
+-.Pa __MAGIC__.orig ).
+ .Sh EXAMPLES
+ .Bd -literal -offset indent 
+ $ file file.c file /dev/{wd0a,hda}
+@@ -592,3 +587,7 @@
+ .Dv ftp.astron.com
+ in the directory
+ .Dv /pub/file/file-X.YZ.tar.gz
++.Pp
++This version contains some extensions from
++.Dv Debian
++(mainly new magic entries).
+--- file-4.07.orig/magic/Header
++++ file-4.07/magic/Header
+@@ -1,5 +1,5 @@
+-# Magic
+ # Magic data for file(1) command.
+-# Machine-generated from src/cmd/file/magdir/*; edit there only!
+-# Format is described in magic(files), where:
+-# files is 5 on V7 and BSD, 4 on SV, and ?? in the SVID.
++# Format is described in magic(5).
++# Don't edit this file, edit /etc/magic or send your suggested inclusions to
++# this file as a wishlist bug against file (using the reportbug utility).
++
+--- file-4.21/magic/magic.mime.orig	2007-04-03 23:11:32.000000000 +0200
++++ file-4.21/magic/magic.mime	2007-05-26 19:23:17.258702418 +0200
+@@ -196,7 +196,7 @@
+ # modified by Joerg Jenderek
+ # GRR the original test are too common for many DOS files
+ # so test 1 <= kbits nibble <= E
+-0       beshort		&0xffe0		
++0       beshort&0xffe0	=0xfffa
+ >2	ubyte&0xF0	>0x0F		
+ >>2	ubyte&0xF0	<0xE1		audio/mpeg
+ #MP3 with ID3 tag
+@@ -298,10 +298,10 @@
+ # because it tries to uncompress it to figure out what's inside.
+ 
+ # standard unix compress
+-0	string		\037\235	application/x-compress
++#0	string		\037\235	application/x-compress
+ 
+ # gzip (GNU zip, not to be confused with [Info-ZIP/PKWARE] zip archiver)
+-0       string          \037\213        application/x-gzip
++#0       string          \037\213        application/x-gzip
+ 
+ 0		string			PK\003\004		application/x-zip
+ 
+@@ -474,7 +474,7 @@
+ 0	beshort		0xffd8		image/jpeg
+ 
+ # PC bitmaps (OS/2, Windoze BMP files)  (Greg Roelofs, newt@uchicago.edu)
+-0	string		BM		image/bmp
++0	string		BM		image/x-ms-bmp
+ #>14	byte		12		(OS/2 1.x format)
+ #>14	byte		64		(OS/2 2.x format)
+ #>14	byte		40		(Windows 3.x format)
+@@ -801,6 +801,7 @@
+ #
+ 0	string		FWS
+ >3	byte		x			application/x-shockwave-flash
++0	string		CWS			application/x-shockwave-flash
+ # Flash Video
+ 0	string		FLV			video/x-flv
+ 
+@@ -955,3 +956,8 @@
+ 0	lelong	0x10201A7A	x-epoc/x-sisx-app
+ # FORTRAN source
+ 0	string/c	c\ 		text/x-fortran
++
++# Gnumeric spreadsheet
++# This entry is only semi-helpful, as Gnumeric compresses its files, so
++# they will ordinarily reported as "compressed", but at least -z helps
++39      string          =<gmr:Workbook           application/x-gnumeric
+--- file-4.07.orig/magic/magic.local
++++ file-4.07/magic/magic.local
+@@ -0,0 +1,3 @@
++# Magic local data for file(1) command.
++# Insert here your local magic data. Format is described in magic(5).
++
+--- file-4.18/src/magic.c.orig	2006-10-31 20:37:17.000000000 +0100
++++ file-4.18/src/magic.c	2006-11-13 16:15:31.219505000 +0100
+@@ -238,7 +238,7 @@
+ 	int	fd = 0;
+ 	int	rv = -1;
+ 	unsigned char *buf;
+-	struct stat	sb;
++	struct stat	sb, *st = &sb;
+ 	ssize_t nbytes = 0;	/* number of bytes read from a datafile */
+ 	int	ispipe = 0;
+ 
+@@ -253,7 +253,7 @@
+ 	if (file_reset(ms) == -1)
+ 		goto done;
+ 
+-	switch (file_fsmagic(ms, inname, &sb)) {
++	switch (file_fsmagic(ms, inname, st)) {
+ 	case -1:		/* error */
+ 		goto done;
+ 	case 0:			/* nothing found */
