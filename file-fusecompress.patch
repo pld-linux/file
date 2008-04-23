@@ -10,14 +10,13 @@ diff -urN file-4.23.org/magic/Magdir/fusecompress file-4.23/magic/Magdir/fusecom
 +>3	byte	0x04	(xor format)
 +>3	byte	>0x04	(unknown format)
 +>4	long	x	uncompressed size: %d
-diff -urN file-4.23.org/magic/Makefile.am file-4.23/magic/Makefile.am
---- file-4.23.org/magic/Makefile.am	2007-11-07 23:09:58.000000000 +0100
-+++ file-4.23/magic/Makefile.am	2008-04-06 14:26:21.492709654 +0200
-@@ -90,6 +90,7 @@
- Magdir/frame \
- Magdir/freebsd \
- Magdir/fsav \
-+Magdir/fusecompress \
- Magdir/games \
- Magdir/geos \
- Magdir/gcc \
+--- file-4.24/magic/Makefile.am~	2008-04-23 23:49:51.000000000 +0300
++++ file-4.24/magic/Makefile.am	2008-04-23 23:50:10.685223161 +0300
+@@ -67,6 +67,7 @@
+ $(MAGIC_FRAGMENT_DIR)/frame \
+ $(MAGIC_FRAGMENT_DIR)/freebsd \
+ $(MAGIC_FRAGMENT_DIR)/fsav \
++$(MAGIC_FRAGMENT_DIR)/fusecompress \
+ $(MAGIC_FRAGMENT_DIR)/games \
+ $(MAGIC_FRAGMENT_DIR)/gcc \
+ $(MAGIC_FRAGMENT_DIR)/geos \

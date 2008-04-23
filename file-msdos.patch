@@ -1,5 +1,5 @@
---- file-4.19/magic/Magdir/msdos.orig	2006-11-17 16:56:05.000000000 +0100
-+++ file-4.19/magic/Magdir/msdos	2006-12-20 19:48:05.070673271 +0100
+--- file-4.19/magic/Magdir/msdos	2006-12-20 19:48:05.070673271 +0100
++++ file-4.24/magic/Magdir/msdos	2008-04-23 23:49:15.706057277 +0300
 @@ -5,11 +5,10 @@
  
  # .BAT files (Daniel Quinlan, quinlan@yggdrasil.com)
@@ -16,64 +16,31 @@
  
  
  # OS/2 batch files are REXX. the second regex is a bit generic, oh well
-@@ -262,9 +261,9 @@
- # Uncommenting only the first two lines will cover about 2/3 of COM files,
- # but it isn't feasible to match all COM files since there must be at least
- # two dozen different one-byte "magics".
--0	byte		0xe9		DOS executable (COM)
-->0x1FE	leshort		0xAA55		\b, boot code
-->6	string		SFX\ of\ LHarc	(%s)
-+#0	byte		0xe9
-+#>0x1FE	leshort		0xAA55		DOS executable (COM), boot code
-+#>6	string		SFX\ of\ LHarc	DOS executable (COM) (%s)
- 0	belong	0xffffffff		DOS executable (device driver)
- #CMD640X2.SYS
- >10	string	>\x23			
-@@ -286,49 +285,48 @@
- >>77	string	>\x40			
- >>>77	string	<\x5B			
- >>>>77	string	x			\b, name: %.8s
--0	byte		0x8c		DOS executable (COM)
- # 0xeb conflicts with "sequent" magic
--0	byte		0xeb		DOS executable (COM)
-->0x1FE	leshort		0xAA55		\b, boot code
-->85	string		UPX		\b, UPX compressed
-->4	string		\ $ARX		\b, ARX self-extracting archive
-->4	string		\ $LHarc	\b, LHarc self-extracting archive
-->0x20e	string		SFX\ by\ LARC	\b, LARC self-extracting archive
--0	byte		0xb8		COM executable
-+#0	byte		0xeb
-+#>0x1FE	leshort		0xAA55		DOS executable (COM), boot code
-+#>85	string		UPX		DOS executable (COM), UPX compressed
-+#>4	string		\ $ARX		DOS executable (COM), ARX self-extracting archive
-+#>4	string		\ $LHarc	DOS executable (COM), LHarc self-extracting archive
-+#>0x20e	string		SFX\ by\ LARC	DOS executable (COM), LARC self-extracting archive
-+#0	byte		0xb8
+@@ -304,11 +303,11 @@
+ #>0x20e	string		SFX\ by\ LARC	\b, LARC self-extracting archive
+ #0	byte		0xb8		COM executable
  # modified by Joerg Jenderek
 ->1	lelong          !0x21cd4cff	for DOS
-+#>1	lelong          !0x21cd4cff	COM executale for DOS
++#>1	lelong          !0x21cd4cff	for DOS
  # http://syslinux.zytor.com/comboot.php
  # (32-bit COMBOOT) programs *.C32 contain 32-bit code and run in flat-memory 32-bit protected mode
  # start with assembler instructions mov eax,21cd4cffh
 ->1	lelong          0x21cd4cff	(32-bit COMBOOT)
-+#>1	lelong          0x21cd4cff	COM executable (32-bit COMBOOT)
++#>1	lelong          0x21cd4cff	(32-bit COMBOOT)
  0	string	\x81\xfc		
  >4	string	\x77\x02\xcd\x20\xb9	
  >>36	string	UPX! 			FREE-DOS executable (COM), UPX compressed
- 252	string Must\ have\ DOS\ version	DR-DOS executable (COM)
+@@ -316,27 +315,27 @@
  # GRR search is not working
  #2	search/28	\xcd\x21	COM executable for MS-DOS
--#WHICHFAT.cOM
+ #WHICHFAT.cOM
 -2	string	\xcd\x21		COM executable for DOS
--#DELTREE.cOM DELTREE2.cOM
--4	string	\xcd\x21		COM executable for DOS
--#IFMEMDSK.cOM ASSIGN.cOM COMP.cOM
--5	string	\xcd\x21		COM executable for DOS
-+##WHICHFAT.cOM
 +#2	string	\xcd\x21		COM executable for DOS
-+##DELTREE.cOM DELTREE2.cOM
+ #DELTREE.cOM DELTREE2.cOM
+-4	string	\xcd\x21		COM executable for DOS
 +#4	string	\xcd\x21		COM executable for DOS
-+##IFMEMDSK.cOM ASSIGN.cOM COMP.cOM
+ #IFMEMDSK.cOM ASSIGN.cOM COMP.cOM
+-5	string	\xcd\x21		COM executable for DOS
 +#5	string	\xcd\x21		COM executable for DOS
  #DELTMP.COm HASFAT32.cOM
 -7	string	\xcd\x21		
