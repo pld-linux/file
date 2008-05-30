@@ -251,6 +251,8 @@ Wiązania Pythona dla libmagic.
 %patch5 -p1
 %patch6 -p1
 
+rm -f magic/Magdir/*.orig
+
 %build
 %{__libtoolize}
 %{__aclocal}
@@ -290,7 +292,7 @@ cd ..
 
 install -D magic/magic.local $RPM_BUILD_ROOT%{_sysconfdir}/magic
 
-cat %{SOURCE2} %{SOURCE3} >>$RPM_BUILD_ROOT%{_datadir}/file/magic
+cat magic/Magdir/* %{SOURCE2} %{SOURCE3} >$RPM_BUILD_ROOT%{_datadir}/file/magic
 
 bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT%{_mandir}
 
@@ -300,7 +302,7 @@ sed -e 's/MAGIC 4/MAGIC 5/' $RPM_BUILD_ROOT%{_mandir}/pt_BR/man5/magic.4 \
 	> $RPM_BUILD_ROOT%{_mandir}/pt_BR/man5/magic.5
 rm -f $RPM_BUILD_ROOT%{_mandir}/pt_BR/man5/magic.4
 
-./src/file -m $RPM_BUILD_ROOT%{_datadir}/file/magic -c -C
+src/file -m $RPM_BUILD_ROOT%{_datadir}/file/magic -c -C
 
 rm -f $RPM_BUILD_ROOT%{_mandir}/README.file-non-english-man-pages
 rm -f $RPM_BUILD_ROOT%{_mandir}/file-magic4.diff
@@ -317,7 +319,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/file
 %{_datadir}/file
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/magic
-%{_mandir}/man[15]/*
+%{_mandir}/man1/file.1*
+%{_mandir}/man5/magic.5*
 %lang(de) %{_mandir}/de/man[15]/*
 %lang(es) %{_mandir}/es/man[15]/*
 %lang(fr) %{_mandir}/fr/man[15]/*
