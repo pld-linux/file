@@ -251,7 +251,7 @@ Wiązania Pythona dla libmagic.
 %patch5 -p1
 %patch6 -p1
 
-rm -f magic/Magdir/*.orig
+rm -f magic/Magdir/{*.orig,*~}
 
 %build
 %{__libtoolize}
