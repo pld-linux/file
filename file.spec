@@ -292,7 +292,7 @@ cd ..
 
 install -D magic/magic.local $RPM_BUILD_ROOT%{_sysconfdir}/magic
 
-cat magic/Magdir/* %{SOURCE2} %{SOURCE3} >$RPM_BUILD_ROOT%{_datadir}/file/magic
+cat magic/Header magic/Magdir/* %{SOURCE2} %{SOURCE3} >$RPM_BUILD_ROOT%{_datadir}/file/magic
 
 bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT%{_mandir}
 
