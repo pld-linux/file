@@ -37,6 +37,7 @@ Source1:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-non-english-ma
 # Source1-md5:	c157a183b64156f8baafaefd9cbf04c1
 Source2:	%{name}-zisofs.magic
 Source3:	%{name}-mscompress.magic
+Source4:	%{name}-magic.mime-gen.awk
 Patch0:		%{name}-debian.patch
 Patch1:		%{name}-sparc.patch
 Patch2:		%{name}-lmagic.patch
@@ -293,6 +294,7 @@ cd ..
 install -D magic/magic.local $RPM_BUILD_ROOT%{_sysconfdir}/magic
 
 cat magic/Header magic/Magdir/* %{SOURCE2} %{SOURCE3} >$RPM_BUILD_ROOT%{_datadir}/file/magic
+awk -f %{SOURCE4} <$RPM_BUILD_ROOT%{_datadir}/file/magic >$RPM_BUILD_ROOT%{_datadir}/file/magic.mime
 
 bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT%{_mandir}
 
