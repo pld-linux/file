@@ -1,36 +1,40 @@
---- file-4.19/magic/Magdir/msdos	2006-12-20 19:48:05.070673271 +0100
-+++ file-4.24/magic/Magdir/msdos	2008-04-23 23:49:15.706057277 +0300
-@@ -5,11 +5,10 @@
+--- file-4.25/magic/Magdir/msdos.orig	2008-07-19 21:53:45.598043088 +0200
++++ file-4.25/magic/Magdir/msdos	2008-07-19 22:14:11.858041412 +0200
+@@ -5,14 +5,13 @@
  
  # .BAT files (Daniel Quinlan, quinlan@yggdrasil.com)
  # updated by Joerg Jenderek
 -0	string	@			
 ->1	string/cB	\ echo\ off	MS-DOS batch file text
-->1	string/cB	echo\ off	MS-DOS batch file text
-->1	string/cB	rem\ 		MS-DOS batch file text
-->1	string/cB	set\ 		MS-DOS batch file text
 +0	string/cB	@\ echo\ off	MS-DOS batch file text
+ !:mime	text/x-msdos-batch
+->1	string/cB	echo\ off	MS-DOS batch file text
 +0	string/cB	@echo\ off	MS-DOS batch file text
+ !:mime	text/x-msdos-batch
+->1	string/cB	rem\ 		MS-DOS batch file text
 +0	string/cB	@rem\ 		MS-DOS batch file text
+ !:mime	text/x-msdos-batch
+->1	string/cB	set\ 		MS-DOS batch file text
 +0	string/cB	@set\ 		MS-DOS batch file text
+ !:mime	text/x-msdos-batch
  
  
- # OS/2 batch files are REXX. the second regex is a bit generic, oh well
-@@ -304,11 +303,11 @@
- #>0x20e	string		SFX\ by\ LARC	\b, LARC self-extracting archive
+@@ -322,11 +321,12 @@
+ #>0x20e string		SFX\ by\ LARC	\b, LARC self-extracting archive
  #0	byte		0xb8		COM executable
  # modified by Joerg Jenderek
-->1	lelong          !0x21cd4cff	for DOS
-+#>1	lelong          !0x21cd4cff	for DOS
+->1	lelong		!0x21cd4cff	for DOS
++#>1	lelong		!0x21cd4cff	for DOS
  # http://syslinux.zytor.com/comboot.php
  # (32-bit COMBOOT) programs *.C32 contain 32-bit code and run in flat-memory 32-bit protected mode
  # start with assembler instructions mov eax,21cd4cffh
-->1	lelong          0x21cd4cff	(32-bit COMBOOT)
-+#>1	lelong          0x21cd4cff	(32-bit COMBOOT)
+->1	lelong		0x21cd4cff	(32-bit COMBOOT)
++#>1	lelong		0x21cd4cff	(32-bit COMBOOT)
++0	string	\xb8\xff\x4c\xcd\x21	COM executable (32-bit COMBOOT)
  0	string	\x81\xfc		
  >4	string	\x77\x02\xcd\x20\xb9	
- >>36	string	UPX! 			FREE-DOS executable (COM), UPX compressed
-@@ -316,27 +315,27 @@
+ >>36	string	UPX!			FREE-DOS executable (COM), UPX compressed
+@@ -334,27 +334,27 @@
  # GRR search is not working
  #2	search/28	\xcd\x21	COM executable for MS-DOS
  #WHICHFAT.cOM
