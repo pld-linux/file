@@ -1,46 +1,200 @@
-#!/bin/sh /usr/share/dpatch/dpatch-run
-## 318-magic-add-par2.dpatch by Daniel van Eeden <daniel_e@dds.nl>
+## 999-conglomeration.dpatch by Michael Piefel <piefel@debian.org>
 ##
-## DP: New magic for PAR2 archive files (Closes: #294070).
-
-@DPATCH@
-
-diff -Naurp file-4.24.orig/magic/Magdir/archive file-4.24/magic/Magdir/archive
---- file-4.24.orig/magic/Magdir/archive	2008-02-28 18:57:34.000000000 +0000
-+++ file-4.24/magic/Magdir/archive	2008-04-07 08:05:47.000000000 +0000
-@@ -803,3 +803,6 @@
- >24	belong	1		SHA-1 checksum
- >24	belong	2		MD5 checksum
+## DP: Needs to be broken out (FIXME).
+diff -Naurp file-4.24.orig/src/fsmagic.c file-4.24/src/fsmagic.c
+--- file-4.24.orig/src/fsmagic.c	2008-02-14 20:14:52.000000000 +0000
++++ file-4.24/src/fsmagic.c	2008-04-07 08:32:13.000000000 +0000
+@@ -110,7 +110,8 @@ file_fsmagic(struct magic_set *ms, const
+ 		if (file_printf(ms, "cannot open `%s' (%s)",
+ 		    fn, strerror(errno)) == -1)
+ 			return -1;
+-		return 1;
++		ms->haderr++;
++		return -1;
+ 	}
  
-+# Type: Parity Archive
-+# From: Daniel van Eeden <daniel_e@dds.nl>
-+0	string	 PAR2		Parity Archive Volume Set
-#!/bin/sh /usr/share/dpatch/dpatch-run
-## 319-magic-add-pe5.dpatch by Simon Horman <horms@debian.org>
+ 	if (mime) {
+## 906-file-hurd.dpatch by Michael Casadevall <sonicmctails@gmail.com>
 ##
-## DP: New magic for the Ulead Photo Explorer5 image format (Closes: #339397).
+## DP: Fixes a FTBFS on hurd (Closes: #433716).
+diff -Naur file-4.21.orig/src/magic.c file-4.21/src/magic.c
+--- file-4.21.orig/src/magic.c	2007-03-26 17:59:50.000000000 +0000
++++ file-4.21/src/magic.c	2007-07-19 06:25:16.000000000 +0000
+@@ -58,6 +58,11 @@
+ #include <locale.h>
+ #endif
+ 
++#ifndef PIPE_BUF
++// Get the PIPE_BUF from pathconf
++#define PIPE_BUF pathconf(".", _PC_PIPE_BUF)
++#endif
++
+ #include <netinet/in.h>		/* for byte swapping */
+ 
+ #include "patchlevel.h"
+#!/bin/sh /usr/share/dpatch/dpatch-run
+## 903-magic-local.dpatch by Michael Piefel <piefel@debian.org>
+##
+## DP: No longer includes Localstuff in /usr/share/misc/magic. Local definitions
+## DP: should go to /etc/magic.
 
 @DPATCH@
 
-diff -Naurp file-4.24.orig/magic/Magdir/images file-4.24/magic/Magdir/images
---- file-4.24.orig/magic/Magdir/images	2008-03-07 14:58:54.000000000 +0000
-+++ file-4.24/magic/Magdir/images	2008-04-07 08:07:42.000000000 +0000
-@@ -588,3 +588,8 @@
- 0	string	\xed\xfe\xda\xbe	Cytovision FLEX file
- 0	string	\xed\xab\xed\xfe	Cytovision FLEX file
- 0	string	\xad\xfd\xea\xad	Cytovision RATS file
+diff -Naurp file.orig/magic/Header file/magic/Header
+--- file.orig/magic/Header	2000-08-05 17:36:46.000000000 +0000
++++ file/magic/Header	2008-07-15 13:51:04.000000000 +0000
+@@ -1,5 +1,5 @@
+-# Magic
+ # Magic data for file(1) command.
+-# Machine-generated from src/cmd/file/magdir/*; edit there only!
+-# Format is described in magic(files), where:
+-# files is 5 on V7 and BSD, 4 on SV, and ?? in the SVID.
++# Format is described in magic(5).
++# Don't edit this file, edit /etc/magic or send your suggested inclusions to
++# this file as a wishlist bug against file (using the reportbug utility).
 +
-+# Type: Ulead Photo Explorer5 (.pe5)
-+# URL:  http://www.jisyo.com/cgibin/view.cgi?EXT=pe5 (Japanese)
-+# From: Simon Horman <horms@debian.org>
-+0	string	IIO2H	Ulead Photo Explorer5
-#!/bin/sh /usr/share/dpatch/dpatch-run
+diff -Naurp file.orig/magic/magic.local file/magic/magic.local
+--- file.orig/magic/magic.local	1970-01-01 00:00:00.000000000 +0000
++++ file/magic/magic.local	2008-07-15 13:51:04.000000000 +0000
+@@ -0,0 +1,3 @@
++# Magic local data for file(1) command.
++# Insert here your local magic data. Format is described in magic(5).
++
+diff -Naurp file.orig/src/Makefile.am file/src/Makefile.am
+--- file.orig/src/Makefile.am	2008-05-09 14:12:55.000000000 +0000
++++ file/src/Makefile.am	2008-07-15 13:51:37.000000000 +0000
+@@ -4,7 +4,7 @@ include_HEADERS = magic.h
+ 
+ bin_PROGRAMS = file
+ 
+-AM_CPPFLAGS = -DMAGIC='"$(MAGIC)"'
++AM_CPPFLAGS = -DMAGIC='"/etc/magic:$(MAGIC)"'
+ AM_CFLAGS = -Wall -Wstrict-prototypes -Wmissing-prototypes -Wpointer-arith \
+     -Wmissing-declarations -Wredundant-decls -Wnested-externs \
+     -Wsign-compare -Wreturn-type -Wswitch -Wshadow \
+diff -Naurp file.orig/src/Makefile.in file/src/Makefile.in
+--- file.orig/src/Makefile.in	2008-07-02 15:24:28.000000000 +0000
++++ file/src/Makefile.in	2008-07-15 13:52:00.000000000 +0000
+@@ -197,7 +197,7 @@ top_srcdir = @top_srcdir@
+ MAGIC = $(pkgdatadir)/magic
+ lib_LTLIBRARIES = libmagic.la
+ include_HEADERS = magic.h
+-AM_CPPFLAGS = -DMAGIC='"$(MAGIC)"'
++AM_CPPFLAGS = -DMAGIC='"/etc/magic:$(MAGIC)"'
+ AM_CFLAGS = -Wall -Wstrict-prototypes -Wmissing-prototypes -Wpointer-arith \
+     -Wmissing-declarations -Wredundant-decls -Wnested-externs \
+     -Wsign-compare -Wreturn-type -Wswitch -Wshadow \
+## 324-magic-add-snes.dpatch by Josh Triplett <josh@freedesktop.org>
+##
+## DP: New magic for SNES SPC700 sound files (Closes: #410847).
+
+diff -Naur file-4.21.orig/magic/Magdir/audio file-4.21/magic/Magdir/audio
+--- file-4.21.orig/magic/Magdir/audio	2007-12-23 17:32:42.000000000 +0000
++++ file-4.21/magic/Magdir/audio	2007-12-23 17:33:57.000000000 +0000
+@@ -268,6 +268,15 @@
+ >122	byte&0x1	=1		PAL
+ >122	byte&0x1	=0		NTSC
+ 
++# Type: SNES SPC700 sound files
++# From: Josh Triplett <josh@freedesktop.org>
++0	string	SNES-SPC700\ Sound\ File\ Data\ v	SNES SPC700 sound file
++>&0	string	0.30					\b, version %s
++>>0x23	byte	0x1B					\b, without ID666 tag
++>>0x23	byte	0x1A					\b, with ID666 tag
++>>>0x2E	string	>\0					\b, song "%.32s"
++>>>0x4E	string	>\0					\b, game "%.32s"
++
+ # Impulse tracker module (audio/x-it)
+ 0	string		IMPM		Impulse Tracker module sound data -
+ >4	string		>\0		"%s"
+## 206-magic-update-bash.dpatch
+##
+## DP: Add another shebang path for bash.
+diff -Naurp file.orig/magic/Magdir/commands file/magic/Magdir/commands
+--- file.orig/magic/Magdir/commands	2008-07-15 13:31:02.000000000 +0000
++++ file/magic/Magdir/commands	2008-07-15 13:30:55.000000000 +0000
+@@ -58,6 +58,10 @@ o	string/b	#!\ /usr/bin/tcsh	Tenex C she
+ # bash shell magic, from Peter Tobias (tobias@server.et-inf.fho-emden.de)
+ 0	string/b	#!\ /bin/bash	Bourne-Again shell script text executable
+ !:mime	text/x-shellscript
++0	string/b	#!\ /usr/bin/bash	Bourne-Again shell script text executable
++!:mime text/x-shellscript
++0	string/b	#!\ /usr/local/bash	Bourne-Again shell script text executable
++!:mime text/x-shellscript
+ 0	string/b	#!\ /usr/local/bin/bash	Bourne-Again shell script text executable
+ !:mime	text/x-shellscript
+ 
+## 339-magic-add-selinux.dpatch by Russell Coker <russell@coker.com.au>
+##
+## DP: Adds new magics for SE Linux (Closes: #485886).
+diff -Naurp file.orig/magic/Magdir/selinux file/magic/Magdir/selinux
+--- file.orig/magic/Magdir/selinux	1970-01-01 01:00:00.000000000 +0100
++++ file/magic/Magdir/selinux	2008-06-13 09:07:24.000000000 +0200
+@@ -0,0 +1,24 @@
++# Type:	SE Linux policy modules *.pp reference policy
++#	for Fedora 5 to 9, RHEL5, and Debian Etch and Lenny.
++# URL:	http://doc.coker.com.au/computers/selinux-magic
++# From:	Russell Coker <russell@coker.com.au>
++
++0		lelong	0xf97cff8f	SE Linux modular policy
++>4		lelong	x		version %d,
++>8		lelong	x		%d sections,
++>>(12.l)	lelong	0xf97cff8d
++>>>(12.l+27)	lelong	x		mod version %d,
++>>>(12.l+31)	lelong	0		Not MLS,
++>>>(12.l+31)	lelong	1		MLS,
++>>>(12.l+23)	lelong	2
++>>>>(12.l+47)	string	>\0		module name %s
++>>>(12.l+23)	lelong	1		base
++
++1	string	policy_module(	SE Linux policy module source
++2	string	policy_module(	SE Linux policy module source
++
++0	string	##\ <summary>	SE Linux policy interface source
++
++#0	search	gen_context(	SE Linux policy file contexts
++
++#0	search	gen_sens(	SE Linux policy MLS constraints source
+diff -Naurp file.orig/magic/Makefile.am file/magic/Makefile.am
+--- file.orig/magic/Makefile.am	2008-06-13 09:07:45.000000000 +0200
++++ file/magic/Makefile.am	2008-06-13 09:08:16.000000000 +0200
+@@ -164,6 +164,7 @@ $(MAGIC_FRAGMENT_DIR)/sc \
+ $(MAGIC_FRAGMENT_DIR)/sccs \
+ $(MAGIC_FRAGMENT_DIR)/scientific \
+ $(MAGIC_FRAGMENT_DIR)/securitycerts \
++$(MAGIC_FRAGMENT_DIR)/selinux \
+ $(MAGIC_FRAGMENT_DIR)/sendmail \
+ $(MAGIC_FRAGMENT_DIR)/sequent \
+ $(MAGIC_FRAGMENT_DIR)/sgi \
+diff -Naurp file.orig/magic/Makefile.in file/magic/Makefile.in
+--- file.orig/magic/Makefile.in	2008-06-13 09:07:45.000000000 +0200
++++ file/magic/Makefile.in	2008-06-13 09:08:23.000000000 +0200
+@@ -324,6 +324,7 @@ $(MAGIC_FRAGMENT_DIR)/sc \
+ $(MAGIC_FRAGMENT_DIR)/sccs \
+ $(MAGIC_FRAGMENT_DIR)/scientific \
+ $(MAGIC_FRAGMENT_DIR)/securitycerts \
++$(MAGIC_FRAGMENT_DIR)/selinux \
+ $(MAGIC_FRAGMENT_DIR)/sendmail \
+ $(MAGIC_FRAGMENT_DIR)/sequent \
+ $(MAGIC_FRAGMENT_DIR)/sgi \
+## 325-magic-add-ssl.dpatch by Nicolas Collignon <tsointsoin@gmail.com>
+##
+## DP: New magic for OpenSSH key files (Closes: #439537).
+diff -Naur file-4.21.orig/magic/Magdir/ssh file-4.21/magic/Magdir/ssh
+--- file-4.21.orig/magic/Magdir/ssh	1970-01-01 00:00:00.000000000 +0000
++++ file-4.21/magic/Magdir/ssh	2007-08-26 08:25:03.000000000 +0000
+@@ -0,0 +1,8 @@
++# Type: OpenSSH key files
++# From: Nicolas Collignon <tsointsoin@gmail.com>
++
++0	string	SSH\ PRIVATE\ KEY	OpenSSH RSA1 private key,
++>28	string	>\0			version %s
++
++0	string	ssh-dss\		OpenSSH DSA public key
++0	string	ssh-rsa\		OpenSSH RSA public key
 ## 320-magic-add-pmenu.dpatch by Edward Betts <edward@debian.org>
 ##
 ## DP: New magic for pmenu (Closes: #38543).
-
-@DPATCH@
-
 diff -Naurp file-4.23.orig/magic/Magdir/commands file-4.23/magic/Magdir/commands
 --- file-4.23.orig/magic/Magdir/commands	2007-06-01 19:40:26.000000000 +0000
 +++ file-4.23/magic/Magdir/commands	2008-01-12 17:34:41.000000000 +0000
@@ -53,77 +207,219 @@ diff -Naurp file-4.23.orig/magic/Magdir/commands file-4.23/magic/Magdir/commands
 +# URL:  http://packages.debian.org/pdmenu
 +# From: Edward Betts <edward@debian.org>
 +0	string	#!/usr/bin/pdmenu	Pdmenu configuration file text
-#!/bin/sh /usr/share/dpatch/dpatch-run
-## 321-magic-add-powertab.dpatch by Jelmer Vernooij <jelmer@samba.org>
+## 203-magic-update-reiserfs.dpatch by Werner Fink <werner@suse.de>
 ##
-## DP: New magic for Power-Tab
-
-@DPATCH@
-
-diff -Naur file-4.20.orig/magic/Magdir/chord file-4.20/magic/Magdir/chord
---- file-4.20.orig/magic/Magdir/chord	2003-03-24 14:48:32.000000000 +0000
-+++ file-4.20/magic/Magdir/chord	2007-05-17 16:33:26.000000000 +0000
-@@ -7,3 +7,8 @@
+## DP: Updating reiserfs magic to detect ReiserFS V3.6.19.
+diff -Naurp file-4.24.orig/magic/Magdir/filesystems file-4.24/magic/Magdir/filesystems
+--- file-4.24.orig/magic/Magdir/filesystems	2008-05-04 14:12:49.000000000 +0000
++++ file-4.24/magic/Magdir/filesystems	2008-05-21 09:43:04.000000000 +0000
+@@ -1178,6 +1178,7 @@
+ # reiserfs - russell@coker.com.au
+ 0x10034		string	ReIsErFs	ReiserFS V3.5
+ 0x10034		string	ReIsEr2Fs	ReiserFS V3.6
++0x10034		string	ReIsEr3Fs	ReiserFS V3.6.19
+ >0x1002c 	leshort	x		block size %d
+ >0x10032	leshort	&2		(mounted or unclean)
+ >0x10000	lelong	x		num blocks %d
+## 210-magic-update-digifax.dpatch
+##
+## DP: Update Digifax magic.
+diff -Naurp file.orig/magic/Magdir/modem file/magic/Magdir/modem
+--- file.orig/magic/Magdir/modem	2008-06-13 15:00:30.000000000 +0200
++++ file/magic/Magdir/modem	2008-06-13 15:25:40.000000000 +0200
+@@ -2,9 +2,9 @@
+ # modem:  file(1) magic for modem programs
  #
- 0	string		{title		Chord text file
+ # From: Florian La Roche <florian@knorke.saar.de>
+-4	string		Research,	Digifax-G3-File
+->29	byte		1		, fine resolution
+->29	byte		0		, normal resolution
++1	string		PC\ Research,\ Inc	Digifax-G3-File
++>29	byte		1			\b, fine resolution
++>29	byte		0			\b, normal resolution
  
-+# Type:	PowerTab file format
-+# URL:	http://www.power-tab.net/
-+# From:	Jelmer Vernooij <jelmer@samba.org>
-+0	string		ptab\003\000	Power-Tab v3 Tablature File
-+0	string		ptab\004\000	Power-Tab v4 Tablature File
-#!/bin/sh /usr/share/dpatch/dpatch-run
-## 322-magic-add-scummvm.dpatch by Sven Hartge <debian@ds9.argh.org>
+ 0	short		0x0100		raw G3 data, byte-padded
+ 0	short		0x1400		raw G3 data
+## 335-magic-add-freemind.dpatch by Jamie Thompson <debian-bugs@jamie-thompson.co.uk>
 ##
-## DP: New magic for scummVM savegame files (Closes: #263488).
-
-@DPATCH@
-
-diff -Naurp file-4.23.orig/magic/Magdir/console file-4.23/magic/Magdir/console
---- file-4.23.orig/magic/Magdir/console	2007-09-26 20:22:31.000000000 +0000
-+++ file-4.23/magic/Magdir/console	2008-01-12 17:36:55.000000000 +0000
-@@ -252,3 +252,7 @@
- # .w3m
- 0	string HM3W				Warcraft III map file
+## DP: New magic for Freemind (Closes: #472385).
+diff -Naurp file.orig/magic/Magdir/wordprocessors file/magic/Magdir/wordprocessors
+--- file.orig/magic/Magdir/wordprocessors	2008-05-04 14:12:49.000000000 +0000
++++ file/magic/Magdir/wordprocessors	2008-05-04 14:18:38.000000000 +0000
+@@ -148,3 +148,8 @@
+ 0	string		DOC
+ >43	byte		0x16	Just System Word Processor Ichitaro v6
+ !:mime	application/x-ichitaro6
++
++# Type: Freemind mindmap documents
++# From: Jamie Thompson <debian-bugs@jamie-thompson.co.uk>
++0	string/cB	\<map\ version	Freemind document
++!:mime	application/x-freemind
+## 211-magic-update-mono.dpatch
+##
+## DP: Update Mono magic.
+diff -Naurp file.orig/magic/Magdir/msdos file/magic/Magdir/msdos
+--- file.orig/magic/Magdir/msdos	2008-07-02 15:16:52.000000000 +0000
++++ file/magic/Magdir/msdos	2008-07-15 13:33:43.000000000 +0000
+@@ -68,6 +68,7 @@
+ >>&0	leshort		0x290	PA-RISC
+ >>&18	leshort&0x0100	>0	32-bit
+ >>&18	leshort&0x1000	>0	system file
++>>&228	lelong		>0	\b, Mono/.Net assembly
+ >>&0xf4 search/0x140 \x0\x40\x1\x0
+ >>>(&0.l+(4)) string MSCF \b, WinHKI CAB self-extracting archive
+ >30		string	Copyright\ 1989-1990\ PKWARE\ Inc.	Self-extracting PKZIP archive
+## 328-magic-add-xen.dpatch by Radek Vokal <rvokal@redhat.com>
+##
+## DP: xen patch, recognizes Xen saved domain
+diff -Naurp file-4.23.orig/magic/Magdir/linux file-4.23/magic/Magdir/linux
+--- file-4.23.orig/magic/Magdir/linux	2008-01-12 17:47:04.000000000 +0000
++++ file-4.23/magic/Magdir/linux	2008-01-12 17:46:42.000000000 +0000
+@@ -248,3 +248,9 @@
+ >72	string	x		%s]
+ >168	string	x		UUID: %s
  
-+# Type: scummVM savegame files
-+# From: Sven Hartge <debian@ds9.argh.org>
-+0	string	SCVM	scummVM savegame
-+>12	string	>\0	"%s"
-#!/bin/sh /usr/share/dpatch/dpatch-run
-## 323-magic-add-sgf.dpatch by Eduardo Sabbatella <eduardo_sabbatella@yahoo.com.ar>
++# Type: Xen, the virtual machine monitor
++# From: Radek Vokal <rvokal@redhat.com>
++0	string		LinuxGuestRecord	Xen saved domain
++#>2	regex		\(name\ [^)]*\)		%s
++>20	search/256	(name			(name
++>>&1	string		x			%s...)
+## 338-magic-add-cromfs.dpatch by Werner Fink <werner@suse.de>
 ##
-## DP: New magic for SGF Smart Game Format
-
-@DPATCH@
-
-diff -Naurp file-4.24.orig/magic/Magdir/games file-4.24/magic/Magdir/games
---- file-4.24.orig/magic/Magdir/games	2008-02-19 17:27:30.000000000 +0000
-+++ file-4.24/magic/Magdir/games	2008-04-07 08:09:12.000000000 +0000
-@@ -151,3 +151,16 @@
- >4	lelong	x		containing %d lumps
- 0	string	=PWAD		doom patch PWAD data
- >4	lelong	x		containing %d lumps
+## DP: Adds new magic for CROM filesystem.
+diff -Naurp file.orig/magic/Magdir/filesystems file/magic/Magdir/filesystems
+--- file.orig/magic/Magdir/filesystems	2008-07-02 13:47:23.000000000 +0000
++++ file/magic/Magdir/filesystems	2008-07-15 13:43:26.000000000 +0000
+@@ -1327,3 +1327,15 @@
+ # dvdisaster's .ecc
+ # From: "Nelson A. de Oliveira" <naoliv@gmail.com>
+ 0	string	*dvdisaster*	dvdisaster error correction file
 +
-+# Type: SGF Smart Game Format
-+# URL:  http://www.red-bean.com/sgf/
-+# From: Eduardo Sabbatella <eduardo_sabbatella@yahoo.com.ar>
++# Type:	CROM filesystem
++# From:	Werner Fink <werner@suse.de>
++0	string	CROMFS	CROMFS
++>6	string	>\0	\b version %2.2s,
++>8	ulequad	>0	\b block data at %lld,
++>16	ulequad	>0	\b fblock table at %lld,
++>24	ulequad	>0	\b inode table at %lld,
++>32	ulequad	>0	\b root at %lld,
++>40	ulelong	>0	\b fblock size = %ld,
++>44	ulelong	>0	\b block size = %ld,
++>48	ulequad	>0	\b bytes = %lld
+## 205-magic-update-tcsh.dpatch
+##
+## DP: Add another shebang path for tcsh.
+diff -Naurp file.orig/magic/Magdir/commands file/magic/Magdir/commands
+--- file.orig/magic/Magdir/commands	2008-04-16 12:28:04.000000000 +0000
++++ file/magic/Magdir/commands	2008-07-15 13:28:19.000000000 +0000
+@@ -12,6 +12,8 @@
+ !:mime	text/x-shellscript
+ 0	string/b 	#!\ /bin/tcsh		Tenex C shell script text executable
+ !:mime	text/x-shellscript
++0	string/b	#!\ /usr/bin/tcsh	Tenex C shell script text executable
++!:mime	text/x-shellscript
+ 0	string/b 	#!\ /usr/local/tcsh	Tenex C shell script text executable
+ !:mime	text/x-shellscript
+ 0	string/b	#!\ /usr/local/bin/tcsh	Tenex C shell script text executable
+## 326-magic-add-supercollider.dpatch by Mario Lang <mlang@debian.org>
+##
+## DP: Adds new magic for SuperCollider 3 Synth Definition File Format
+## DP: (Closes: #284803).
+diff -Naurp file-4.23.orig/magic/Magdir/audio file-4.23/magic/Magdir/audio
+--- file-4.23.orig/magic/Magdir/audio	2008-01-12 17:39:01.000000000 +0000
++++ file-4.23/magic/Magdir/audio	2008-01-12 17:38:49.000000000 +0000
+@@ -576,3 +576,8 @@
+ # URL:  http://filext.com/detaillist.php?extdetail=AMR
+ # From: Russell Coker <russell@coker.com.au>
+ 0	string	#!AMR		Adaptive Multi-Rate Codec (GSM telephony)
 +
-+2	regex/c	\\(;.*GM\\[[0-9]{1,2}\\]	Smart Game Format
-+>2	regex/c	GM\\[1\\]			- Go Game
-+>2	regex/c	GM\\[6\\]			- BackGammon Game
-+>2	regex/c	GM\\[11\\]			- Hex Game
-+>2	regex/c	GM\\[18\\]			- Amazons Game
-+>2	regex/c	GM\\[19\\]			- Octi Game
-+>2	regex/c	GM\\[20\\]			- Gess Game
-+>2	regex/c	GM\\[21\\]			- twix Game
-#!/bin/sh /usr/share/dpatch/dpatch-run
++# Type: SuperCollider 3 Synth Definition File Format
++# From: Mario Lang <mlang@debian.org>
++0	string	SCgf	SuperCollider3 Synth Definition file,
++>4	belong	x	version %d
+## 204-magic-update-asf.dpatch by Daniel Baumann <daniel@debian.org>
+##
+## DP: Add mime to asf magic.
+diff -Naurp file.orig/magic/Magdir/animation file/magic/Magdir/animation
+--- file.orig/magic/Magdir/animation	2008-05-26 23:24:27.000000000 +0200
++++ file/magic/Magdir/animation	2008-05-31 15:03:45.000000000 +0200
+@@ -686,6 +686,7 @@
+ 
+ # Microsoft Advanced Streaming Format (ASF) <mpruett@sgi.com>
+ 0	belong			0x3026b275	Microsoft ASF
++!:mime	video/x-ms-asf
+ 
+ # MNG Video Format, <URL:http://www.libpng.org/pub/mng/spec/>
+ 0	string			\x8aMNG		MNG video data,
+## 336-magic-add-qdmb.dpatch by Benoit Sibaud <bsibaud@april.org>
+##
+## DP: New magic for QDBM Quick Database Manager (Closes: #481717).
+diff -Naurp file-4.24.orig/magic/Magdir/database file-4.24/magic/Magdir/database
+--- file-4.24.orig/magic/Magdir/database	2008-05-04 14:12:49.000000000 +0000
++++ file-4.24/magic/Magdir/database	2008-05-21 09:07:49.000000000 +0000
+@@ -242,3 +242,8 @@
+ # URL:  http://www.grc.nasa.gov/WWW/cgns/adf/
+ # From: Nicolas Chauvat <nicolas.chauvat@logilab.fr>
+ 0	string	@(#)ADF\ Database	CGNS Advanced Data Format
++
++# Type:	QDBM Quick Database Manager
++# From:	Benoit Sibaud <bsibaud@april.org>
++0	string	\\[depot\\]\n\f		Quick Database Manager, little endian
++0	string	\\[DEPOT\\]\n\f		Quick Database Manager, big endian
+## 319-magic-add-pe5.dpatch by Simon Horman <horms@debian.org>
+##
+## DP: New magic for the Ulead Photo Explorer5 image format (Closes: #339397).
+diff -Naurp file.orig/magic/Magdir/images file/magic/Magdir/images
+--- file.orig/magic/Magdir/images	2008-07-02 15:16:52.000000000 +0000
++++ file/magic/Magdir/images	2008-07-15 13:39:37.000000000 +0000
+@@ -600,3 +600,8 @@
+ # Wavelet Scalar Quantization format used in gray-scale fingerprint images
+ # From Tano M Fotang <mfotang@quanteq.com>
+ 0	string	\xff\xa0\xff\xa8\x00	Wavelet Scalar Quantization image data
++
++# Type:	Ulead Photo Explorer5 (.pe5)
++# URL:	http://www.jisyo.com/cgibin/view.cgi?EXT=pe5 (Japanese)
++# From:	Simon Horman <horms@debian.org>
++0	string	IIO2H	Ulead Photo Explorer5
+## 207-magic-update-real.dpatch
+##
+## DP: Update RealMedia magic.
+diff -Naurp file.orig/magic/Magdir/audio file/magic/Magdir/audio
+--- file.orig/magic/Magdir/audio	2008-05-31 22:17:03.000000000 +0200
++++ file/magic/Magdir/audio	2008-06-13 09:48:01.000000000 +0200
+@@ -116,7 +116,7 @@
+ # Real Audio (Magic .ra\0375)
+ 0	belong		0x2e7261fd	RealAudio sound file
+ !:mime	audio/x-pn-realaudio
+-0	string		.RMF		RealMedia file
++0	string		.RMF\0\0\0	RealMedia file
+ !:mime	application/vnd.rn-realmedia
+ #video/x-pn-realvideo
+ #video/vnd.rn-realvideo
+## 212-magic-update-pfm.dpatch
+##
+## DP: Update pfm magic.
+diff -Naurp file.orig/magic/Magdir/msdos file/magic/Magdir/msdos
+--- file.orig/magic/Magdir/msdos	2008-07-02 15:16:52.000000000 +0000
++++ file/magic/Magdir/msdos	2008-07-15 13:36:26.000000000 +0000
+@@ -504,6 +504,13 @@
+ # Acroread or something	 files wrongly identified as G3	 .pfm
+ # these have the form \000 \001 any? \002 \000 \000
+ # or \000 \001 any? \022 \000 \000
++0	belong&0xffff00ff	0x00010012	PFM data
++>4	string			\000\000
++>6	string			>\060		- %s
++
++0	belong&0xffff00ff	0x00010002	PFM data
++>4	string			\000\000
++>6	string			>\060		- %s
+ #0	string	\000\001 pfm?
+ #>3	string	\022\000\000Copyright\	yes
+ #>3	string	\002\000\000Copyright\	yes
 ## 323-magic-add-sisu.dpatch by Ralph Amissah <ralph.amissah@gmail.com>
 ##
 ## DP: New magic for SiSU Markup Language.
-
-@DPATCH@
-
 diff -Naurp file-4.24.orig/magic/Magdir/sisu file-4.24/magic/Magdir/sisu
 --- file-4.24.orig/magic/Magdir/sisu	1970-01-01 00:00:00.000000000 +0000
 +++ file-4.24/magic/Magdir/sisu	2008-04-07 08:10:25.000000000 +0000
@@ -168,135 +464,130 @@ diff -Naurp file-4.24.orig/magic/Makefile.in file-4.24/magic/Makefile.in
  $(MAGIC_FRAGMENT_DIR)/sketch \
  $(MAGIC_FRAGMENT_DIR)/smalltalk \
  $(MAGIC_FRAGMENT_DIR)/sniffer \
-#!/bin/sh /usr/share/dpatch/dpatch-run
-## 324-magic-add-snes.dpatch by Josh Triplett <josh@freedesktop.org>
+## 207-magic-update-zip.dpatch
 ##
-## DP: New magic for SNES SPC700 sound files (Closes: #410847).
-
-@DPATCH@
-
-diff -Naur file-4.21.orig/magic/Magdir/audio file-4.21/magic/Magdir/audio
---- file-4.21.orig/magic/Magdir/audio	2007-12-23 17:32:42.000000000 +0000
-+++ file-4.21/magic/Magdir/audio	2007-12-23 17:33:57.000000000 +0000
-@@ -268,6 +268,15 @@
- >122	byte&0x1	=1		PAL
- >122	byte&0x1	=0		NTSC
+## DP: Update zip magic.
+diff -Naurp file.orig/magic/Magdir/msdos file/magic/Magdir/msdos
+--- file.orig/magic/Magdir/msdos	2008-05-31 22:17:03.000000000 +0200
++++ file/magic/Magdir/msdos	2008-06-13 09:44:56.000000000 +0200
+@@ -256,7 +256,7 @@
  
-+# Type: SNES SPC700 sound files
-+# From: Josh Triplett <josh@freedesktop.org>
-+0	string	SNES-SPC700\ Sound\ File\ Data\ v	SNES SPC700 sound file
-+>&0	string	0.30					\b, version %s
-+>>0x23	byte	0x1B					\b, without ID666 tag
-+>>0x23	byte	0x1A					\b, with ID666 tag
-+>>>0x2E	string	>\0					\b, song "%.32s"
-+>>>0x4E	string	>\0					\b, game "%.32s"
-+
- # Impulse tracker module (audio/x-it)
- 0	string		IMPM		Impulse Tracker module sound data -
- >4	string		>\0		"%s"
-#!/bin/sh /usr/share/dpatch/dpatch-run
-## 325-magic-add-ssl.dpatch by Nicolas Collignon <tsointsoin@gmail.com>
+ # a few unknown ZIP sfxes, no idea if they are needed or if they are
+ # already captured by the generic patterns above
+->122		string		Windows\ self-extracting\ ZIP	\b, ZIP self-extracting archive
++>0x7a		string		Windows\ self-extracting\ ZIP	\b, ZIP self-extracting archive
+ >(8.s*16)	search/0x20	PKSFX \b, ZIP self-extracting archive (PKZIP)
+ # TODO: how to add this? >FileSize-34 string Windows\ Self-Installing\ Executable \b, ZIP self-extracting archive
+ #
+## 339-magic-add-scribus.dpatch by Werner Fink <werner@suse.de>
 ##
-## DP: New magic for OpenSSH key files (Closes: #439537).
-
-@DPATCH@
-
-diff -Naur file-4.21.orig/magic/Magdir/ssh file-4.21/magic/Magdir/ssh
---- file-4.21.orig/magic/Magdir/ssh	1970-01-01 00:00:00.000000000 +0000
-+++ file-4.21/magic/Magdir/ssh	2007-08-26 08:25:03.000000000 +0000
-@@ -0,0 +1,8 @@
-+# Type: OpenSSH key files
-+# From: Nicolas Collignon <tsointsoin@gmail.com>
+## DP: Adds new magics for Scribus.
+diff -Naurp file-4.24.orig/magic/Magdir/wordprocessors file-4.24/magic/Magdir/wordprocessors
+--- file-4.24.orig/magic/Magdir/wordprocessors	2008-05-21 09:49:43.000000000 +0000
++++ file-4.24/magic/Magdir/wordprocessors	2008-05-21 09:50:54.000000000 +0000
+@@ -153,3 +153,9 @@
+ # From: Jamie Thompson <debian-bugs@jamie-thompson.co.uk>
+ 0	string/cB	\<map\ version	Freemind document
+ !:mime	application/x-freemind
 +
-+0	string	SSH\ PRIVATE\ KEY	OpenSSH RSA1 private key,
-+>28	string	>\0			version %s
-+
-+0	string	ssh-dss\		OpenSSH DSA public key
-+0	string	ssh-rsa\		OpenSSH RSA public key
-#!/bin/sh /usr/share/dpatch/dpatch-run
-## 325-magic-add-ssl.dpatch by Nicolas Collignon <tsointsoin@gmail.com>
++# Type:        Scribus
++# From:        Werner Fink <werner@suse.de>
++0	string	\<SCRIBUSUTF8\ Version		Scribus Document
++0	string	\<SCRIBUSUTF8NEW\ Version	Scribus Document
++!:mime	application/x-scribus
+## 209-magic-update-os2.dpatch
 ##
-## DP: New magic for OpenSSL certificates/key files (Closes: #439537).
-
-@DPATCH@
-
-diff -Naur file-4.21.orig/magic/Magdir/ssl file-4.21/magic/Magdir/ssl
---- file-4.21.orig/magic/Magdir/ssl	1970-01-01 00:00:00.000000000 +0000
-+++ file-4.21/magic/Magdir/ssl	2007-08-26 08:27:04.000000000 +0000
-@@ -0,0 +1,7 @@
-+# Type: OpenSSL certificates/key files
-+# From: Nicolas Collignon <tsointsoin@gmail.com>
-+
-+0	string	-----BEGIN\ CERTIFICATE-----	PEM certificate
-+0	string	-----BEGIN\ CERTIFICATE\ REQ	PEM certificate request
-+0	string	-----BEGIN\ RSA\ PRIVATE	PEM RSA private key
-+0	string	-----BEGIN\ DSA\ PRIVATE	PEM DSA private key
-#!/bin/sh /usr/share/dpatch/dpatch-run
-## 325-magic-add-subversion.dpatch by Michael Piefel <piefel@debian.org>
-##
-## DP: New magic for SVN dumps (closes: #256652).
-
-@DPATCH@
-
-diff -Naur file-4.21.orig/magic/Magdir/revision file-4.21/magic/Magdir/revision
---- file-4.21.orig/magic/Magdir/revision	2007-12-23 17:25:39.000000000 +0000
-+++ file-4.21/magic/Magdir/revision	2007-12-23 17:26:34.000000000 +0000
-@@ -17,3 +17,8 @@
- 0	string	HG10		Mercurial bundle,
- >4	string	UN		uncompressed
- >4	string	BZ		bzip2 compressed
-+
-+# Type:	Subversion (SVN) dumps
-+# From:	Uwe Zeisberger <zeisberg@informatik.uni-freiburg.de>
-+0	string	SVN-fs-dump-format-version:	Subversion dumpfile
-+>28	string	>\0				(version: %s)
-#!/bin/sh /usr/share/dpatch/dpatch-run
-## 326-magic-add-supercollider.dpatch by Mario Lang <mlang@debian.org>
-##
-## DP: Adds new magic for SuperCollider 3 Synth Definition File Format
-## DP: (Closes: #284803).
-
-@DPATCH@
-
-diff -Naurp file-4.23.orig/magic/Magdir/audio file-4.23/magic/Magdir/audio
---- file-4.23.orig/magic/Magdir/audio	2008-01-12 17:39:01.000000000 +0000
-+++ file-4.23/magic/Magdir/audio	2008-01-12 17:38:49.000000000 +0000
-@@ -576,3 +576,8 @@
- # URL:  http://filext.com/detaillist.php?extdetail=AMR
- # From: Russell Coker <russell@coker.com.au>
- 0	string	#!AMR		Adaptive Multi-Rate Codec (GSM telephony)
-+
-+# Type: SuperCollider 3 Synth Definition File Format
-+# From: Mario Lang <mlang@debian.org>
-+0	string	SCgf	SuperCollider3 Synth Definition file,
-+>4	belong	x	version %d
-#!/bin/sh /usr/share/dpatch/dpatch-run
-## 328-magic-add-xen.dpatch by Radek Vokal <rvokal@redhat.com>
-##
-## DP: xen patch, recognizes Xen saved domain
-
-@DPATCH@
-
-diff -Naurp file-4.23.orig/magic/Magdir/linux file-4.23/magic/Magdir/linux
---- file-4.23.orig/magic/Magdir/linux	2008-01-12 17:47:04.000000000 +0000
-+++ file-4.23/magic/Magdir/linux	2008-01-12 17:46:42.000000000 +0000
-@@ -248,3 +248,9 @@
- >72	string	x		%s]
- >168	string	x		UUID: %s
+## DP: Update OS/2 REXX magic.
+diff -Naurp file.orig/magic/Magdir/msdos file/magic/Magdir/msdos
+--- file.orig/magic/Magdir/msdos	2008-06-13 09:44:56.000000000 +0200
++++ file/magic/Magdir/msdos	2008-06-13 09:51:35.000000000 +0200
+@@ -14,8 +14,10 @@
  
-+# Type: Xen, the virtual machine monitor
-+# From: Radek Vokal <rvokal@redhat.com>
-+0	string		LinuxGuestRecord	Xen saved domain
-+#>2	regex		\(name\ [^)]*\)		%s
-+>20	search/256	(name			(name
-+>>&1	string		x			%s...)
-#!/bin/sh /usr/share/dpatch/dpatch-run
+ # OS/2 batch files are REXX. the second regex is a bit generic, oh well
+ # the matched commands seem to be common in REXX and uncommon elsewhere
+-100	regex/c =^[\ \t]{0,10}call[\ \t]{1,10}rxfunc OS/2 REXX batch file text
+-100	regex/c =^[\ \t]{0,10}say\ ['"]	     OS/2 REXX batch file text
++100	search/0xffff   rxfuncadd
++>100	regex/c =^[\ \t]{0,10}call[\ \t]{1,10}rxfunc	OS/2 REXX batch file text
++100	search/0xffff   say
++>100	regex/c =^[\ \t]{0,10}say\ ['"]			OS/2 REXX batch file text
+ 
+ 0	leshort		0x14c	MS Windows COFF Intel 80386 object file
+ #>4	ledate		x	stamp %s
+## 321-magic-add-powertab.dpatch by Jelmer Vernooij <jelmer@samba.org>
+##
+## DP: New magic for Power-Tab
+diff -Naur file-4.20.orig/magic/Magdir/chord file-4.20/magic/Magdir/chord
+--- file-4.20.orig/magic/Magdir/chord	2003-03-24 14:48:32.000000000 +0000
++++ file-4.20/magic/Magdir/chord	2007-05-17 16:33:26.000000000 +0000
+@@ -7,3 +7,8 @@
+ #
+ 0	string		{title		Chord text file
+ 
++# Type:	PowerTab file format
++# URL:	http://www.power-tab.net/
++# From:	Jelmer Vernooij <jelmer@samba.org>
++0	string		ptab\003\000	Power-Tab v3 Tablature File
++0	string		ptab\004\000	Power-Tab v4 Tablature File
+## 322-magic-add-scummvm.dpatch by Sven Hartge <debian@ds9.argh.org>
+##
+## DP: New magic for scummVM savegame files (Closes: #263488).
+diff -Naurp file-4.23.orig/magic/Magdir/console file-4.23/magic/Magdir/console
+--- file-4.23.orig/magic/Magdir/console	2007-09-26 20:22:31.000000000 +0000
++++ file-4.23/magic/Magdir/console	2008-01-12 17:36:55.000000000 +0000
+@@ -252,3 +252,7 @@
+ # .w3m
+ 0	string HM3W				Warcraft III map file
+ 
++# Type: scummVM savegame files
++# From: Sven Hartge <debian@ds9.argh.org>
++0	string	SCVM	scummVM savegame
++>12	string	>\0	"%s"
+## 213-magic-update-ocaml.dpatch by Eric Cooper <ecc@cmu.edu>
+##
+## DP: Update ocaml magic (Closes: #488992).
+diff -Naurp file.orig/magic/Magdir/ocaml file/magic/Magdir/ocaml
+--- file.orig/magic/Magdir/ocaml	2008-07-15 14:13:20.000000000 +0000
++++ file/magic/Magdir/ocaml	2008-07-15 14:13:08.000000000 +0000
+@@ -1,7 +1,7 @@
+ 
+ #------------------------------------------------------------------------------
+ # ocaml: file(1) magic for Objective Caml files.
+-0	string	Caml1999	Objective caml
++0	string	Caml1999	OCaml
+ >8	string	X		exec file
+ >8	string	I		interface file (.cmi)
+ >8	string	O		object file (.cmo)
+@@ -10,4 +10,4 @@
+ >8	string	Z		native library file (.cmxa)
+ >8	string	M		abstract syntax tree implementation file
+ >8	string	N		abstract syntax tree interface file
+->9	string	>\0		(Version %3.3s).
++>9	string	>\0		(Version %3.3s)
+## 323-magic-add-sgf.dpatch by Eduardo Sabbatella <eduardo_sabbatella@yahoo.com.ar>
+##
+## DP: New magic for SGF Smart Game Format
+diff -Naurp file.orig/magic/Magdir/games file/magic/Magdir/games
+--- file.orig/magic/Magdir/games	2008-04-23 19:00:59.000000000 +0000
++++ file/magic/Magdir/games	2008-07-15 13:41:19.000000000 +0000
+@@ -243,3 +243,14 @@
+ >&0		string		n\ 					NetImmerse game engine file
+ >>&0		regex		[0-9a-z.]+				\b, version %s
+ 
++# Type:	SGF Smart Game Format
++# URL:	http://www.red-bean.com/sgf/
++# From:	Eduardo Sabbatella <eduardo_sabbatella@yahoo.com.ar>
++2	regex/c	\\(;.*GM\\[[0-9]{1,2}\\]	Smart Game Format
++>2	regex/c	GM\\[1\\]			- Go Game
++>2	regex/c	GM\\[6\\]			- BackGammon Game
++>2	regex/c	GM\\[11\\]			- Hex Game
++>2	regex/c	GM\\[18\\]			- Amazons Game
++>2	regex/c	GM\\[19\\]			- Octi Game
++>2	regex/c	GM\\[20\\]			- Gess Game
++>2	regex/c	GM\\[21\\]			- twix Game
 ## 331-magic-add-xcursor.dpatch by Mathias Brodala <info@noctus.net>
 ##
 ## DP: New magic for X11 cursor files (Closes: #451246).
-
-@DPATCH@
-
 diff -Naur file-4.21.orig/magic/Magdir/images file-4.21/magic/Magdir/images
 --- file-4.21.orig/magic/Magdir/images	2007-12-23 17:40:53.000000000 +0000
 +++ file-4.21/magic/Magdir/images	2007-12-23 17:40:46.000000000 +0000
@@ -309,106 +600,71 @@ diff -Naur file-4.21.orig/magic/Magdir/images file-4.21/magic/Magdir/images
 +# URL:	http://webcvs.freedesktop.org/mime/shared-mime-info/freedesktop.org.xml.in?view=markup
 +# From:	Mathias Brodala <info@noctus.net>
 +0	string	Xcur	X11 cursor
-#!/bin/sh /usr/share/dpatch/dpatch-run
-## 903-magic-local.dpatch by Michael Piefel <piefel@debian.org>
+## 214-magic-update-linuxswap.dpatch by Russell Coker <russell@coker.com.au>
 ##
-## DP: No longer includes Localstuff in /usr/share/misc/magic. Local definitions
-## DP: should go to /etc/magic.
-
-@DPATCH@
-
-diff -Naurp file-4.24.orig/magic/Header file-4.24/magic/Header
---- file-4.24.orig/magic/Header	2000-08-05 17:36:46.000000000 +0000
-+++ file-4.24/magic/Header	2008-04-07 08:17:11.000000000 +0000
-@@ -1,5 +1,5 @@
--# Magic
- # Magic data for file(1) command.
--# Machine-generated from src/cmd/file/magdir/*; edit there only!
--# Format is described in magic(files), where:
--# files is 5 on V7 and BSD, 4 on SV, and ?? in the SVID.
-+# Format is described in magic(5).
-+# Don't edit this file, edit /etc/magic or send your suggested inclusions to
-+# this file as a wishlist bug against file (using the reportbug utility).
-+
-diff -Naurp file-4.24.orig/magic/magic.local file-4.24/magic/magic.local
---- file-4.24.orig/magic/magic.local	1970-01-01 00:00:00.000000000 +0000
-+++ file-4.24/magic/magic.local	2008-04-07 08:17:11.000000000 +0000
-@@ -0,0 +1,3 @@
-+# Magic local data for file(1) command.
-+# Insert here your local magic data. Format is described in magic(5).
-+
-diff -Naurp file-4.24.orig/src/Makefile.am file-4.24/src/Makefile.am
---- file-4.24.orig/src/Makefile.am	2008-02-24 01:33:05.000000000 +0000
-+++ file-4.24/src/Makefile.am	2008-04-07 08:16:39.000000000 +0000
-@@ -5,7 +5,7 @@ EXTRA_DIST = getopt_long.c
- 
- bin_PROGRAMS = file
- 
--AM_CPPFLAGS = -DMAGIC='"$(MAGIC)"'
-+AM_CPPFLAGS = -DMAGIC='"/etc/magic:$(MAGIC)"'
- 
- libmagic_la_SOURCES = magic.c apprentice.c softmagic.c ascmagic.c \
- 	compress.c is_tar.c readelf.c print.c fsmagic.c \
-diff -Naurp file-4.24.orig/src/Makefile.in file-4.24/src/Makefile.in
---- file-4.24.orig/src/Makefile.in	2008-03-22 21:40:13.000000000 +0000
-+++ file-4.24/src/Makefile.in	2008-04-07 08:16:47.000000000 +0000
-@@ -198,7 +198,7 @@ MAGIC = $(pkgdatadir)/magic
- lib_LTLIBRARIES = libmagic.la
- include_HEADERS = magic.h
- EXTRA_DIST = getopt_long.c
--AM_CPPFLAGS = -DMAGIC='"$(MAGIC)"'
-+AM_CPPFLAGS = -DMAGIC='"/etc/magic:$(MAGIC)"'
- libmagic_la_SOURCES = magic.c apprentice.c softmagic.c ascmagic.c \
- 	compress.c is_tar.c readelf.c print.c fsmagic.c \
- 	funcs.c file.h names.h patchlevel.h readelf.h tar.h apptype.c \
-#!/bin/sh /usr/share/dpatch/dpatch-run
-## 904-file-make.dpatch by Michael Piefel <piefel@debian.org>
+## DP: Adding volume label and UUID support for linux swap (Closes: #489865).
+diff -Naurp file.orig/magic/Magdir/linux file/magic/Magdir/linux
+--- file.orig/magic/Magdir/linux	2008-06-04 18:02:25.000000000 +0000
++++ file/magic/Magdir/linux	2008-07-15 14:16:43.000000000 +0000
+@@ -56,11 +56,19 @@
+ # Linux swap file with swsusp1 image, from Jeff Bailey <jbailey@ubuntu.com>
+ 4076	string		SWAPSPACE2S1SUSPEND	Linux/i386 swap file (new style) with SWSUSP1 image
+ # according to man page of mkswap (8) March 1999
+-4086	string		SWAPSPACE2	Linux/i386 swap file (new style)
+->0x400	long		x		%d (4K pages)
+->0x404	long		x		size %d pages
+->>4086	string		SWAPSPACE2	
+->>>1052	string		>\0		Label %s
++# volume label and UUID Russell Coker
++# http://etbe.coker.com.au/2008/07/08/label-vs-uuid-vs-device/
++4086	string		SWAPSPACE2	Linux/i386 swap file (new style),
++>0x400	long		x		version %d (4K pages),
++>0x404	long		x		size %d pages,
++>1052	string		\0		no label,
++>1052	string		>\0		LABEL=%s,
++>0x40c	belong		x		UUID=%x
++>0x410	beshort		x		\b-%x
++>0x412	beshort		x		\b-%x
++>0x414	beshort		x		\b-%x
++>0x416	belong		x		\b-%x
++>0x41a	beshort		x		\b%x
+ # ECOFF magic for OSF/1 and Linux (only tested under Linux though)
+ #
+ #	from Erik Troan (ewt@redhat.com) examining od dumps, so this
+## 325-magic-add-subversion.dpatch by Michael Piefel <piefel@debian.org>
 ##
-## DP: FIXME
-
-@DPATCH@
-
-diff -Naurp file-4.23.orig/src/Makefile.in file-4.23/src/Makefile.in
---- file-4.23.orig/src/Makefile.in	2008-01-12 17:55:24.000000000 +0000
-+++ file-4.23/src/Makefile.in	2008-01-12 17:56:46.000000000 +0000
-@@ -300,7 +300,7 @@ clean-binPROGRAMS:
- 	done
- file$(EXEEXT): $(file_OBJECTS) $(file_DEPENDENCIES) 
- 	@rm -f file$(EXEEXT)
--	$(LINK) $(file_OBJECTS) $(file_LDADD) $(LIBS)
-+	$(LINK) $(file_OBJECTS) $(file_LDADD)
- 
- mostlyclean-compile:
- 	-rm -f *.$(OBJEXT)
-#!/bin/sh /usr/share/dpatch/dpatch-run
-## 906-file-hurd.dpatch by Michael Casadevall <sonicmctails@gmail.com>
-##
-## DP: Fixes a FTBFS on hurd (Closes: #433716).
-
-@DPATCH@
-
-diff -Naur file-4.21.orig/src/magic.c file-4.21/src/magic.c
---- file-4.21.orig/src/magic.c	2007-03-26 17:59:50.000000000 +0000
-+++ file-4.21/src/magic.c	2007-07-19 06:25:16.000000000 +0000
-@@ -58,6 +58,11 @@
- #include <locale.h>
- #endif
- 
-+#ifndef PIPE_BUF
-+// Get the PIPE_BUF from pathconf
-+#define PIPE_BUF pathconf(".", _PC_PIPE_BUF)
-+#endif
+## DP: New magic for SVN dumps (closes: #256652).
+diff -Naur file-4.21.orig/magic/Magdir/revision file-4.21/magic/Magdir/revision
+--- file-4.21.orig/magic/Magdir/revision	2007-12-23 17:25:39.000000000 +0000
++++ file-4.21/magic/Magdir/revision	2007-12-23 17:26:34.000000000 +0000
+@@ -17,3 +17,8 @@
+ 0	string	HG10		Mercurial bundle,
+ >4	string	UN		uncompressed
+ >4	string	BZ		bzip2 compressed
 +
- #include <netinet/in.h>		/* for byte swapping */
- 
- #include "patchlevel.h"
-#!/bin/sh /usr/share/dpatch/dpatch-run
++# Type:	Subversion (SVN) dumps
++# From:	Uwe Zeisberger <zeisberg@informatik.uni-freiburg.de>
++0	string	SVN-fs-dump-format-version:	Subversion dumpfile
++>28	string	>\0				(version: %s)
+## 341-magic-add-bzr.dpatch by Jelmer Vernooij <jelmer@samba.org>
+##
+## DP: Adds new magics for bzr (Closes: #488742).
+diff -Naurp file.orig/magic/Magdir/revision file/magic/Magdir/revision
+--- file.orig/magic/Magdir/revision	2008-07-01 15:42:16.000000000 +0200
++++ file/magic/Magdir/revision	2008-07-01 15:43:34.000000000 +0200
+@@ -22,3 +22,9 @@
+ # From:	Uwe Zeisberger <zeisberg@informatik.uni-freiburg.de>
+ 0	string	SVN-fs-dump-format-version:	Subversion dumpfile
+ >28	string	>\0				(version: %s)
++
++# Type:	Bazaar revision bundles and merge requests
++# URL:	http://www.bazaar-vcs.org/
++# From:	Jelmer Vernooij <jelmer@samba.org>
++0	string	#\ Bazaar\ revision\ bundle\ v Bazaar Bundle
++0	string	#\ Bazaar\ merge\ directive\ format Bazaar merge directive
 ## 998-doc-manpages.dpatch by Michael Piefel <piefel@debian.org>
 ##
 ## DP: FIXME, and #417511.
-
-@DPATCH@
-
 diff -Naurp file-4.24.orig/doc/file.man file-4.24/doc/file.man
 --- file-4.24.orig/doc/file.man	2008-03-07 15:00:07.000000000 +0000
 +++ file-4.24/doc/file.man	2008-04-07 08:26:06.000000000 +0000
@@ -456,32 +712,130 @@ diff -Naurp file-4.24.orig/doc/file.man file-4.24/doc/file.man
  .Sh EXAMPLES
  .Bd -literal -offset indent 
  $ file file.c file /dev/{wd0a,hda}
-@@ -548,3 +548,8 @@ on
+@@ -548,3 +548,5 @@ on
  .Dv ftp.astron.com
  in the directory
  .Dv /pub/file/file-X.YZ.tar.gz
 +.Pp
-+This Debian version adds a number of new magix entries. It can be
-+obtained from every site carrying a Debian distribution (that is
-+.Dv ftp.debian.org
-+and mirrors).
-#!/bin/sh /usr/share/dpatch/dpatch-run
-## 999-conglomeration.dpatch by Michael Piefel <piefel@debian.org>
++This version contains a number of new magix entries from Debian.
+## 202-magic-update-awk.dpatch by Werner Fink <werner@suse.de>
 ##
-## DP: Needs to be broken out (FIXME).
-
-@DPATCH@
-
-diff -Naurp file-4.24.orig/src/fsmagic.c file-4.24/src/fsmagic.c
---- file-4.24.orig/src/fsmagic.c	2008-02-14 20:14:52.000000000 +0000
-+++ file-4.24/src/fsmagic.c	2008-04-07 08:32:13.000000000 +0000
-@@ -110,7 +110,8 @@ file_fsmagic(struct magic_set *ms, const
- 		if (file_printf(ms, "cannot open `%s' (%s)",
- 		    fn, strerror(errno)) == -1)
- 			return -1;
--		return 1;
-+		ms->haderr++;
-+		return -1;
- 	}
+## DP: Updates (and re-enables) awk magic.
+diff -Naurp file-4.24.orig/magic/Magdir/commands file-4.24/magic/Magdir/commands
+--- file-4.24.orig/magic/Magdir/commands	2008-05-04 14:12:49.000000000 +0000
++++ file-4.24/magic/Magdir/commands	2008-05-21 09:36:15.000000000 +0000
+@@ -49,6 +49,7 @@
+ # update to distinguish from *.vcf files
+ # this is broken because postscript has /EBEGIN{ for example.
+ #0	search/Bb	BEGIN {			awk script text
++0	regex		=^\\s*BEGIN\\s*[{]	awk script text
  
- 	if (mime) {
+ # AT&T Bell Labs' Plan 9 shell
+ 0	string/b	#!\ /bin/rc	Plan 9 rc shell script text executable
+## 325-magic-add-ssl.dpatch by Nicolas Collignon <tsointsoin@gmail.com>
+##
+## DP: New magic for OpenSSL certificates/key files (Closes: #439537).
+diff -Naur file-4.21.orig/magic/Magdir/ssl file-4.21/magic/Magdir/ssl
+--- file-4.21.orig/magic/Magdir/ssl	1970-01-01 00:00:00.000000000 +0000
++++ file-4.21/magic/Magdir/ssl	2007-08-26 08:27:04.000000000 +0000
+@@ -0,0 +1,7 @@
++# Type: OpenSSL certificates/key files
++# From: Nicolas Collignon <tsointsoin@gmail.com>
++
++0	string	-----BEGIN\ CERTIFICATE-----	PEM certificate
++0	string	-----BEGIN\ CERTIFICATE\ REQ	PEM certificate request
++0	string	-----BEGIN\ RSA\ PRIVATE	PEM RSA private key
++0	string	-----BEGIN\ DSA\ PRIVATE	PEM DSA private key
+## 215-magic-update-linuxext.dpatch by Russell Coker <russell@coker.com.au>
+##
+## DP: Adding volume label and UUID support for linux ext (Closes: #489865).
+diff -Naurp file.orig/magic/Magdir/filesystems file/magic/Magdir/filesystems
+--- file.orig/magic/Magdir/filesystems	2008-07-02 13:47:23.000000000 +0000
++++ file/magic/Magdir/filesystems	2008-07-15 14:21:39.000000000 +0000
+@@ -1027,6 +1027,8 @@
+ 
+ # ext2/ext3 filesystems - Andreas Dilger <adilger@dilger.ca>
+ # ext4 filesystem - Eric Sandeen <sandeen@sandeen.net>
++# volume label and UUID Russell Coker
++# http://etbe.coker.com.au/2008/07/08/label-vs-uuid-vs-device/
+ 0x438   leshort         0xEF53          Linux
+ >0x44c  lelong          x               rev %d
+ >0x43e  leshort         x               \b.%d
+@@ -1042,25 +1044,32 @@
+ #   else large RO_COMPAT?
+ >>>0x464 lelong         >0x0000007      ext4 filesystem data
+ #  else large INCOMPAT?
+->>0x460 lelong          >0x000003f      ext4 filesystem data
++>>0x460	lelong          >0x000003f      ext4 filesystem data
++>0x468	belong		x		\b, UUID=%x
++>0x46c	beshort		x		\b-%x
++>0x46e	beshort		x		\b-%x
++>0x470	beshort		x		\b-%x
++>0x472	belong		x		\b-%x
++>0x476	beshort		x		\b%x
++>0x478	string		>0		\b, volume name "%s"
+ # General flags for any ext* fs
+->0x460  lelong          &0x0000004      (needs journal recovery)
+->0x43a  leshort         &0x0000002      (errors)
++>0x460	lelong          &0x0000004      (needs journal recovery)
++>0x43a	leshort         &0x0000002      (errors)
+ # INCOMPAT flags
+->0x460  lelong          &0x0000001      (compressed)
+-#>0x460 lelong          &0x0000002      (filetype)
+-#>0x460 lelong          &0x0000010      (meta bg)
+->0x460  lelong          &0x0000040      (extents)
+->0x460  lelong          &0x0000080      (64bit)
+-#>0x460 lelong          &0x0000100      (mmp)
+-#>0x460 lelong          &0x0000200      (flex bg)
++>0x460	lelong          &0x0000001      (compressed)
++#>0x460	lelong          &0x0000002      (filetype)
++#>0x460	lelong          &0x0000010      (meta bg)
++>0x460	lelong          &0x0000040      (extents)
++>0x460	lelong          &0x0000080      (64bit)
++#>0x460	lelong          &0x0000100      (mmp)
++#>0x460	lelong          &0x0000200      (flex bg)
+ # RO_INCOMPAT flags
+-#>0x464 lelong          &0x0000001      (sparse super)
+->0x464  lelong          &0x0000002      (large files)
+->0x464  lelong          &0x0000008      (huge files)
+-#>0x464 lelong          &0x0000010      (gdt checksum)
+-#>0x464 lelong          &0x0000020      (many subdirs)
+-#>0x463 lelong          &0x0000040      (extra isize)
++#>0x464	lelong          &0x0000001      (sparse super)
++>0x464	lelong          &0x0000002      (large files)
++>0x464	lelong          &0x0000008      (huge files)
++#>0x464	lelong          &0x0000010      (gdt checksum)
++#>0x464	lelong          &0x0000020      (many subdirs)
++#>0x463	lelong          &0x0000040      (extra isize)
+ 
+ # SGI disk labels - Nathan Scott <nathans@debian.org>
+ 0	belong		0x0BE5A941	SGI disk label (volume header)
+## 318-magic-add-par2.dpatch by Daniel van Eeden <daniel_e@dds.nl>
+##
+## DP: New magic for PAR2 archive files (Closes: #294070).
+diff -Naurp file-4.24.orig/magic/Magdir/archive file-4.24/magic/Magdir/archive
+--- file-4.24.orig/magic/Magdir/archive	2008-02-28 18:57:34.000000000 +0000
++++ file-4.24/magic/Magdir/archive	2008-04-07 08:05:47.000000000 +0000
+@@ -803,3 +803,6 @@
+ >24	belong	1		SHA-1 checksum
+ >24	belong	2		MD5 checksum
+ 
++# Type: Parity Archive
++# From: Daniel van Eeden <daniel_e@dds.nl>
++0	string	 PAR2		Parity Archive Volume Set
+## 337-magic-add-tokyocabinet.dpatch by Benoit Sibaud <bsibaud@april.org>
+##
+## DP: New magic for TokyoCabinet database (Closes: #481768).
+diff -Naurp file-4.24.orig/magic/Magdir/database file-4.24/magic/Magdir/database
+--- file-4.24.orig/magic/Magdir/database	2008-05-21 09:07:49.000000000 +0000
++++ file-4.24/magic/Magdir/database	2008-05-21 09:15:26.000000000 +0000
+@@ -247,3 +247,9 @@
+ # From:	Benoit Sibaud <bsibaud@april.org>
+ 0	string	\\[depot\\]\n\f		Quick Database Manager, little endian
+ 0	string	\\[DEPOT\\]\n\f		Quick Database Manager, big endian
++
++# Type:	TokyoCabinet database
++# URL:	http://tokyocabinet.sourceforge.net/
++# From:	Benoit Sibaud <bsibaud@april.org>
++0	string	ToKyO\ CaBiNeT\n	TokyoCabinet database
++>14	string	x			(version %s)
