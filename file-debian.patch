@@ -69,25 +69,9 @@ diff -Naurp file.orig/src/Makefile.am file/src/Makefile.am
  
 -AM_CPPFLAGS = -DMAGIC='"$(MAGIC)"'
 +AM_CPPFLAGS = -DMAGIC='"/etc/magic:$(MAGIC)"'
- AM_CFLAGS = -Wall -Wstrict-prototypes -Wmissing-prototypes -Wpointer-arith \
-     -Wmissing-declarations -Wredundant-decls -Wnested-externs \
-     -Wsign-compare -Wreturn-type -Wswitch -Wshadow \
-diff -Naurp file.orig/src/Makefile.in file/src/Makefile.in
---- file.orig/src/Makefile.in	2008-07-02 15:24:28.000000000 +0000
-+++ file/src/Makefile.in	2008-07-15 13:52:00.000000000 +0000
-@@ -197,7 +197,7 @@ top_srcdir = @top_srcdir@
- MAGIC = $(pkgdatadir)/magic
- lib_LTLIBRARIES = libmagic.la
- include_HEADERS = magic.h
--AM_CPPFLAGS = -DMAGIC='"$(MAGIC)"'
-+AM_CPPFLAGS = -DMAGIC='"/etc/magic:$(MAGIC)"'
- AM_CFLAGS = -Wall -Wstrict-prototypes -Wmissing-prototypes -Wpointer-arith \
-     -Wmissing-declarations -Wredundant-decls -Wnested-externs \
-     -Wsign-compare -Wreturn-type -Wswitch -Wshadow \
-## 324-magic-add-snes.dpatch by Josh Triplett <josh@freedesktop.org>
-##
-## DP: New magic for SNES SPC700 sound files (Closes: #410847).
-
+ AM_CFLAGS = @WARNINGS@
+ 
+ libmagic_la_SOURCES = magic.c apprentice.c softmagic.c ascmagic.c \
 diff -Naur file-4.21.orig/magic/Magdir/audio file-4.21/magic/Magdir/audio
 --- file-4.21.orig/magic/Magdir/audio	2007-12-23 17:32:42.000000000 +0000
 +++ file-4.21/magic/Magdir/audio	2007-12-23 17:33:57.000000000 +0000
