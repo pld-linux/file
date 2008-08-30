@@ -2,6 +2,7 @@
 # Conditional build:
 %bcond_without	python		# don't build python-magic module
 %bcond_without	static_libs	# don't build static libraries
+%bcond_without	tests
 #
 Summary:	A utility for determining file types
 Summary(cs.UTF-8):	Program pro zjišťování typu souborů
@@ -270,6 +271,10 @@ rm -f magic/Magdir/{*.orig,*~}
 cd python
 python setup.py build
 cd ..
+%endif
+
+%if %{with tests}
+%{__make} check
 %endif
 
 %install
