@@ -2,7 +2,7 @@
 # Conditional build:
 %bcond_without	python		# don't build python-magic module
 %bcond_without	static_libs	# don't build static libraries
-%bcond_without	tests
+%bcond_without	tests		# don't perform "make check"
 #
 Summary:	A utility for determining file types
 Summary(cs.UTF-8):	Program pro zjišťování typu souborů
