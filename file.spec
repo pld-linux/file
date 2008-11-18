@@ -31,7 +31,7 @@ Summary(zh_CN.UTF-8):	判定文件类型的工具。
 Summary(zh_TW.UTF-8):	用於決定檔案類型的一個工具程式。
 Name:		file
 Version:	4.26
-Release:	2
+Release:	3
 License:	distributable
 Group:		Applications/File
 URL:		http://www.darwinsys.com/file/
@@ -299,7 +299,7 @@ python setup.py install \
 cd ..
 %endif
 
-install -D magic/magic.local $RPM_BUILD_ROOT%{_sysconfdir}/magic
+install -D magic/Localstuff $RPM_BUILD_ROOT%{_sysconfdir}/magic
 
 cat magic/Header magic/Magdir/* %{SOURCE2} %{SOURCE3} >$RPM_BUILD_ROOT%{_datadir}/file/magic
 awk -f %{SOURCE4} <$RPM_BUILD_ROOT%{_datadir}/file/magic >$RPM_BUILD_ROOT%{_datadir}/file/magic.mime
