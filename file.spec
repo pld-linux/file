@@ -1,3 +1,5 @@
+# TODO
+# - bug: java .class files aren't recognized
 #
 # Conditional build:
 %bcond_without	python		# don't build python-magic module
