@@ -34,6 +34,7 @@ Version:	4.26
 Release:	2
 License:	distributable
 Group:		Applications/File
+URL:		http://www.darwinsys.com/file/
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
 # Source0-md5:	74cd5466416136da30a4e69f74dbc7a0
 Source1:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-non-english-man-pages.tar.bz2
