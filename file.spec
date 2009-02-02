@@ -31,7 +31,7 @@ Summary(zh_CN.UTF-8):	判定文件类型的工具。
 Summary(zh_TW.UTF-8):	用於決定檔案類型的一個工具程式。
 Name:		file
 Version:	4.26
-Release:	3
+Release:	4
 License:	distributable
 Group:		Applications/File
 URL:		http://www.darwinsys.com/file/
@@ -49,6 +49,7 @@ Patch3:		%{name}-greedy-dump.patch
 Patch4:		%{name}-selinux.patch
 Patch5:		%{name}-msdos.patch
 Patch6:		%{name}-fusecompress.patch
+Patch7:		%{name}-javaclass.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
@@ -255,6 +256,7 @@ Wiązania Pythona dla libmagic.
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
+%patch7 -p1
 
 rm -f magic/Magdir/{*.orig,*~}
 
