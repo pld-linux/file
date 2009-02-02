@@ -1,0 +1,11 @@
+--- file-4.26/magic/Magdir/cafebabe~	2008-04-08 14:53:50.000000000 +0200
++++ file-4.26/magic/Magdir/cafebabe	2009-02-02 12:59:35.000000000 +0100
+@@ -15,7 +15,7 @@
+ 0	beshort		0xcafe
+ >2	beshort         0xbabe
+ !:mime	application/x-java-applet
+->>2	belong		>30		compiled Java class data,
++>>4	belong		>30		compiled Java class data,
+ >>>6	beshort		x	        version %d.
+ >>>4	beshort		x       	\b%d
+ >>4	belong		1		Mach-O fat file with 1 architecture
