@@ -29,7 +29,7 @@ Summary(zh_CN.UTF-8):	判定文件类型的工具。
 Summary(zh_TW.UTF-8):	用於決定檔案類型的一個工具程式。
 Name:		file
 Version:	4.26
-Release:	4
+Release:	5
 License:	distributable
 Group:		Applications/File
 URL:		http://www.darwinsys.com/file/
