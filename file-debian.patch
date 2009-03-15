@@ -373,15 +373,16 @@ diff -Naurp file-4.24.orig/magic/Magdir/archive file-4.24/magic/Magdir/archive
 diff -Naurp file.orig/magic/Magdir/images file/magic/Magdir/images
 --- file.orig/magic/Magdir/images	2008-07-02 15:16:52.000000000 +0000
 +++ file/magic/Magdir/images	2008-07-15 13:39:37.000000000 +0000
-@@ -600,3 +600,8 @@
- # Wavelet Scalar Quantization format used in gray-scale fingerprint images
- # From Tano M Fotang <mfotang@quanteq.com>
- 0	string	\xff\xa0\xff\xa8\x00	Wavelet Scalar Quantization image data
+@@ -605,3 +605,9 @@
+ # JPEG 2000 Code Stream Bitmap
+ # From Petr Splichal <psplicha@redhat.com>
+ 0	string	\xFF\x4F\xFF\x51\x00	JPEG-2000 Code Stream Bitmap data
 +
-+# Type:	Ulead Photo Explorer5 (.pe5)
-+# URL:	http://www.jisyo.com/cgibin/view.cgi?EXT=pe5 (Japanese)
-+# From:	Simon Horman <horms@debian.org>
-+0	string	IIO2H	Ulead Photo Explorer5
++# Type:        Ulead Photo Explorer5 (.pe5)
++# URL: http://www.jisyo.com/cgibin/view.cgi?EXT=pe5 (Japanese)
++# From:        Simon Horman <horms@debian.org>
++0      string  IIO2H   Ulead Photo Explorer5
++
 #!/bin/sh /usr/share/dpatch/dpatch-run
 ## 320-magic-add-pmenu.dpatch by Edward Betts <edward@debian.org>
 ##
@@ -646,15 +647,15 @@ diff -Naurp file-4.23.orig/magic/Magdir/linux file-4.23/magic/Magdir/linux
 diff -Naur file-4.21.orig/magic/Magdir/images file-4.21/magic/Magdir/images
 --- file-4.21.orig/magic/Magdir/images	2007-12-23 17:40:53.000000000 +0000
 +++ file-4.21/magic/Magdir/images	2007-12-23 17:40:46.000000000 +0000
-@@ -534,3 +534,8 @@
- # URL:  http://www.jisyo.com/cgibin/view.cgi?EXT=pe5 (Japanese)
- # From: Simon Horman <horms@debian.org>
- 0	string	IIO2H	Ulead Photo Explorer5
+@@ -611,3 +611,8 @@
+ # From:        Simon Horman <horms@debian.org>
+ 0      string  IIO2H   Ulead Photo Explorer5
+ 
++# Type:        X11 cursor
++# URL: http://webcvs.freedesktop.org/mime/shared-mime-info/freedesktop.org.xml.in?view=markup
++# From:        Mathias Brodala <info@noctus.net>
++0      string  Xcur    X11 cursor
 +
-+# Type:	X11 cursor
-+# URL:	http://webcvs.freedesktop.org/mime/shared-mime-info/freedesktop.org.xml.in?view=markup
-+# From:	Mathias Brodala <info@noctus.net>
-+0	string	Xcur	X11 cursor
 #!/bin/sh /usr/share/dpatch/dpatch-run
 ## 335-magic-add-freemind.dpatch by Jamie Thompson <debian-bugs@jamie-thompson.co.uk>
 ##

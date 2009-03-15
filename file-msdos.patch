@@ -3,37 +3,31 @@
 @@ -5,14 +5,13 @@
  
  # .BAT files (Daniel Quinlan, quinlan@yggdrasil.com)
- # updated by Joerg Jenderek
+ # updated by Joerg Jenderek at Oct 2008
 -0	string	@			
-->1	string/cB	\ echo\ off	MS-DOS batch file text
-+0	string/cB	@\ echo\ off	MS-DOS batch file text
+->1	string/cB	\ echo\ off	DOS batch file text
++0	string/cB	@\ echo\ off	DOS batch file text
  !:mime	text/x-msdos-batch
-->1	string/cB	echo\ off	MS-DOS batch file text
-+0	string/cB	@echo\ off	MS-DOS batch file text
+->1	string/cB	echo\ off	DOS batch file text
++0	string/cB	@echo\ off	DOS batch file text
  !:mime	text/x-msdos-batch
-->1	string/cB	rem\ 		MS-DOS batch file text
-+0	string/cB	@rem\ 		MS-DOS batch file text
+->1	string/cB	rem\ 		DOS batch file text
++0	string/cB	@rem\ 		DOS batch file text
  !:mime	text/x-msdos-batch
-->1	string/cB	set\ 		MS-DOS batch file text
-+0	string/cB	@set\ 		MS-DOS batch file text
+->1	string/cB	set\ 		DOS batch file text
++0	string/cB	@set\ 		DOS batch file text
  !:mime	text/x-msdos-batch
  
  
-@@ -322,11 +321,12 @@
- #>0x20e string		SFX\ by\ LARC	\b, LARC self-extracting archive
+@@ -329,7 +329,7 @@
  #0	byte		0xb8		COM executable
+ 0	uleshort&0x80ff	0x00b8		
  # modified by Joerg Jenderek
-->1	lelong		!0x21cd4cff	for DOS
-+#>1	lelong		!0x21cd4cff	for DOS
+->1	lelong		!0x21cd4cff	COM executable for DOS
++#>1	lelong		!0x21cd4cff	COM executable for DOS
  # http://syslinux.zytor.com/comboot.php
  # (32-bit COMBOOT) programs *.C32 contain 32-bit code and run in flat-memory 32-bit protected mode
  # start with assembler instructions mov eax,21cd4cffh
-->1	lelong		0x21cd4cff	(32-bit COMBOOT)
-+#>1	lelong		0x21cd4cff	(32-bit COMBOOT)
-+0	string	\xb8\xff\x4c\xcd\x21	COM executable (32-bit COMBOOT)
- 0	string	\x81\xfc		
- >4	string	\x77\x02\xcd\x20\xb9	
- >>36	string	UPX!			FREE-DOS executable (COM), UPX compressed
 @@ -334,27 +334,27 @@
  # GRR search is not working
  #2	search/28	\xcd\x21	COM executable for MS-DOS
