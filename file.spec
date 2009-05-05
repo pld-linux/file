@@ -326,6 +326,8 @@ rm -rf $RPM_BUILD_ROOT
 %doc ChangeLog COPYING README
 %attr(755,root,root) %{_bindir}/file
 %{_datadir}/file
+%{_datadir}/misc/magic
+%{_datadir}/misc/magic.mgc
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/magic
 %{_mandir}/man1/file.1*
 %{_mandir}/man5/magic.5*
