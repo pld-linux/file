@@ -28,13 +28,13 @@ Summary(uk.UTF-8):	Утиліта для визначення типів фай�
 Summary(zh_CN.UTF-8):	判定文件类型的工具。
 Summary(zh_TW.UTF-8):	用於決定檔案類型的一個工具程式。
 Name:		file
-Version:	5.01
+Version:	5.02
 Release:	1
 License:	distributable
 Group:		Applications/File
 URL:		http://www.darwinsys.com/file/
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
-# Source0-md5:	e492d6309728ace56b113de1960e3024
+# Source0-md5:	003c56bd1a130390522b45ebcd5ac179
 Source1:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-non-english-man-pages.tar.bz2
 # Source1-md5:	c157a183b64156f8baafaefd9cbf04c1
 Source2:	%{name}-zisofs.magic
