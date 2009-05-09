@@ -29,7 +29,7 @@ Summary(zh_CN.UTF-8):	判定文件类型的工具。
 Summary(zh_TW.UTF-8):	用於決定檔案類型的一個工具程式。
 Name:		file
 Version:	5.03
-Release:	1
+Release:	2
 License:	distributable
 Group:		Applications/File
 URL:		http://www.darwinsys.com/file/
@@ -280,7 +280,7 @@ cd ..
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{/%{_lib},%{_datadir}/file}
+install -d $RPM_BUILD_ROOT/%{_lib}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -299,8 +299,8 @@ cd ..
 
 install -D magic/Localstuff $RPM_BUILD_ROOT%{_sysconfdir}/magic
 
-cat magic/Header magic/Magdir/* %{SOURCE2} %{SOURCE3} >$RPM_BUILD_ROOT%{_datadir}/file/magic
-awk -f %{SOURCE4} <$RPM_BUILD_ROOT%{_datadir}/file/magic >$RPM_BUILD_ROOT%{_datadir}/file/magic.mime
+cat magic/Header magic/Magdir/* %{SOURCE2} %{SOURCE3} >$RPM_BUILD_ROOT%{_datadir}/misc/magic
+awk -f %{SOURCE4} <$RPM_BUILD_ROOT%{_datadir}/misc/magic >$RPM_BUILD_ROOT%{_datadir}/misc/magic.mime
 
 bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT%{_mandir}
 
@@ -310,7 +310,9 @@ sed -e 's/MAGIC 4/MAGIC 5/' $RPM_BUILD_ROOT%{_mandir}/pt_BR/man5/magic.4 \
 	> $RPM_BUILD_ROOT%{_mandir}/pt_BR/man5/magic.5
 rm -f $RPM_BUILD_ROOT%{_mandir}/pt_BR/man5/magic.4
 
-src/file -m $RPM_BUILD_ROOT%{_datadir}/file/magic -c -C
+src/file -m $RPM_BUILD_ROOT%{_datadir}/misc/magic -c -C
+
+ln -s misc $RPM_BUILD_ROOT%{_datadir}/file
 
 rm -f $RPM_BUILD_ROOT%{_mandir}/README.file-non-english-man-pages
 rm -f $RPM_BUILD_ROOT%{_mandir}/file-magic4.diff
@@ -321,6 +323,16 @@ rm -rf $RPM_BUILD_ROOT
 %post	-n libmagic -p /sbin/ldconfig
 %postun	-n libmagic -p /sbin/ldconfig
 
+%pretrans
+# it used to be directory
+if [ -d %{_datadir}/file ]; then
+	mv -b %{_datadir}/file{,.dir}
+%banner -e %{name} <<EOF
+Check out %{_datadir}/file.dir
+for your own files and remove it when done.
+EOF
+fi
+
 %files
 %defattr(644,root,root,755)
 %doc ChangeLog COPYING README
@@ -328,6 +340,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/file
 %{_datadir}/misc/magic
 %{_datadir}/misc/magic.mgc
+%{_datadir}/misc/magic.mime
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/magic
 %{_mandir}/man1/file.1*
 %{_mandir}/man5/magic.5*
