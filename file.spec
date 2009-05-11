@@ -328,8 +328,7 @@ rm -rf $RPM_BUILD_ROOT
 if [ -d %{_datadir}/file ]; then
 	mv -b %{_datadir}/file{,.dir}
 %banner -e %{name} <<EOF
-Check out %{_datadir}/file.dir
-for your own files and remove it when done.
+Check %{_datadir}/file.dir for your own files and remove it when done.
 EOF
 fi
 
