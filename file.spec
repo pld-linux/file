@@ -29,7 +29,7 @@ Summary(zh_CN.UTF-8):	判定文件类型的工具。
 Summary(zh_TW.UTF-8):	用於決定檔案類型的一個工具程式。
 Name:		file
 Version:	5.03
-Release:	2
+Release:	3
 License:	distributable
 Group:		Applications/File
 URL:		http://www.darwinsys.com/file/
@@ -327,6 +327,7 @@ rm -rf $RPM_BUILD_ROOT
 # it used to be directory
 if [ -d %{_datadir}/file ]; then
 	mv -b %{_datadir}/file{,.dir}
+	ln -s misc %{_datadir}/file
 %banner -e %{name} <<EOF
 Check %{_datadir}/file.dir for your own files and remove it when done.
 EOF
