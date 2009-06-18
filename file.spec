@@ -32,7 +32,6 @@ Version:	5.03
 Release:	3
 License:	distributable
 Group:		Applications/File
-URL:		http://www.darwinsys.com/file/
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
 # Source0-md5:	d05f08a53e5c2f51f8ee6a4758c0cc53
 Source1:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-non-english-man-pages.tar.bz2
@@ -47,6 +46,7 @@ Patch3:		%{name}-greedy-dump.patch
 Patch4:		%{name}-selinux.patch
 Patch5:		%{name}-msdos.patch
 Patch6:		%{name}-fusecompress.patch
+URL:		http://www.darwinsys.com/file/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
