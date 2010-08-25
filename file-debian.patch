@@ -1931,15 +1931,12 @@ diff -Naurp file.orig/doc/file.man file/doc/file.man
  .Sh EXAMPLES
  .Bd -literal -offset indent
  $ file file.c file /dev/{wd0a,hda}
-@@ -547,3 +547,8 @@ on
+@@ -547,3 +547,5 @@ on
  .Dv ftp.astron.com
  in the directory
  .Dv /pub/file/file-X.YZ.tar.gz
 +.Pp
-+This Debian version adds a number of new magic entries. It can be
-+obtained from every site carrying a Debian distribution (that is
-+.Dv ftp.debian.org
-+and mirrors).
++This version adds a number of new magic entries from Debian.
 * 905-doc-manpages-typo.patch
 Author: Adam Buchbinder <adam.buchbinder@gmail.com>
 Description:
