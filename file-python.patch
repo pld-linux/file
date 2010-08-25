@@ -1,0 +1,10 @@
+--- file-5.04/magic/Magdir/python.orig	2009-10-27 15:49:57.000000000 +0100
++++ file-5.04/magic/Magdir/python	2010-08-25 08:48:48.722825810 +0200
+@@ -17,6 +17,7 @@
+ 0	belong		0x6df20d0a	python 2.4 byte-compiled
+ 0	belong		0xb3f20d0a	python 2.5 byte-compiled
+ 0	belong		0xd1f20d0a	python 2.6 byte-compiled
++0	belong		0x03f30d0a	python 2.7 byte-compiled
+ 0	belong		0x3b0c0d0a	python 3.0 byte-compiled
+ 0	belong		0x4f0c0d0a	python 3.1 byte-compiled
+ 

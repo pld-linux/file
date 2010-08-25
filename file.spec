@@ -29,7 +29,7 @@ Summary(zh_CN.UTF-8):	判定文件类型的工具。
 Summary(zh_TW.UTF-8):	用於決定檔案類型的一個工具程式。
 Name:		file
 Version:	5.04
-Release:	0.1
+Release:	0.2
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
@@ -46,7 +46,8 @@ Patch3:		%{name}-greedy-dump.patch
 Patch4:		%{name}-selinux.patch
 Patch5:		%{name}-msdos.patch
 Patch6:		%{name}-fusecompress.patch
-Patch7:		%{name}-lzma.patch
+Patch7:		%{name}-python.patch
+Patch8:		%{name}-dbase.patch
 URL:		http://www.darwinsys.com/file/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -255,6 +256,7 @@ Wiązania Pythona dla libmagic.
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
+%patch8 -p1
 
 rm -f magic/Magdir/{*.orig,*~}
 
