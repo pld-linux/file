@@ -1,0 +1,5 @@
+# PHP WSDL Cache, http://www.php.net/manual/en/book.soap.php
+# By Elan Ruusamäe <glen@delfi.ee> 2010
+0	string		wsdl	PHP WSDL cache,
+>4	byte		x	version 0x%02x
+>6	ledate		x	\b, created %s
