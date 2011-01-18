@@ -3,7 +3,7 @@
 %bcond_without	python		# don't build python-magic module
 %bcond_without	static_libs	# don't build static libraries
 %bcond_without	tests		# don't perform "make check"
-#
+
 Summary:	A utility for determining file types
 Summary(cs.UTF-8):	Program pro zjišťování typu souborů
 Summary(da.UTF-8):	Et værktøj til bestemmelse af filtyper
@@ -28,33 +28,34 @@ Summary(uk.UTF-8):	Утиліта для визначення типів фай�
 Summary(zh_CN.UTF-8):	判定文件类型的工具。
 Summary(zh_TW.UTF-8):	用於決定檔案類型的一個工具程式。
 Name:		file
-Version:	5.04
+Version:	5.05
 Release:	1
 License:	distributable
 Group:		Applications/File
-Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
-# Source0-md5:	accade81ff1cc774904b47c72c8aeea0
+#Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
+Source0:	ftp://ftp.astron.com/pri/%{name}-%{version}.tar.gz
+# Source0-md5:	0b429063710457be2bd17a18389cb018
 Source1:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-non-english-man-pages.tar.bz2
 # Source1-md5:	c157a183b64156f8baafaefd9cbf04c1
 Source2:	%{name}-zisofs.magic
 Source3:	%{name}-mscompress.magic
 Source4:	%{name}-magic.mime-gen.awk
-Patch0:		%{name}-debian.patch
+Source5:	php-wsdl-cache.magic
 Patch1:		%{name}-sparc.patch
-Patch2:		%{name}-lmagic.patch
 Patch3:		%{name}-greedy-dump.patch
 Patch4:		%{name}-selinux.patch
-Patch5:		%{name}-msdos.patch
 Patch6:		%{name}-fusecompress.patch
-Patch7:		%{name}-python.patch
 Patch8:		%{name}-dbase.patch
+Patch9:		searchpath.patch
+Patch10:	automake.patch
 URL:		http://www.darwinsys.com/file/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
+BuildRequires:	rpmbuild(macros) >= 1.219
 %if %{with python}
-BuildRequires:	python-devel >= 1:2.5
-BuildRequires:	python-modules >= 1:2.5
+BuildRequires:	python-devel
+BuildRequires:	python-modules
 BuildRequires:	rpm-pythonprov
 %endif
 Requires:	libmagic = %{version}-%{release}
@@ -248,15 +249,13 @@ Wiązania Pythona dla libmagic.
 
 %prep
 %setup -q
-%patch0 -p1
 %patch1 -p1
-%patch2 -p1
 %patch3 -p1
 %patch4 -p1
-%patch5 -p1
 %patch6 -p1
-%patch7 -p1
 %patch8 -p1
+%patch9 -p1
+%patch10 -p1
 
 rm -f magic/Magdir/{*.orig,*~}
 
@@ -295,16 +294,17 @@ ln -sf /%{_lib}/$(basename $RPM_BUILD_ROOT/%{_lib}/libmagic.so.*.*.*) \
 
 %if %{with python}
 cd python
-python setup.py install \
+%{__python} setup.py install \
 	--root=$RPM_BUILD_ROOT \
 	--optimize=2
 cd ..
+%py_postclean
 %endif
 
 install -D magic/Localstuff $RPM_BUILD_ROOT%{_sysconfdir}/magic
 
-cat magic/Header magic/Magdir/* %{SOURCE2} %{SOURCE3} >$RPM_BUILD_ROOT%{_datadir}/misc/magic
-awk -f %{SOURCE4} <$RPM_BUILD_ROOT%{_datadir}/misc/magic >$RPM_BUILD_ROOT%{_datadir}/misc/magic.mime
+cat magic/Header magic/Magdir/* %{SOURCE2} %{SOURCE3} %{SOURCE5} >$RPM_BUILD_ROOT%{_datadir}/misc/magic
+awk -f %{SOURCE4} < $RPM_BUILD_ROOT%{_datadir}/misc/magic > $RPM_BUILD_ROOT%{_datadir}/misc/magic.mime
 
 bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT%{_mandir}
 
@@ -379,6 +379,9 @@ fi
 %if %{with python}
 %files -n python-magic
 %defattr(644,root,root,755)
-%attr(755,root,root) %{py_sitedir}/magic.so
-%{py_sitedir}/Magic_file_extensions-*.egg-info
+%doc python/README python/example.py
+%if "%{py_ver}" > "2.4"
+%{py_sitescriptdir}/Magic_file_extensions-*.egg-info
+%endif
+%{py_sitescriptdir}/magic.py[co]
 %endif
