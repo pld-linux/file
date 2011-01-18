@@ -32,8 +32,7 @@ Version:	5.05
 Release:	1
 License:	distributable
 Group:		Applications/File
-#Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
-Source0:	ftp://ftp.astron.com/pri/%{name}-%{version}.tar.gz
+Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
 # Source0-md5:	0b429063710457be2bd17a18389cb018
 Source1:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-non-english-man-pages.tar.bz2
 # Source1-md5:	c157a183b64156f8baafaefd9cbf04c1
@@ -52,7 +51,7 @@ URL:		http://www.darwinsys.com/file/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
-BuildRequires:	rpmbuild(macros) >= 1.219
+BuildRequires:	rpmbuild(macros) >= 1.453
 %if %{with python}
 BuildRequires:	python-devel
 BuildRequires:	python-modules
@@ -256,6 +255,10 @@ Wiązania Pythona dla libmagic.
 %patch8 -p1
 %patch9 -p1
 %patch10 -p1
+
+%if "%{cc_release}" < "3.4"
+%{__sed} -i -e 's,-Wextra,,' configure.ac
+%endif
 
 rm -f magic/Magdir/{*.orig,*~}
 
