@@ -12,12 +12,14 @@ still use ~/.magic by default
  AM_CFLAGS = @WARNINGS@
  
  libmagic_la_SOURCES = magic.c apprentice.c softmagic.c ascmagic.c \
---- file-5.04/src/magic.c~	2009-09-14 20:50:38.000000000 +0300
-+++ file-5.04/src/magic.c	2010-09-20 17:14:49.000000000 +0300
-@@ -84,5 +89,5 @@
+--- file-5.06/src/magic.c~	2011-04-07 22:20:30.000000000 +0300
++++ file-5.06/src/magic.c	2011-04-18 11:56:38.611292743 +0300
+@@ -107,7 +107,7 @@
  private const char *
  get_default_magic(void)
  {
 -	static const char hmagic[] = "/.magic/magic.mgc";
 +	static const char hmagic[] = "/.magic";
- 	static char default_magic[2 * MAXPATHLEN + 2];
+ 	static char *default_magic;
+ 	char *home, *hmagicpath;
+ 
