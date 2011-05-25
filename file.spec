@@ -34,8 +34,8 @@ License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
 # Source0-md5:	b8d1f9a8a644067bd0a703cebf3f4858
-Source1:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-non-english-man-pages.tar.bz2
-# Source1-md5:	c157a183b64156f8baafaefd9cbf04c1
+Source1:	http://ftp1.pld-linux.org/people/glen/%{name}-non-english-man-pages.tar.bz2
+# Source1-md5:	6a45bcaefd19b94db36a1b2b7c5b806b
 Source2:	%{name}-zisofs.magic
 Source3:	%{name}-mscompress.magic
 Source4:	%{name}-magic.mime-gen.awk
@@ -312,18 +312,11 @@ awk -f %{SOURCE4} < $RPM_BUILD_ROOT%{_datadir}/misc/magic > $RPM_BUILD_ROOT%{_da
 
 bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT%{_mandir}
 
-# somebody forgot about patching in tarball
-mv -f $RPM_BUILD_ROOT%{_mandir}/pt_BR/man{4,5}
-sed -e 's/MAGIC 4/MAGIC 5/' $RPM_BUILD_ROOT%{_mandir}/pt_BR/man5/magic.4 \
-	> $RPM_BUILD_ROOT%{_mandir}/pt_BR/man5/magic.5
-rm -f $RPM_BUILD_ROOT%{_mandir}/pt_BR/man5/magic.4
-
 src/file -m $RPM_BUILD_ROOT%{_datadir}/misc/magic -c -C
-
-ln -s misc $RPM_BUILD_ROOT%{_datadir}/file
-
 rm -f $RPM_BUILD_ROOT%{_mandir}/README.file-non-english-man-pages
 rm -f $RPM_BUILD_ROOT%{_mandir}/file-magic4.diff
+
+ln -s misc $RPM_BUILD_ROOT%{_datadir}/file
 
 %clean
 rm -rf $RPM_BUILD_ROOT
