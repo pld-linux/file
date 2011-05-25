@@ -1,0 +1,148 @@
+diff --git a/magic/Magdir/archive b/magic/Magdir/archive
+index e84c8e3..5ad1ce3 100644
+--- a/magic/Magdir/archive
++++ b/magic/Magdir/archive
+@@ -654,6 +654,9 @@
+ >>>>78	string	-template		Template
+ !:mime	application/vnd.oasis.opendocument.image-template
+ 
++>26	byte	x			Zip archive data
++
++
+ # StarView Metafile
+ # From Pierre Ducroquet <pinaraf@pinaraf.info>
+ 0	string	VCLMTF	StarView MetaFile
+diff --git a/magic/Magdir/macintosh b/magic/Magdir/macintosh
+--- a/magic/Magdir/macintosh
++++ b/magic/Magdir/macintosh
+@@ -285,7 +285,7 @@
+ >0x412	beshort			x		number of blocks: %d,
+ >0x424	pstring			x		volume name: %s
+ 
+-# "BD" is has many false positives
++# "BD" gives many false positives
+ #0x400	beshort			0x4244		Macintosh HFS data
+ #>0	beshort			0x4C4B		(bootable)
+ #>0x40a	beshort			&0x8000		(locked)
+diff --git a/magic/Magdir/msdos b/magic/Magdir/msdos
+--- a/magic/Magdir/msdos
++++ b/magic/Magdir/msdos
+@@ -389,10 +389,11 @@
+ >>4	uleshort&0x4842			>0			\bsupport
+ >0	ubyte				x			\b)
+ # DOS driver cmd640x.sys has 0x12 instead of 0xffffffff for pointer field to next device header 
+-0	ulequad&0x000007a0ffffffed	0x0000000000000000	DOS-executable (
+->4	uleshort&0x8000			0x8000			\bcharacter device driver
+->>10	string				x			%-.8s
+->4	uleshort&0x4000			0x4000			\b,control strings-support)
++# Too weak, matches files that only contain 0's
++#0	ulequad&0x000007a0ffffffed	0x0000000000000000	DOS-executable (
++#>4	uleshort&0x8000			0x8000			\bcharacter device driver
++#>>10	string				x			%-.8s
++#>4	uleshort&0x4000			0x4000			\b,control strings-support)
+ 
+ # test too generic ?
+ 0	byte		0x8c		DOS executable (COM)
+diff --git a/magic/Magdir/printer b/magic/Magdir/printer
+--- a/magic/Magdir/printer
++++ b/magic/Magdir/printer
+@@ -1,6 +1,6 @@
+ 
+ # PostScript, updated by Daniel Quinlan (quinlan@yggdrasil.com)
+-0	string/t		%!		PostScript document text
++0	string		%!		PostScript document text
+ !:mime	application/postscript
+ !:apple	ASPSTEXT
+ >2	string		PS-Adobe-	conforming
+diff --git a/magic/Magdir/sniffer b/magic/Magdir/sniffer
+index 7982e90..3415047 100644
+--- a/magic/Magdir/sniffer
++++ b/magic/Magdir/sniffer
+@@ -74,6 +74,7 @@
+ # that use "libpcap", or that use the same capture file format.)
+ #
+ 0	ubelong		0xa1b2c3d4	tcpdump capture file (big-endian)
++!:mime	application/vnd.tcpdump.pcap
+ >4	beshort		x		- version %d
+ >6	beshort		x		\b.%d
+ >20	belong		0		(No link-layer encapsulation
+@@ -138,6 +139,7 @@
+ >20	belong		163		(802.11 with AVS header
+ >16	belong		x		\b, capture length %d)
+ 0	ulelong		0xa1b2c3d4	tcpdump capture file (little-endian)
++!:mime	application/vnd.tcpdump.pcap
+ >4	leshort		x		- version %d
+ >6	leshort		x		\b.%d
+ >20	lelong		0		(No link-layer encapsulation
+diff --git a/src/file.h b/src/file.h
+--- a/src/file.h
++++ b/src/file.h
+@@ -333,8 +333,10 @@ struct mlist {
+ 
+ #ifdef __cplusplus
+ #define CAST(T, b)	static_cast<T>(b)
++#define RCAST(T, b)	reinterpret_cast<T>(b)
+ #else
+ #define CAST(T, b)	(T)(b)
++#define RCAST(T, b)	(T)(b)
+ #endif
+ 
+ struct level_info {
+diff --git a/src/readelf.c b/src/readelf.c
+--- a/src/readelf.c
++++ b/src/readelf.c
+@@ -694,6 +694,7 @@ core:
+ 				unsigned char *cname, *cp;
+ 				size_t reloffset = prpsoffsets(i);
+ 				size_t noffset = doff + reloffset;
++				size_t k;
+ 				for (j = 0; j < 16; j++, noffset++,
+ 				    reloffset++) {
+ 					/*
+@@ -744,12 +745,11 @@ core:
+ 				 * Try next offsets, in case this match is
+ 				 * in the middle of a string.
+ 				 */
+-				size_t k;
+ 				for (k = i + 1 ; k < NOFFSETS ; k++) {
+-					if (prpsoffsets(k) >= prpsoffsets(i))
+-						continue;
+ 					size_t no;
+ 					int adjust = 1;
++					if (prpsoffsets(k) >= prpsoffsets(i))
++						continue;
+ 					for (no = doff + prpsoffsets(k);
+ 					     no < doff + prpsoffsets(i); no++)
+ 						adjust = adjust
+diff --git a/src/softmagic.c b/src/softmagic.c
+--- a/src/softmagic.c
++++ b/src/softmagic.c
+@@ -912,7 +912,7 @@ mcopy(struct magic_set *ms, union VALUETYPE *p, int type, int indir,
+ 	if (indir == 0) {
+ 		switch (type) {
+ 		case FILE_SEARCH:
+-			ms->search.s = (const char *)s + offset;
++			ms->search.s = RCAST(const char *, s) + offset;
+ 			ms->search.s_len = nbytes - offset;
+ 			ms->search.offset = offset;
+ 			return 0;
+@@ -930,8 +930,8 @@ mcopy(struct magic_set *ms, union VALUETYPE *p, int type, int indir,
+ 				ms->search.s = NULL;
+ 				return 0;
+ 			}
+-			buf = (const char *)s + offset;
+-			end = last = (const char *)s + nbytes;
++			buf = RCAST(const char *, s) + offset;
++			end = last = RCAST(const char *, s) + nbytes;
+ 			/* mget() guarantees buf <= last */
+ 			for (lines = linecnt, b = buf; lines && b < end &&
+ 			     ((b = CAST(const char *,
+@@ -944,7 +944,7 @@ mcopy(struct magic_set *ms, union VALUETYPE *p, int type, int indir,
+ 					b++;
+ 			}
+ 			if (lines)
+-				last = (const char *)s + nbytes;
++				last = RCAST(const char *, s) + nbytes;
+ 
+ 			ms->search.s = buf;
+ 			ms->search.s_len = last - buf;
