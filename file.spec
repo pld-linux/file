@@ -39,6 +39,7 @@ Source1:	http://www.mif.pg.gda.pl/homepages/ankry/man-PLD/%{name}-non-english-ma
 Source2:	%{name}-zisofs.magic
 Source3:	%{name}-mscompress.magic
 Source4:	%{name}-magic.mime-gen.awk
+Patch0:		git.patch
 Patch1:		%{name}-sparc.patch
 Patch3:		%{name}-greedy-dump.patch
 Patch4:		%{name}-selinux.patch
@@ -247,6 +248,7 @@ Wiązania Pythona dla libmagic.
 
 %prep
 %setup -q
+%patch0 -p1
 %patch1 -p1
 %patch3 -p1
 %patch4 -p1
