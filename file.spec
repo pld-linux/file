@@ -333,7 +333,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %pretrans
 # it used to be directory
-if [ -d %{_datadir}/file ]; then
+if [ -d %{_datadir}/file -a ! -L %{_datadir}/file ]; then
 	mv -b %{_datadir}/file{,.dir}
 	ln -s misc %{_datadir}/file
 %banner -e %{name} <<EOF
