@@ -29,7 +29,7 @@ Summary(zh_CN.UTF-8):	判定文件类型的工具。
 Summary(zh_TW.UTF-8):	用於決定檔案類型的一個工具程式。
 Name:		file
 Version:	5.07
-Release:	2
+Release:	3
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
@@ -277,7 +277,7 @@ rm -f magic/Magdir/{*.orig,*~}
 
 %if %{with python}
 cd python
-python setup.py build
+%{__python} setup.py build
 cd ..
 %endif
 
@@ -307,16 +307,16 @@ cd ..
 
 install -D magic/Localstuff $RPM_BUILD_ROOT%{_sysconfdir}/magic
 
-cat magic/Header magic/Magdir/* %{SOURCE2} %{SOURCE3} >$RPM_BUILD_ROOT%{_datadir}/misc/magic
+cat magic/Header magic/Magdir/* %{SOURCE2} %{SOURCE3} > $RPM_BUILD_ROOT%{_datadir}/misc/magic
 awk -f %{SOURCE4} < $RPM_BUILD_ROOT%{_datadir}/misc/magic > $RPM_BUILD_ROOT%{_datadir}/misc/magic.mime
 
-bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT%{_mandir}
-
 src/file -m $RPM_BUILD_ROOT%{_datadir}/misc/magic -c -C
+ln -s misc $RPM_BUILD_ROOT%{_datadir}/file
+
+bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT%{_mandir}
 rm -f $RPM_BUILD_ROOT%{_mandir}/README.file-non-english-man-pages
 rm -f $RPM_BUILD_ROOT%{_mandir}/file-magic4.diff
 
-ln -s misc $RPM_BUILD_ROOT%{_datadir}/file
 
 %clean
 rm -rf $RPM_BUILD_ROOT
