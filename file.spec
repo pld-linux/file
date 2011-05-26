@@ -328,7 +328,7 @@ rm -rf $RPM_BUILD_ROOT
 # it used to be directory
 if [ -d %{_datadir}/file -a ! -L %{_datadir}/file ]; then
 	mv -b %{_datadir}/file{,.dir}
-	ln -s misc %{_datadir}/file
+	ln -sn misc %{_datadir}/file
 %banner -e %{name} <<EOF
 Check %{_datadir}/file.dir for your own files and remove it when done.
 EOF
