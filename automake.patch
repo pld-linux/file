@@ -1,5 +1,5 @@
---- file-5.05/magic/Makefile.am~	2011-01-18 19:19:39.000000000 +0200
-+++ file-5.05/magic/Makefile.am	2011-01-18 19:21:23.958686512 +0200
+--- file-5.08/magic/Makefile.am~	2011-08-05 11:08:41.000000000 +0300
++++ file-5.08/magic/Makefile.am	2011-08-05 11:15:46.431552516 +0300
 @@ -5,11 +5,14 @@
  MAGIC_DIR = $(top_srcdir)/magic
  MAGIC_FRAGMENT_DIR = $(MAGIC_DIR)/$(MAGIC_FRAGMENT_BASE)
@@ -28,20 +28,25 @@
  
  # FIXME: Build file natively as well so that it can be used to compile
  # the target's magic file
-@@ -253,8 +253,12 @@
+@@ -257,9 +257,10 @@
  FILE_COMPILE_DEP = $(FILE_COMPILE)
  endif
  
 -${MAGIC}: $(EXTRA_DIST) $(FILE_COMPILE_DEP)
 -	@rm -fr magic
 -	@mkdir magic && cp -p $(EXTRA_DIST) magic
--	$(FILE_COMPILE) -C -m magic
--	@rm -fr magic
 +$(MAGIC): $(MAGIC_DIR)/Header $(MAGIC_FILES)
 +	cat $(MAGIC_DIR)/Header $(MAGIC_FILES) > $@
 +
 +$(MAGIC_MGC): $(MAGIC) $(FILE_COMPILE_DEP)
-+	$(FILE_COMPILE) -C -m $<
+ 	@(if expr "${FILE_COMPILE}" : '.*/.*' > /dev/null; then \
+ 	    echo "Using ${FILE_COMPILE} to generate ${MAGIC}" > /dev/null; \
+ 	  else \
+@@ -272,4 +273,7 @@
+ 	    fi; \
+ 	  fi)
+ 	$(FILE_COMPILE) -C -m magic
+-	@rm -fr magic
 +
 +install-data-local:
 +	install -d $(DESTDIR)$(sysconfdir)

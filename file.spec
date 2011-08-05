@@ -28,18 +28,18 @@ Summary(uk.UTF-8):	Утиліта для визначення типів фай�
 Summary(zh_CN.UTF-8):	判定文件类型的工具。
 Summary(zh_TW.UTF-8):	用於決定檔案類型的一個工具程式。
 Name:		file
-Version:	5.07
-Release:	3
+Version:	5.08
+Release:	1
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
-# Source0-md5:	b8d1f9a8a644067bd0a703cebf3f4858
+# Source0-md5:	6a2a263c20278f01fe3bb0f720b27d4e
 Source1:	http://ftp1.pld-linux.org/people/glen/%{name}-non-english-man-pages.tar.bz2
 # Source1-md5:	6a45bcaefd19b94db36a1b2b7c5b806b
 Source2:	%{name}-zisofs.magic
 Source3:	%{name}-mscompress.magic
 Source4:	%{name}-magic.mime-gen.awk
-Patch0:		git.patch
+#Patch0:		git.patch
 Patch1:		%{name}-sparc.patch
 Patch3:		%{name}-greedy-dump.patch
 Patch4:		%{name}-selinux.patch
@@ -248,7 +248,7 @@ Wiązania Pythona dla libmagic.
 
 %prep
 %setup -q
-%patch0 -p1
+#%patch0 -p1
 %patch1 -p1
 %patch3 -p1
 %patch4 -p1
@@ -257,7 +257,7 @@ Wiązania Pythona dla libmagic.
 %patch9 -p1
 %patch10 -p1
 
-%if "%{cc_release}" < "3.4"
+%if "%{cc_version}" < "3.4"
 %{__sed} -i -e 's,-Wextra,,' configure.ac
 %endif
 
@@ -310,13 +310,12 @@ install -D magic/Localstuff $RPM_BUILD_ROOT%{_sysconfdir}/magic
 cat magic/Header magic/Magdir/* %{SOURCE2} %{SOURCE3} > $RPM_BUILD_ROOT%{_datadir}/misc/magic
 awk -f %{SOURCE4} < $RPM_BUILD_ROOT%{_datadir}/misc/magic > $RPM_BUILD_ROOT%{_datadir}/misc/magic.mime
 
-src/file -m $RPM_BUILD_ROOT%{_datadir}/misc/magic -c -C
+./src/file -m $RPM_BUILD_ROOT%{_datadir}/misc/magic -c -C
 ln -s misc $RPM_BUILD_ROOT%{_datadir}/file
 
 bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT%{_mandir}
-rm -f $RPM_BUILD_ROOT%{_mandir}/README.file-non-english-man-pages
-rm -f $RPM_BUILD_ROOT%{_mandir}/file-magic4.diff
-
+%{__rm} $RPM_BUILD_ROOT%{_mandir}/README.file-non-english-man-pages
+%{__rm} $RPM_BUILD_ROOT%{_mandir}/file-magic4.diff
 
 %clean
 rm -rf $RPM_BUILD_ROOT
