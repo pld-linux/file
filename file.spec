@@ -305,8 +305,6 @@ cd ..
 %py_postclean
 %endif
 
-install -D magic/Localstuff $RPM_BUILD_ROOT%{_sysconfdir}/magic
-
 cat magic/Header magic/Magdir/* %{SOURCE2} %{SOURCE3} > $RPM_BUILD_ROOT%{_datadir}/misc/magic
 awk -f %{SOURCE4} < $RPM_BUILD_ROOT%{_datadir}/misc/magic > $RPM_BUILD_ROOT%{_datadir}/misc/magic.mime
 
