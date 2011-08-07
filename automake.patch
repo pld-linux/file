@@ -1,5 +1,5 @@
---- file-5.08/magic/Makefile.am~	2011-08-05 11:08:41.000000000 +0300
-+++ file-5.08/magic/Makefile.am	2011-08-05 11:15:46.431552516 +0300
+--- file-5.08/magic/Makefile.am	2011-08-07 13:28:39.719588222 +0300
++++ file-5.08/magic/Makefile.am	2011-08-07 16:53:54.377119273 +0300
 @@ -5,11 +5,14 @@
  MAGIC_DIR = $(top_srcdir)/magic
  MAGIC_FRAGMENT_DIR = $(MAGIC_DIR)/$(MAGIC_FRAGMENT_BASE)
@@ -16,8 +16,19 @@
  $(MAGIC_FRAGMENT_DIR)/acorn \
  $(MAGIC_FRAGMENT_DIR)/adi \
  $(MAGIC_FRAGMENT_DIR)/adventure \
-@@ -236,8 +239,9 @@
- $(MAGIC_FRAGMENT_DIR)/dump \
+@@ -135,6 +138,7 @@
+ $(MAGIC_FRAGMENT_DIR)/modem \
+ $(MAGIC_FRAGMENT_DIR)/motorola \
+ $(MAGIC_FRAGMENT_DIR)/mozilla \
++$(MAGIC_FRAGMENT_DIR)/mscompress \
+ $(MAGIC_FRAGMENT_DIR)/msdos \
+ $(MAGIC_FRAGMENT_DIR)/msooxml \
+ $(MAGIC_FRAGMENT_DIR)/msvc \
+@@ -238,10 +242,12 @@
+ $(MAGIC_FRAGMENT_DIR)/xo65 \
+ $(MAGIC_FRAGMENT_DIR)/xwindows \
+ $(MAGIC_FRAGMENT_DIR)/zilog \
++$(MAGIC_FRAGMENT_DIR)/zisofs \
  $(MAGIC_FRAGMENT_DIR)/zyxel 
  
 -MAGIC = magic.mgc
@@ -27,8 +38,8 @@
 +CLEANFILES = $(MAGIC) $(MAGIC_MGC) $(MAGIC_FRAGMENT_DIR)/Localstuff
  
  # FIXME: Build file natively as well so that it can be used to compile
- # the target's magic file
-@@ -257,9 +257,10 @@
+ # the target's magic file; for now we bail if the local version does not match
+@@ -253,9 +259,10 @@
  FILE_COMPILE_DEP = $(FILE_COMPILE)
  endif
  
@@ -42,10 +53,7 @@
  	@(if expr "${FILE_COMPILE}" : '.*/.*' > /dev/null; then \
  	    echo "Using ${FILE_COMPILE} to generate ${MAGIC}" > /dev/null; \
  	  else \
-@@ -272,4 +273,7 @@
- 	    fi; \
- 	  fi)
- 	$(FILE_COMPILE) -C -m magic
+@@ -271 +278,4 @@
 -	@rm -fr magic
 +
 +install-data-local:

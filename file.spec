@@ -259,6 +259,9 @@ Wiązania Pythona dla libmagic.
 %{__sed} -i -e 's,-Wextra,,' configure.ac
 %endif
 
+cp -p %{SOURCE3} magic/Magdir/mscompress
+cp -p %{SOURCE2} magic/Magdir/zisofs
+
 rm -f magic/Magdir/{*.orig,*~}
 
 %build
@@ -303,10 +306,6 @@ cd ..
 %py_postclean
 %endif
 
-cat magic/Header magic/Magdir/* %{SOURCE2} %{SOURCE3} > $RPM_BUILD_ROOT%{_datadir}/misc/magic
-awk -f %{SOURCE4} < $RPM_BUILD_ROOT%{_datadir}/misc/magic > $RPM_BUILD_ROOT%{_datadir}/misc/magic.mime
-
-./src/file -m $RPM_BUILD_ROOT%{_datadir}/misc/magic -c -C
 ln -s misc $RPM_BUILD_ROOT%{_datadir}/file
 
 bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT%{_mandir}
