@@ -41,7 +41,6 @@ Source3:	%{name}-mscompress.magic
 Source4:	%{name}-magic.mime-gen.awk
 #Patch0:		git.patch
 Patch1:		%{name}-sparc.patch
-Patch3:		%{name}-greedy-dump.patch
 Patch4:		%{name}-selinux.patch
 Patch6:		%{name}-fusecompress.patch
 Patch8:		%{name}-dbase.patch
@@ -250,7 +249,6 @@ Wiązania Pythona dla libmagic.
 %setup -q
 #%patch0 -p1
 %patch1 -p1
-%patch3 -p1
 %patch4 -p1
 %patch6 -p1
 %patch8 -p1
