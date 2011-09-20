@@ -28,12 +28,12 @@ Summary(uk.UTF-8):	Утиліта для визначення типів фай�
 Summary(zh_CN.UTF-8):	判定文件类型的工具。
 Summary(zh_TW.UTF-8):	用於決定檔案類型的一個工具程式。
 Name:		file
-Version:	5.08
+Version:	5.09
 Release:	1
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
-# Source0-md5:	6a2a263c20278f01fe3bb0f720b27d4e
+# Source0-md5:	6fd7cd6c4281e68fe9ec6644ce0fac6f
 Source1:	http://ftp1.pld-linux.org/people/glen/%{name}-non-english-man-pages.tar.bz2
 # Source1-md5:	6a45bcaefd19b94db36a1b2b7c5b806b
 Source2:	%{name}-zisofs.magic
@@ -41,13 +41,11 @@ Source3:	%{name}-mscompress.magic
 Source4:	%{name}-magic.mime-gen.awk
 #Patch0:		git.patch
 Patch1:		%{name}-sparc.patch
-Patch4:		%{name}-selinux.patch
-Patch6:		%{name}-fusecompress.patch
-Patch8:		%{name}-dbase.patch
-Patch9:		searchpath.patch
-Patch10:	automake.patch
+Patch2:		%{name}-selinux.patch
+Patch3:		searchpath.patch
+Patch4:		automake.patch
 URL:		http://www.darwinsys.com/file/
-BuildRequires:	autoconf
+BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	libtool
 BuildRequires:	rpmbuild(macros) >= 1.453
@@ -249,11 +247,9 @@ Wiązania Pythona dla libmagic.
 %setup -q
 #%patch0 -p1
 %patch1 -p1
+%patch2 -p1
+%patch3 -p1
 %patch4 -p1
-%patch6 -p1
-%patch8 -p1
-%patch9 -p1
-%patch10 -p1
 
 %if "%{cc_version}" < "3.4"
 %{__sed} -i -e 's,-Wextra,,' configure.ac
@@ -306,6 +302,7 @@ cd ..
 %py_postclean
 %endif
 
+awk -f %{SOURCE4} < $RPM_BUILD_ROOT%{_datadir}/misc/magic > $RPM_BUILD_ROOT%{_datadir}/misc/magic.mime
 ln -s misc $RPM_BUILD_ROOT%{_datadir}/file
 
 bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT%{_mandir}

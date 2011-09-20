@@ -15,7 +15,8 @@ BEGIN {
 }
 
 /^!:mime/ {
+	split($0, m, "[\t ]+")
 	for(i = 0; i < level; i++)
 		print str[i]
-	print str[level]"\t"$2
+	print str[level]"\t"m[2]
 }
