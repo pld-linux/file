@@ -1,0 +1,29 @@
+--- file/magic/Magdir/palm	15 Dec 2011 16:21:43 -0000	1.8
++++ file/magic/Magdir/palm	16 Jan 2012 15:16:36 -0000
+@@ -10,17 +10,17 @@
+ # What are the possibilities and where is this documented?
+ 
+ # appl
+-59	byte			\0
+->60	string			appl		PalmOS application
+->0	string			>\0		"%s"
++#59	byte			\0
++#>60	string			appl		PalmOS application
++#>0	string			>\0		"%s"
+ # TEXt
+-59	byte			\0
+->60	belong			TEXt		AportisDoc file
+->0	string			>\0		"%s"
++#59	byte			\0
++#>60	belong			TEXt		AportisDoc file
++#>0	string			>\0		"%s"
+ # HACK
+-59	byte			\0
+->60	string			HACK		HackMaster hack
+->0	string			>\0		"%s"
++#59	byte			\0
++#>60	string			HACK		HackMaster hack
++#>0	string			>\0		"%s"
+ 
+ # Variety of PalmOS document types
+ # Michael-John Turner <mj at debian.org>
