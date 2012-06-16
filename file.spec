@@ -29,7 +29,7 @@ Summary(zh_CN.UTF-8):	判定文件类型的工具。
 Summary(zh_TW.UTF-8):	用於決定檔案類型的一個工具程式。
 Name:		file
 Version:	5.11
-Release:	2
+Release:	3
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
@@ -44,6 +44,7 @@ Patch1:		%{name}-selinux.patch
 Patch2:		searchpath.patch
 Patch3:		automake.patch
 Patch4:		nodejs.patch
+Patch5:		sticky-bit.patch
 URL:		http://www.darwinsys.com/file/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
@@ -250,6 +251,7 @@ Wiązania Pythona dla libmagic.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %if "%{cc_version}" < "3.4"
 %{__sed} -i -e 's,-Wextra,,' configure.ac
