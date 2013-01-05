@@ -26,17 +26,16 @@ diff -Nru file-4.02.bak/magic/Magdir/bsdi file-4.02/magic/Magdir/bsdi
  >0	byte		&0x80		dynamically linked executable
  >0	byte		^0x80		executable
  >16	belong		>0		not stripped
-diff -Nru file-4.02.bak/magic/Magdir/mach file-4.02/magic/Magdir/mach
---- file-4.02.bak/magic/Magdir/mach	Sun Feb 14 18:16:20 1999
-+++ file-4.02/magic/Magdir/mach	Thu Apr  3 09:14:25 2003
-@@ -34,7 +34,7 @@
- >4	belong		11		hp pa-risc
- >4	belong		12		acorn
- >4	belong		13		m88k
+--- file-5.12/magic/Magdir/mach.orig	2013-01-05 18:01:15.529528408 +0100
++++ file-5.12/magic/Magdir/mach	2013-01-05 18:05:58.686189172 +0100
+@@ -76,7 +76,7 @@
+ >>8	belong		0		mc88000
+ >>8	belong		1		mc88100
+ >>8	belong		2		mc88110
 ->4	belong		14		sparc
 +>4	belong		14		SPARC
- >4	belong		15		i860-big
- >4	belong		16		i860
+ >4	belong		15		i860g
+ >4	belong		16		alpha
  >4	belong		17		rs6000
 diff -Nru file-4.02.bak/magic/Magdir/netbsd file-4.02/magic/Magdir/netbsd
 --- file-4.02.bak/magic/Magdir/netbsd	Tue Apr  1 01:53:37 2003

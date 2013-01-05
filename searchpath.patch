@@ -1,15 +1,15 @@
 still search in /etc/magic
 still use ~/.magic by default
 
---- file-5.04/src/Makefile.am	2010-07-21 18:56:10.000000000 +0300
-+++ file-5.04/src/Makefile.am	2010-12-23 13:27:13.810960488 +0200
+--- file-5.12/src/Makefile.am.orig	2013-01-05 18:06:28.459521884 +0100
++++ file-5.12/src/Makefile.am	2013-01-05 18:07:08.582854382 +0100
 @@ -4,7 +4,7 @@
  
  bin_PROGRAMS = file
  
 -AM_CPPFLAGS = -DMAGIC='"$(MAGIC)"'
 +AM_CPPFLAGS = -DMAGIC='"/etc/magic:$(MAGIC)"'
- AM_CFLAGS = @WARNINGS@
+ AM_CFLAGS = $(CFLAG_VISIBILITY) @WARNINGS@
  
  libmagic_la_SOURCES = magic.c apprentice.c softmagic.c ascmagic.c \
 --- file-5.06/src/magic.c~	2011-04-07 22:20:30.000000000 +0300
