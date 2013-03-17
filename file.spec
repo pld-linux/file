@@ -1,3 +1,17 @@
+#!!!!!!!!!!!!!!!!!!!
+TODO:
+
+file /home/users/glen/tmp/vagrant-1.1.0-root-glen/usr/lib64/vagrant/embedded/rgloader/rgloader.darwin.bundle
+Segmentation fault
+glen@carme-pld packages/vagrant $ q file
+file-5.13-1.x86_64
+
+glen@carme-pld packages/vagrant $ file /home/users/glen/tmp/vagrant-1.1.0-root-glen/usr/lib64/vagrant/embedded/rgloader/rgloader.darwin.bundle
+/home/users/glen/tmp/vagrant-1.1.0-root-glen/usr/lib64/vagrant/embedded/rgloader/rgloader.darwin.bundle: ERROR: Mach-O fat file with 3 architectures: [ I386
+glen@carme-pld packages/vagrant $ q file
+file-5.12-1.x86_64
+#!!!!!!!!!!!!!!!!!!!!
+
 #
 # Conditional build:
 %bcond_without	python		# don't build python-magic module
@@ -29,7 +43,7 @@ Summary(zh_CN.UTF-8):	判定文件类型的工具。
 Summary(zh_TW.UTF-8):	用於決定檔案類型的一個工具程式。
 Name:		file
 Version:	5.13
-Release:	1
+Release:	1.1
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
