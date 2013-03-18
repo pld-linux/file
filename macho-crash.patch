@@ -1,0 +1,33 @@
+See file mailinglist thread:
+http://mx.gw.com/pipermail/file/2013/001138.html
+
+From cf289f23851ba3eb017576be1ba65c0a0f0e16a9 Mon Sep 17 00:00:00 2001
+From: Christos Zoulas <christos@zoulas.com>
+Date: Tue, 26 Feb 2013 18:24:43 +0000
+Subject: [PATCH] - avoid 0 offset causing an infinite loop. - XXX: should
+ limit indirect nesting.
+
+---
+ src/softmagic.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/src/softmagic.c b/src/softmagic.c
+index c42ca19..22d1a27 100644
+--- a/src/softmagic.c
++++ b/src/softmagic.c
+@@ -1617,6 +1617,12 @@ private int mcopy(struct magic_set *, union VALUETYPE *, int, int,
+ 
+ 		if (m->flag & INDIROFFADD) {
+ 			offset += ms->c.li[cont_level-1].off;
++			if (offset == 0) {
++				if ((ms->flags & MAGIC_DEBUG) != 0)
++					fprintf(stderr,
++					    "indirect *zero* offset\n");
++				return 0;
++			}
+ 			if ((ms->flags & MAGIC_DEBUG) != 0)
+ 				fprintf(stderr, "indirect +offs=%u\n", offset);
+ 		}
+-- 
+1.8.1.5
+
