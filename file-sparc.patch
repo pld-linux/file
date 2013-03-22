@@ -26,17 +26,17 @@ diff -Nru file-4.02.bak/magic/Magdir/bsdi file-4.02/magic/Magdir/bsdi
  >0	byte		&0x80		dynamically linked executable
  >0	byte		^0x80		executable
  >16	belong		>0		not stripped
---- file-5.13/magic/Magdir/mach~	2013-01-05 01:35:53.000000000 +0200
-+++ file-5.13/magic/Magdir/mach	2013-02-26 15:21:04.862538450 +0200
-@@ -122,7 +122,7 @@
- >>>8		belong&0x00ffffff	1	mc88100
- >>>8		belong&0x00ffffff	2	mc88110
- >>>8		belong&0x00ffffff	>2	mc88000 subarchitecture=%ld
-->>4	belong&0x00ffffff	14	sparc
-+>>4	belong&0x00ffffff	14	SPARC
- >>4	belong&0x00ffffff	15	i860g
- >>4	belong&0x00ffffff	16	alpha
- >>4	belong&0x00ffffff	17	rs6000
+--- file-5.14/magic/Magdir/mach~	2013-03-21 19:45:14.000000000 +0200
++++ file-5.14/magic/Magdir/mach	2013-03-22 13:22:26.517457818 +0200
+@@ -121,7 +121,7 @@
+ >>>4		belong&0x00ffffff	1	mc88100
+ >>>4		belong&0x00ffffff	2	mc88110
+ >>>4		belong&0x00ffffff	>2	mc88000 subarchitecture=%ld
+->>0	belong&0x00ffffff	14	sparc
++>>0	belong&0x00ffffff	14	SPARC
+ >>0	belong&0x00ffffff	15	i860g
+ >>0	belong&0x00ffffff	16	alpha
+ >>0	belong&0x00ffffff	17	rs6000
 diff -Nru file-4.02.bak/magic/Magdir/netbsd file-4.02/magic/Magdir/netbsd
 --- file-4.02.bak/magic/Magdir/netbsd	Tue Apr  1 01:53:37 2003
 +++ file-4.02/magic/Magdir/netbsd	Thu Apr  3 09:17:09 2003
