@@ -1,6 +1,7 @@
 #
 # Conditional build:
-%bcond_without	python		# don't build python-magic module
+%bcond_without	python2		# don't build python-magic module for Python 2.x
+%bcond_without	python3		# don't build python-magic module for Python 3.x
 %bcond_without	static_libs	# don't build static libraries
 %bcond_without	tests		# don't perform "make check"
 
@@ -48,9 +49,14 @@ BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	libtool >= 2:2.0
 BuildRequires:	rpmbuild(macros) >= 1.453
-%if %{with python}
+%if %{with python2}
 BuildRequires:	python-devel
 BuildRequires:	python-modules
+BuildRequires:	rpm-pythonprov
+%endif
+%if %{with python3}
+BuildRequires:	python3-devel
+BuildRequires:	python3-modules
 BuildRequires:	rpm-pythonprov
 %endif
 BuildRequires:	zlib-devel
@@ -236,12 +242,25 @@ Summary:	Python bindings for libmagic
 Summary(pl.UTF-8):	Wiązania Pythona dla libmagic
 Group:		Libraries/Python
 Requires:	libmagic = %{version}-%{release}
-%pyrequires_eq	python-libs
+Requires:	python-libs
 
 %description -n python-magic
 Python bindings for libmagic.
 
 %description -n python-magic -l pl.UTF-8
+Wiązania Pythona dla libmagic.
+
+%package -n python3-magic
+Summary:	Python bindings for libmagic
+Summary(pl.UTF-8):	Wiązania Pythona dla libmagic
+Group:		Libraries/Python
+Requires:	libmagic = %{version}-%{release}
+Requires:	python-libs
+
+%description -n python3-magic
+Python bindings for libmagic.
+
+%description -n python3-magic -l pl.UTF-8
 Wiązania Pythona dla libmagic.
 
 %prep
@@ -260,6 +279,10 @@ cp -p %{SOURCE2} magic/Magdir/zisofs
 
 rm -f magic/Magdir/{*.orig,*~}
 
+%if %{with python3}
+cp -a python py3
+%endif
+
 %build
 %{__libtoolize}
 %{__aclocal}
@@ -273,9 +296,14 @@ rm -f magic/Magdir/{*.orig,*~}
 
 %{__make}
 
-%if %{with python}
+%if %{with python2}
 cd python
 %{__python} setup.py build
+cd ..
+%endif
+%if %{with python3}
+cd py3
+%{__python3} setup.py build
 cd ..
 %endif
 
@@ -294,13 +322,22 @@ mv $RPM_BUILD_ROOT%{_libdir}/libmagic.so.* $RPM_BUILD_ROOT/%{_lib}
 ln -sf /%{_lib}/$(basename $RPM_BUILD_ROOT/%{_lib}/libmagic.so.*.*.*) \
         $RPM_BUILD_ROOT%{_libdir}/libmagic.so
 
-%if %{with python}
+%if %{with python2}
 cd python
 %{__python} setup.py install \
-	--root=$RPM_BUILD_ROOT \
-	--optimize=2
+	--optimize=2 \
+	--root=$RPM_BUILD_ROOT
 cd ..
 %py_postclean
+%endif
+
+%if %{with python3}
+cd py3
+%{__python3} setup.py install \
+	--optimize=2 \
+	--skip-build \
+	--root=$RPM_BUILD_ROOT
+cd ..
 %endif
 
 awk -f %{SOURCE4} < $RPM_BUILD_ROOT%{_datadir}/misc/magic > $RPM_BUILD_ROOT%{_datadir}/misc/magic.mime
@@ -365,7 +402,7 @@ fi
 %{_libdir}/libmagic.a
 %endif
 
-%if %{with python}
+%if %{with python3}
 %files -n python-magic
 %defattr(644,root,root,755)
 %doc python/README python/example.py
@@ -373,4 +410,13 @@ fi
 %{py_sitescriptdir}/Magic_file_extensions-*.egg-info
 %endif
 %{py_sitescriptdir}/magic.py[co]
+%endif
+
+%if %{with_python3}
+%files -n python3-magic
+%defattr(644,root,root,755)
+%doc python/README python/example.py
+%{py3_sitescriptdir}/magic.py
+%{py3_sitescriptdir}/__pycache__/magic.*.py[co]
+%{py3_sitescriptdir}/Magic_file_extensions-*.egg-info
 %endif
