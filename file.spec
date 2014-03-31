@@ -238,30 +238,30 @@ Biblioteka funkcji operujących na pliku bazy danych magic.
 Ten pakiet zawiera statyczną wersję biblioteki.
 
 %package -n python-magic
-Summary:	Python bindings for libmagic
-Summary(pl.UTF-8):	Wiązania Pythona dla libmagic
+Summary:	Python 2 bindings for libmagic
+Summary(pl.UTF-8):	Wiązania Pythona 2 do biblioteki libmagic
 Group:		Libraries/Python
 Requires:	libmagic = %{version}-%{release}
 Requires:	python-libs
 
 %description -n python-magic
-Python bindings for libmagic.
+Python 2 bindings for libmagic.
 
 %description -n python-magic -l pl.UTF-8
-Wiązania Pythona dla libmagic.
+Wiązania Pythona 2 do biblioteki libmagic.
 
 %package -n python3-magic
-Summary:	Python bindings for libmagic
-Summary(pl.UTF-8):	Wiązania Pythona dla libmagic
+Summary:	Python 3 bindings for libmagic
+Summary(pl.UTF-8):	Wiązania Pythona 3 do biblioteki libmagic
 Group:		Libraries/Python
 Requires:	libmagic = %{version}-%{release}
 Requires:	python-libs
 
 %description -n python3-magic
-Python bindings for libmagic.
+Python 3 bindings for libmagic.
 
 %description -n python3-magic -l pl.UTF-8
-Wiązania Pythona dla libmagic.
+Wiązania Pythona 3 do biblioteki libmagic.
 
 %prep
 %setup -q
