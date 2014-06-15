@@ -29,21 +29,20 @@ Summary(uk.UTF-8):	Утиліта для визначення типів фай�
 Summary(zh_CN.UTF-8):	判定文件类型的工具。
 Summary(zh_TW.UTF-8):	用於決定檔案類型的一個工具程式。
 Name:		file
-Version:	5.18
-Release:	2
+Version:	5.19
+Release:	1
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
-# Source0-md5:	d420d8f2990cd344673acfbf8d76ff5a
+# Source0-md5:	e3526f59023f3f7d1ffa4d541335edab
 Source1:	http://ftp1.pld-linux.org/people/glen/%{name}-non-english-man-pages.tar.bz2
 # Source1-md5:	6a45bcaefd19b94db36a1b2b7c5b806b
 Source2:	%{name}-zisofs.magic
 Source3:	%{name}-mscompress.magic
 Source4:	%{name}-magic.mime-gen.awk
-Patch0:		%{name}-sparc.patch
-Patch1:		%{name}-selinux.patch
-Patch2:		searchpath.patch
-Patch3:		automake.patch
+Patch0:		%{name}-selinux.patch
+Patch1:		searchpath.patch
+Patch2:		automake.patch
 URL:		http://www.darwinsys.com/file/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
@@ -269,7 +268,6 @@ Wiązania Pythona 3 do biblioteki libmagic.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
 
 %if "%{cc_version}" < "3.4"
 %{__sed} -i -e 's,-Wextra,,' configure.ac
