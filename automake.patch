@@ -23,10 +23,10 @@
 +$(MAGIC_FRAGMENT_DIR)/mscompress \
  $(MAGIC_FRAGMENT_DIR)/msdos \
  $(MAGIC_FRAGMENT_DIR)/msooxml \
- $(MAGIC_FRAGMENT_DIR)/msvc \
+ $(MAGIC_FRAGMENT_DIR)/msx \
 @@ -238,10 +242,12 @@
- $(MAGIC_FRAGMENT_DIR)/xo65 \
  $(MAGIC_FRAGMENT_DIR)/xwindows \
+ $(MAGIC_FRAGMENT_DIR)/zfs \
  $(MAGIC_FRAGMENT_DIR)/zilog \
 +$(MAGIC_FRAGMENT_DIR)/zisofs \
  $(MAGIC_FRAGMENT_DIR)/zyxel 
