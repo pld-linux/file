@@ -1,0 +1,11 @@
+--- file-5.22/src/file.h~	2015-01-01 18:07:34.000000000 +0100
++++ file-5.22/src/file.h	2015-02-19 20:58:10.783901201 +0100
+@@ -412,7 +412,7 @@
+ 	uint16_t elf_phnum_max;
+ 	uint16_t elf_notes_max;
+ #define	FILE_INDIR_MAX			15
+-#define	FILE_NAME_MAX			30
++#define	FILE_NAME_MAX			256
+ #define	FILE_ELF_SHNUM_MAX		32768
+ #define	FILE_ELF_PHNUM_MAX		128
+ #define	FILE_ELF_NOTES_MAX		256
