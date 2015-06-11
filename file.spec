@@ -29,12 +29,12 @@ Summary(uk.UTF-8):	Утиліта для визначення типів фай�
 Summary(zh_CN.UTF-8):	判定文件类型的工具。
 Summary(zh_TW.UTF-8):	用於決定檔案類型的一個工具程式。
 Name:		file
-Version:	5.22
-Release:	3
+Version:	5.23
+Release:	1
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
-# Source0-md5:	8fb13e5259fe447e02c4a37bc7225add
+# Source0-md5:	61db35209ce71a6d576392ce6e1d2f80
 Source1:	http://ftp1.pld-linux.org/people/glen/%{name}-non-english-man-pages.tar.bz2
 # Source1-md5:	6a45bcaefd19b94db36a1b2b7c5b806b
 Source2:	%{name}-zisofs.magic
@@ -43,7 +43,6 @@ Source4:	%{name}-magic.mime-gen.awk
 Patch0:		%{name}-selinux.patch
 Patch1:		searchpath.patch
 Patch2:		automake.patch
-Patch3:		%{name}-perl.patch
 Patch4:		name-use-count.patch
 URL:		http://www.darwinsys.com/file/
 BuildRequires:	autoconf >= 2.50
@@ -270,7 +269,6 @@ Wiązania Pythona 3 do biblioteki libmagic.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
 %patch4 -p1
 
 %if "%{cc_version}" < "3.4"
