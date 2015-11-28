@@ -299,12 +299,12 @@ cp -a python py3
 
 %if %{with python2}
 cd python
-%{__python} setup.py build
+%py_build
 cd ..
 %endif
 %if %{with python3}
 cd py3
-%{__python3} setup.py build
+%py3_build
 cd ..
 %endif
 
@@ -325,19 +325,14 @@ ln -sf /%{_lib}/$(basename $RPM_BUILD_ROOT/%{_lib}/libmagic.so.*.*.*) \
 
 %if %{with python2}
 cd python
-%{__python} setup.py install \
-	--optimize=2 \
-	--root=$RPM_BUILD_ROOT
+%py_install
 cd ..
 %py_postclean
 %endif
 
 %if %{with python3}
 cd py3
-%{__python3} setup.py install \
-	--optimize=2 \
-	--skip-build \
-	--root=$RPM_BUILD_ROOT
+%py3_install
 cd ..
 %endif
 
