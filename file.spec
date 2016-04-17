@@ -402,10 +402,8 @@ fi
 %files -n python-magic
 %defattr(644,root,root,755)
 %doc python/README python/example.py
-%if "%{py_ver}" > "2.4"
-%{py_sitescriptdir}/Magic_file_extensions-*.egg-info
-%endif
 %{py_sitescriptdir}/magic.py[co]
+%{py_sitescriptdir}/file_magic-*-py*.egg-info
 %endif
 
 %if %{with_python3}
@@ -414,5 +412,5 @@ fi
 %doc python/README python/example.py
 %{py3_sitescriptdir}/magic.py
 %{py3_sitescriptdir}/__pycache__/magic.*.py[co]
-%{py3_sitescriptdir}/Magic_file_extensions-*.egg-info
+%{py3_sitescriptdir}/file_magic-*-py*.egg-info
 %endif
