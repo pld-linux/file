@@ -7,13 +7,13 @@
 +>20     lelong  1 		MLS
 +>24     lelong  x       	%d symbols
 +>28     lelong  x       	%d ocons
---- file-4.24/magic/Makefile.am~	2008-04-23 23:42:47.000000000 +0300
-+++ file-4.24/magic/Makefile.am	2008-04-23 23:43:19.957572681 +0300
-@@ -148,6 +148,7 @@
+--- file-5.26/magic/Makefile.am~	2016-02-26 17:52:45.000000000 +0200
++++ file-5.26/magic/Makefile.am	2016-04-17 12:37:15.960499466 +0300
+@@ -199,6 +199,7 @@
  $(MAGIC_FRAGMENT_DIR)/pkgadd \
  $(MAGIC_FRAGMENT_DIR)/plan9 \
  $(MAGIC_FRAGMENT_DIR)/plus5 \
 +$(MAGIC_FRAGMENT_DIR)/policy \
+ $(MAGIC_FRAGMENT_DIR)/polyml \
  $(MAGIC_FRAGMENT_DIR)/printer \
  $(MAGIC_FRAGMENT_DIR)/project \
- $(MAGIC_FRAGMENT_DIR)/psdbms \
