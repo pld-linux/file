@@ -30,7 +30,7 @@ Summary(zh_CN.UTF-8):	判定文件类型的工具。
 Summary(zh_TW.UTF-8):	用於決定檔案類型的一個工具程式。
 Name:		file
 Version:	5.26
-Release:	1.8
+Release:	2
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
@@ -46,6 +46,7 @@ Patch2:		automake.patch
 Patch4:		name-use-count.patch
 Patch5:		001949.patch
 Patch6:		revert-close.patch
+Patch7:		offset.patch
 URL:		http://www.darwinsys.com/file/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
@@ -274,6 +275,7 @@ Wiązania Pythona 3 do biblioteki libmagic.
 %patch4 -p1
 %patch5 -p0 -d magic/Magdir
 %patch6 -p1 -R
+%patch7 -p1
 
 %if "%{cc_version}" < "3.4"
 %{__sed} -i -e 's,-Wextra,,' configure.ac
