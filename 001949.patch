@@ -1,0 +1,23 @@
+
+http://mx.gw.com/pipermail/file/2016/001949.html
+
+Unfortunately some new magic is problematic; here's a patch.
+
+christo
+
+Index: commands
+===================================================================
+RCS file: /p/file/cvsroot/file/magic/Magdir/commands,v
+retrieving revision 1.53
+diff -u -u -r1.53 commands
+--- commands	23 Feb 2016 12:35:20 -0000	1.53
++++ commands	17 Apr 2016 13:51:29 -0000
+@@ -101,7 +101,7 @@
+ 0	string	=<?php
+ >5	regex	[\ \n]
+ >>6	string	/*\ Smarty\ version		Smarty compiled template
+->24	regex	[0-9.]+				\b, version %s
++>>>24	regex	[0-9.]+				\b, version %s
+ !:mime	text/x-php
+ 
+ 0	string		Zend\x00		PHP script Zend Optimizer data
