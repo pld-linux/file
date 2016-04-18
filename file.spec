@@ -45,6 +45,7 @@ Patch1:		searchpath.patch
 Patch2:		automake.patch
 Patch4:		name-use-count.patch
 Patch5:		001949.patch
+Patch6:		revert-close.patch
 URL:		http://www.darwinsys.com/file/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
@@ -272,6 +273,7 @@ Wiązania Pythona 3 do biblioteki libmagic.
 %patch2 -p1
 %patch4 -p1
 %patch5 -p0 -d magic/Magdir
+%patch6 -p1 -R
 
 %if "%{cc_version}" < "3.4"
 %{__sed} -i -e 's,-Wextra,,' configure.ac
