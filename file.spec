@@ -29,12 +29,12 @@ Summary(uk.UTF-8):	Утиліта для визначення типів фай�
 Summary(zh_CN.UTF-8):	判定文件类型的工具。
 Summary(zh_TW.UTF-8):	用於決定檔案類型的一個工具程式。
 Name:		file
-Version:	5.32
+Version:	5.33
 Release:	1
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
-# Source0-md5:	4f2503752ff041895090ed6435610435
+# Source0-md5:	bbe6db96e3a9ca9554dce647390540ef
 Source1:	http://ftp1.pld-linux.org/people/glen/%{name}-non-english-man-pages.tar.bz2
 # Source1-md5:	6a45bcaefd19b94db36a1b2b7c5b806b
 Source2:	%{name}-zisofs.magic
@@ -47,6 +47,7 @@ Patch4:		name-use-count.patch
 URL:		http://www.darwinsys.com/file/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
+BuildRequires:	libseccomp-devel
 BuildRequires:	libtool >= 2:2.0
 BuildRequires:	rpmbuild(macros) >= 1.710
 %if %{with python2}
