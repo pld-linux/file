@@ -53,11 +53,13 @@ BuildRequires:	rpmbuild(macros) >= 1.710
 %if %{with python2}
 BuildRequires:	python-devel
 BuildRequires:	python-modules
+BuildRequires:	python-setuptools
 BuildRequires:	rpm-pythonprov
 %endif
 %if %{with python3}
 BuildRequires:	python3-devel
 BuildRequires:	python3-modules
+BuildRequires:	python3-setuptools
 BuildRequires:	rpm-pythonprov
 %endif
 BuildRequires:	zlib-devel
@@ -292,7 +294,9 @@ cp -a python py3
 %{__autoconf}
 %{__automake}
 %configure \
+%ifnarch %{x8664}
 	--disable-libseccomp \
+%endif
 	--disable-silent-rules \
 	--enable-fsect-man5 \
 	%{?with_static_libs:--enable-static}
