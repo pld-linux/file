@@ -29,12 +29,12 @@ Summary(uk.UTF-8):	Утиліта для визначення типів фай�
 Summary(zh_CN.UTF-8):	判定文件类型的工具。
 Summary(zh_TW.UTF-8):	用於決定檔案類型的一個工具程式。
 Name:		file
-Version:	5.33
-Release:	3
+Version:	5.34
+Release:	1
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
-# Source0-md5:	bbe6db96e3a9ca9554dce647390540ef
+# Source0-md5:	44b0b6983462b18f96403d4d3ad80254
 Source1:	http://ftp1.pld-linux.org/people/glen/%{name}-non-english-man-pages.tar.bz2
 # Source1-md5:	6a45bcaefd19b94db36a1b2b7c5b806b
 Source2:	%{name}-zisofs.magic
@@ -407,7 +407,7 @@ fi
 %if %{with python3}
 %files -n python-magic
 %defattr(644,root,root,755)
-%doc python/README python/example.py
+%doc python/README.md python/example.py
 %{py_sitescriptdir}/magic.py[co]
 %{py_sitescriptdir}/file_magic-*-py*.egg-info
 %endif
@@ -415,7 +415,7 @@ fi
 %if %{with_python3}
 %files -n python3-magic
 %defattr(644,root,root,755)
-%doc python/README python/example.py
+%doc python/README.md python/example.py
 %{py3_sitescriptdir}/magic.py
 %{py3_sitescriptdir}/__pycache__/magic.*.py[co]
 %{py3_sitescriptdir}/file_magic-*-py*.egg-info
