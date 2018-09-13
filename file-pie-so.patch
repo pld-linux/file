@@ -1,0 +1,12 @@
+diff -ruNp file-5.34.orig/src/readelf.c file-5.34/src/readelf.c
+--- file-5.34.orig/src/readelf.c	2018-07-09 16:24:36.000000000 +0200
++++ file-5.34/src/readelf.c	2018-09-13 23:26:17.906332501 +0200
+@@ -1062,7 +1062,7 @@ dodynamic(struct magic_set *ms, void *vb
+ 
+ 	switch (xdh_tag) {
+ 	case DT_FLAGS_1:
+-		if (xdh_val == DF_1_PIE)
++		if (xdh_val & DF_1_PIE)
+ 			ms->mode |= 0111;
+ 		else
+ 			ms->mode &= ~0111;
