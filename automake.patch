@@ -29,7 +29,7 @@
  $(MAGIC_FRAGMENT_DIR)/zilog \
 +$(MAGIC_FRAGMENT_DIR)/zisofs \
  $(MAGIC_FRAGMENT_DIR)/zip \
- $(MAGIC_FRAGMENT_DIR)/zyxel 
+ $(MAGIC_FRAGMENT_DIR)/zyxel
  
 -MAGIC = magic.mgc
 -CLEANFILES = ${MAGIC} $(MAGIC_FRAGMENT_DIR)/Localstuff
