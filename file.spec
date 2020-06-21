@@ -396,6 +396,7 @@ fi
 %attr(755,root,root) %{_libdir}/libmagic.so
 %{_libdir}/libmagic.la
 %{_includedir}/magic.h
+%{_pkgconfigdir}/libmagic.pc
 %{_mandir}/man3/libmagic.3*
 
 %if %{with static_libs}
