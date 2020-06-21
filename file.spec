@@ -274,7 +274,7 @@ Wiązania Pythona 3 do biblioteki libmagic.
 %patch2 -p1
 %patch4 -p1
 
-%if "%{cc_version}" < "3.4"
+%if "%(echo %{cc_version} | sed -e 's/^[0-9]\./0&/)" < "03.4"
 %{__sed} -i -e 's,-Wextra,,' configure.ac
 %endif
 
@@ -289,7 +289,7 @@ cp -a python py3
 
 %build
 %{__libtoolize}
-%{__aclocal}
+%{__aclocal} -I m4
 %{__autoheader}
 %{__autoconf}
 %{__automake}
