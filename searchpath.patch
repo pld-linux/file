@@ -23,3 +23,14 @@ still use ~/.magic by default
  	static char *default_magic;
  	char *home, *hmagicpath;
  
+--- a/src/apprentice.c
++++ b/src/apprentice.c
+@@ -460,7 +460,7 @@ apprentice_1(struct magic_set *ms, const char *fn, int action)
+ #ifndef COMPILE_ONLY
+ 	map = apprentice_map(ms, fn);
+ 	if (map == NULL) {
+-		if (ms->flags & MAGIC_CHECK)
++		if (ms->flags & MAGIC_CHECK && strcmp("/etc/magic", fn) != 0)
+ 			file_magwarn(ms, "using regular magic file `%s'", fn);
+ 		map = apprentice_load(ms, fn, action);
+ 		if (map == NULL)
