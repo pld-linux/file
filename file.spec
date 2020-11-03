@@ -292,8 +292,8 @@ cp -a python py3
 %build
 %{__libtoolize}
 %{__aclocal} -I m4
-%{__autoheader}
 %{__autoconf}
+%{__autoheader}
 %{__automake}
 %configure \
 %ifnarch %{x8664}
