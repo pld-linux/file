@@ -1,9 +1,9 @@
 #
 # Conditional build:
-%bcond_without	python2		# don't build python-magic module for Python 2.x
-%bcond_without	python3		# don't build python-magic module for Python 3.x
-%bcond_without	static_libs	# don't build static libraries
-%bcond_without	tests		# don't perform "make check"
+%bcond_without	python2		# CPython 2.x python-magic module
+%bcond_without	python3		# CPython 3.x python-magic module
+%bcond_without	static_libs	# static library
+%bcond_without	tests		# unit tests
 
 Summary:	A utility for determining file types
 Summary(cs.UTF-8):	Program pro zjišťování typu souborů
@@ -50,7 +50,7 @@ BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	libseccomp-devel
 BuildRequires:	libtool >= 2:2.0
-BuildRequires:	rpmbuild(macros) >= 1.710
+BuildRequires:	rpmbuild(macros) >= 1.751
 %if %{with python2}
 BuildRequires:	python-devel
 BuildRequires:	python-modules
@@ -276,7 +276,7 @@ Wiązania Pythona 3 do biblioteki libmagic.
 %patch4 -p1
 %patch5 -p1
 
-%if "%(echo %{cc_version} | sed -e 's/^[0-9]\./0&/)" < "03.4"
+%if "%{_ver_lt '%{cc_version}' '3.4'}" == "1"
 %{__sed} -i -e 's,-Wextra,,' configure.ac
 %endif
 
@@ -327,7 +327,7 @@ install -d $RPM_BUILD_ROOT/%{_lib}
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-mv $RPM_BUILD_ROOT%{_libdir}/libmagic.so.* $RPM_BUILD_ROOT/%{_lib}
+%{__mv} $RPM_BUILD_ROOT%{_libdir}/libmagic.so.* $RPM_BUILD_ROOT/%{_lib}
 ln -sf /%{_lib}/$(basename $RPM_BUILD_ROOT/%{_lib}/libmagic.so.*.*.*) \
         $RPM_BUILD_ROOT%{_libdir}/libmagic.so
 
