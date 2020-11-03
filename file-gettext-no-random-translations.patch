@@ -1,0 +1,21 @@
+--- file-5.39/magic/Magdir/gnu.orig	2020-05-31 12:34:40.000000000 +0200
++++ file-5.39/magic/Magdir/gnu	2020-11-03 21:13:20.100589010 +0100
+@@ -80,18 +80,6 @@
+ >>&0		ulelong	x
+ # translation 0 seems to be often Project-Id with name and version
+ >>>(&-4)	string	x		\b, %s
+-# trans. 1 with bytes >= 1 unlike icoutils-0.31.0\po\en@boldquot.gmo with 1 NL
+->(16.l+8)	ulelong	>1
+->>&0		ulelong	x
+->>>(&-4)	ubyte	!0x0A
+->>>>&-1		string	x		'%s'
+-# 1 New Line like in tar-1.29\po\de.gmo
+->>>(&-4)	ubyte	=0x0A
+->>>>&0		ubyte	!0x0A
+->>>>>&-1	string	x		'%s'
+-# 2nd New Line like in parted-3.1\po\de.gmo
+->>>>&0		ubyte	=0x0A
+->>>>>&0		string	x		'%s'
+ 
+ 0	string		\225\4\22\336	GNU message catalog (big endian),
+ #0	ubelong	0x950412DE		GNU-format message catalog data

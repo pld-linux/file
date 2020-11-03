@@ -30,7 +30,7 @@ Summary(zh_CN.UTF-8):	判定文件类型的工具。
 Summary(zh_TW.UTF-8):	用於決定檔案類型的一個工具程式。
 Name:		file
 Version:	5.39
-Release:	3
+Release:	4
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
@@ -43,6 +43,7 @@ Source4:	%{name}-magic.mime-gen.awk
 Patch0:		%{name}-selinux.patch
 Patch1:		searchpath.patch
 Patch2:		automake.patch
+Patch3:		%{name}-gettext-no-random-translations.patch
 Patch4:		name-use-count.patch
 Patch5:		wasm.patch
 URL:		http://www.darwinsys.com/file/
@@ -273,6 +274,7 @@ Wiązania Pythona 3 do biblioteki libmagic.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 %patch4 -p1
 %patch5 -p1
 
