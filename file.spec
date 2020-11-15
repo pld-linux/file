@@ -417,7 +417,7 @@ fi
 %{py_sitescriptdir}/file_magic-*-py*.egg-info
 %endif
 
-%if %{with_python3}
+%if %{with python3}
 %files -n python3-magic
 %defattr(644,root,root,755)
 %doc python/README.md python/example.py
