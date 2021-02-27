@@ -249,6 +249,7 @@ Summary(pl.UTF-8):	Wiązania Pythona 2 do biblioteki libmagic
 Group:		Libraries/Python
 Requires:	libmagic = %{version}-%{release}
 Requires:	python-libs
+BuildArch:	noarch
 
 %description -n python-magic
 Python 2 bindings for libmagic.
@@ -262,6 +263,7 @@ Summary(pl.UTF-8):	Wiązania Pythona 3 do biblioteki libmagic
 Group:		Libraries/Python
 Requires:	libmagic = %{version}-%{release}
 Requires:	python-libs
+BuildArch:	noarch
 
 %description -n python3-magic
 Python 3 bindings for libmagic.
