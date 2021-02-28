@@ -411,7 +411,7 @@ fi
 %{_libdir}/libmagic.a
 %endif
 
-%if %{with python3}
+%if %{with python2}
 %files -n python-magic
 %defattr(644,root,root,755)
 %doc python/README.md python/example.py
