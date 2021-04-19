@@ -4,6 +4,11 @@
 %bcond_without	python3		# CPython 3.x python-magic module
 %bcond_without	static_libs	# static library
 %bcond_without	tests		# unit tests
+%bcond_without	seccomp		# SECCOMP support
+
+%ifnarch %{x8664}
+%undefine	with_seccomp
+%endif
 
 Summary:	A utility for determining file types
 Summary(cs.UTF-8):	Program pro zjišťování typu souborů
@@ -298,9 +303,7 @@ cp -a python py3
 %{__autoheader}
 %{__automake}
 %configure \
-%ifnarch %{x8664}
-	--disable-libseccomp \
-%endif
+	%{!?with_seccomp:--disable-libseccomp} \
 	--disable-silent-rules \
 	--enable-fsect-man5 \
 	%{?with_static_libs:--enable-static}
