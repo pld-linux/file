@@ -1,11 +1,12 @@
 --- file-5.39/src/file.h~	2020-06-15 03:01:01.000000000 +0300
 +++ file-5.39/src/file.h	2020-06-21 14:52:44.027423622 +0300
-@@ -459,7 +459,7 @@
+@@ -459,8 +459,8 @@
  #define	FILE_ELF_PHNUM_MAX		2048
  #define	FILE_ELF_SHNUM_MAX		32768
  #define	FILE_INDIR_MAX			50
 -#define	FILE_NAME_MAX			50
 +#define	FILE_NAME_MAX			256
  #define	FILE_REGEX_MAX			8192
+ #define	FILE_ENCODING_MAX		(64 * 1024)
  };
  
