@@ -6,7 +6,7 @@
 %bcond_without	tests		# unit tests
 %bcond_without	seccomp		# SECCOMP support
 
-%ifnarch %{x8664}
+%ifnarch %{x8664} aarch64
 %undefine	with_seccomp
 %endif
 
