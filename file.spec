@@ -217,6 +217,7 @@ Summary:	Header files for libmagic library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libmagic
 Group:		Development/Libraries
 Requires:	libmagic = %{version}-%{release}
+Requires:	libseccomp-devel
 Requires:	zlib-devel
 
 %description -n libmagic-devel
