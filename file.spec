@@ -35,7 +35,7 @@ Summary(zh_CN.UTF-8):	判定文件类型的工具。
 Summary(zh_TW.UTF-8):	用於決定檔案類型的一個工具程式。
 Name:		file
 Version:	5.40
-Release:	1
+Release:	2
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
@@ -50,6 +50,7 @@ Patch1:		searchpath.patch
 Patch2:		automake.patch
 Patch3:		%{name}-gettext-no-random-translations.patch
 Patch4:		name-use-count.patch
+Patch5:		magic-xz.patch
 URL:		http://www.darwinsys.com/file/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
