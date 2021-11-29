@@ -34,12 +34,12 @@ Summary(uk.UTF-8):	Утиліта для визначення типів фай�
 Summary(zh_CN.UTF-8):	判定文件类型的工具。
 Summary(zh_TW.UTF-8):	用於決定檔案類型的一個工具程式。
 Name:		file
-Version:	5.40
-Release:	3
+Version:	5.41
+Release:	1
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
-# Source0-md5:	72540ea1cc8c6e1dee35d6100ec66589
+# Source0-md5:	18233bb0a0089dfdc7dfbc93b96f231b
 Source1:	http://ftp1.pld-linux.org/people/glen/%{name}-non-english-man-pages.tar.bz2
 # Source1-md5:	6a45bcaefd19b94db36a1b2b7c5b806b
 Source2:	%{name}-zisofs.magic
@@ -50,7 +50,6 @@ Patch1:		searchpath.patch
 Patch2:		automake.patch
 Patch3:		%{name}-gettext-no-random-translations.patch
 Patch4:		name-use-count.patch
-Patch5:		magic-xz.patch
 URL:		http://www.darwinsys.com/file/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
@@ -284,7 +283,6 @@ Wiązania Pythona 3 do biblioteki libmagic.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
-%patch5 -p1
 
 %if "%{_ver_lt '%{cc_version}' '3.4'}" == "1"
 %{__sed} -i -e 's,-Wextra,,' configure.ac
@@ -377,7 +375,7 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc ChangeLog COPYING README
+%doc ChangeLog COPYING
 %attr(755,root,root) %{_bindir}/file
 %{_datadir}/file
 %{_datadir}/misc/magic
