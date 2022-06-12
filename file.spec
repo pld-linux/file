@@ -55,6 +55,7 @@ BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	libseccomp-devel
 BuildRequires:	libtool >= 2:2.0
+BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(macros) >= 1.751
 %if %{with python2}
 BuildRequires:	python-devel
