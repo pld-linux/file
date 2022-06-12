@@ -1,0 +1,14 @@
+diff --git a/src/file.c b/src/file.c
+index 5300e5af..6f42fd1d 100644
+--- a/src/file.c
++++ b/src/file.c
+@@ -554,8 +554,7 @@ process(struct magic_set *ms, const char *inname, int wid)
+ 	    file_err(EXIT_FAILURE, "Can't allocate %zu bytes", plen);
+ 
+ 	if (wid > 0 && !bflag) {
+-		pname = file_printable(ms, pbuf, plen, inname, wid);
+-		(void)printf("%s", std_in ? "/dev/stdin" : pname);
++		(void)printf("%s", std_in ? "/dev/stdin" : inname);
+ 		if (nulsep)
+ 			(void)putc('\0', stdout);
+ 		if (nulsep < 2) {
