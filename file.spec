@@ -45,11 +45,10 @@ Source1:	http://ftp1.pld-linux.org/people/glen/%{name}-non-english-man-pages.tar
 Source2:	%{name}-zisofs.magic
 Source3:	%{name}-mscompress.magic
 Source4:	%{name}-magic.mime-gen.awk
-Patch0:		%{name}-selinux.patch
-Patch1:		searchpath.patch
-Patch2:		automake.patch
-Patch3:		%{name}-gettext-no-random-translations.patch
-Patch4:		name-use-count.patch
+Patch0:		searchpath.patch
+Patch1:		automake.patch
+Patch2:		%{name}-gettext-no-random-translations.patch
+Patch3:		name-use-count.patch
 URL:		http://www.darwinsys.com/file/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
@@ -283,7 +282,6 @@ Wiązania Pythona 3 do biblioteki libmagic.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
-%patch4 -p1
 
 %if "%{_ver_lt '%{cc_version}' '3.4'}" == "1"
 %{__sed} -i -e 's,-Wextra,,' configure.ac
