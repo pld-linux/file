@@ -34,12 +34,12 @@ Summary(uk.UTF-8):	Утиліта для визначення типів фай�
 Summary(zh_CN.UTF-8):	判定文件类型的工具。
 Summary(zh_TW.UTF-8):	用於決定檔案類型的一個工具程式。
 Name:		file
-Version:	5.43
+Version:	5.44
 Release:	1
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
-# Source0-md5:	8effd70da368210a6c6eece037f978eb
+# Source0-md5:	a60d586d49d015d842b9294864a89c7a
 Source1:	http://ftp1.pld-linux.org/people/glen/%{name}-non-english-man-pages.tar.bz2
 # Source1-md5:	6a45bcaefd19b94db36a1b2b7c5b806b
 Source2:	%{name}-zisofs.magic
@@ -52,8 +52,10 @@ Patch3:		name-use-count.patch
 URL:		http://www.darwinsys.com/file/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
+BuildRequires:	bzip2-devel
 BuildRequires:	libseccomp-devel
 BuildRequires:	libtool >= 2:2.0
+BuildRequires:	lzlib-devel
 BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(macros) >= 1.751
 %if %{with python2}
@@ -68,7 +70,9 @@ BuildRequires:	python3-modules
 BuildRequires:	python3-setuptools
 BuildRequires:	rpm-pythonprov
 %endif
+BuildRequires:	xz-devel
 BuildRequires:	zlib-devel
+BuildRequires:	zstd-devel
 Requires(pretrans):	coreutils
 Requires:	libmagic = %{version}-%{release}
 Conflicts:	rpm-build < 4.4.1-9
