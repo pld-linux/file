@@ -35,7 +35,7 @@ Summary(zh_CN.UTF-8):	判定文件类型的工具。
 Summary(zh_TW.UTF-8):	用於決定檔案類型的一個工具程式。
 Name:		file
 Version:	5.44
-Release:	1
+Release:	2
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
@@ -220,9 +220,13 @@ Biblioteka funkcji operujących na pliku bazy danych magic.
 Summary:	Header files for libmagic library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libmagic
 Group:		Development/Libraries
+Requires:	bzip2-devel
 Requires:	libmagic = %{version}-%{release}
 Requires:	libseccomp-devel
+Requires:	lzlib-devel
+Requires:	lzma-devel
 Requires:	zlib-devel
+Requires:	zstd-devel
 
 %description -n libmagic-devel
 Library of functions which operate on magic database file.
