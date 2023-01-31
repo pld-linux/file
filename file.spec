@@ -53,7 +53,7 @@ URL:		http://www.darwinsys.com/file/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	bzip2-devel
-BuildRequires:	libseccomp-devel
+%{?with_seccomp:BuildRequires:	libseccomp-devel}
 BuildRequires:	libtool >= 2:2.0
 BuildRequires:	lzlib-devel
 BuildRequires:	rpm-build >= 4.6
@@ -222,7 +222,7 @@ Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libmagic
 Group:		Development/Libraries
 Requires:	bzip2-devel
 Requires:	libmagic = %{version}-%{release}
-Requires:	libseccomp-devel
+%{?with_seccomp:Requires:	libseccomp-devel}
 Requires:	lzlib-devel
 Requires:	lzma-devel
 Requires:	zlib-devel
