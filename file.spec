@@ -35,7 +35,7 @@ Summary(zh_CN.UTF-8):	判定文件类型的工具。
 Summary(zh_TW.UTF-8):	用於決定檔案類型的一個工具程式。
 Name:		file
 Version:	5.45
-Release:	2
+Release:	3
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
@@ -276,7 +276,7 @@ Summary:	Python 3 bindings for libmagic
 Summary(pl.UTF-8):	Wiązania Pythona 3 do biblioteki libmagic
 Group:		Libraries/Python
 Requires:	libmagic = %{version}-%{release}
-Requires:	python-libs
+Requires:	python3-libs
 BuildArch:	noarch
 
 %description -n python3-magic
