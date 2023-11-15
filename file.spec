@@ -35,7 +35,7 @@ Summary(zh_CN.UTF-8):	判定文件类型的工具。
 Summary(zh_TW.UTF-8):	用於決定檔案類型的一個工具程式。
 Name:		file
 Version:	5.45
-Release:	3
+Release:	4
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
@@ -50,6 +50,7 @@ Patch1:		automake.patch
 Patch2:		%{name}-gettext-no-random-translations.patch
 Patch3:		name-use-count.patch
 Patch4:		time_t-32bit.patch
+Patch5:		m3u-mime-type.patch
 URL:		http://www.darwinsys.com/file/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
@@ -292,6 +293,7 @@ Wiązania Pythona 3 do biblioteki libmagic.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %if "%{_ver_lt '%{cc_version}' '3.4'}" == "1"
 %{__sed} -i -e 's,-Wextra,,' configure.ac
@@ -344,7 +346,7 @@ install -d $RPM_BUILD_ROOT/%{_lib}
 
 %{__mv} $RPM_BUILD_ROOT%{_libdir}/libmagic.so.* $RPM_BUILD_ROOT/%{_lib}
 ln -sf /%{_lib}/$(basename $RPM_BUILD_ROOT/%{_lib}/libmagic.so.*.*.*) \
-        $RPM_BUILD_ROOT%{_libdir}/libmagic.so
+	$RPM_BUILD_ROOT%{_libdir}/libmagic.so
 
 %if %{with python2}
 cd python

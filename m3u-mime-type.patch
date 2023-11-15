@@ -1,0 +1,12 @@
+diff --git a/magic/Magdir/audio b/magic/Magdir/audio
+index b99a15c4..7d32fe45 100644
+--- a/magic/Magdir/audio
++++ b/magic/Magdir/audio
+@@ -644,6 +644,7 @@
+ 0	string	[Equalizer\ preset]	XMMS equalizer preset
+ # .m3u
+ 0	search/1	#EXTM3U 	M3U playlist text
++!:mime  audio/x-mpegurl
+ # .pls
+ 0	search/1	[playlist]	PLS playlist text
+ # licq.conf
