@@ -34,12 +34,12 @@ Summary(uk.UTF-8):	Утиліта для визначення типів фай�
 Summary(zh_CN.UTF-8):	判定文件类型的工具。
 Summary(zh_TW.UTF-8):	用於決定檔案類型的一個工具程式。
 Name:		file
-Version:	5.45
-Release:	4
+Version:	5.46
+Release:	1
 License:	distributable
 Group:		Applications/File
 Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
-# Source0-md5:	26b2a96d4e3a8938827a1e572afd527a
+# Source0-md5:	459da2d4b534801e2e2861611d823864
 Source1:	http://ftp1.pld-linux.org/people/glen/%{name}-non-english-man-pages.tar.bz2
 # Source1-md5:	6a45bcaefd19b94db36a1b2b7c5b806b
 Source2:	%{name}-zisofs.magic
@@ -49,8 +49,6 @@ Patch0:		searchpath.patch
 Patch1:		automake.patch
 Patch2:		%{name}-gettext-no-random-translations.patch
 Patch3:		name-use-count.patch
-Patch4:		time_t-32bit.patch
-Patch5:		m3u-mime-type.patch
 URL:		http://www.darwinsys.com/file/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
@@ -292,8 +290,6 @@ Wiązania Pythona 3 do biblioteki libmagic.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
-%patch4 -p1
-%patch5 -p1
 
 %if "%{_ver_lt '%{cc_version}' '3.4'}" == "1"
 %{__sed} -i -e 's,-Wextra,,' configure.ac
@@ -318,7 +314,8 @@ cp -a python py3
 	%{!?with_seccomp:--disable-libseccomp} \
 	--disable-silent-rules \
 	--enable-fsect-man5 \
-	%{?with_static_libs:--enable-static}
+	%{?with_static_libs:--enable-static} \
+	--disable-lrziplib
 
 %{__make}
 
