@@ -286,10 +286,10 @@ Wiązania Pythona 3 do biblioteki libmagic.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
+%patch -P 0 -p1
+%patch -P 1 -p1
+%patch -P 2 -p1
+%patch -P 3 -p1
 
 %if "%{_ver_lt '%{cc_version}' '3.4'}" == "1"
 %{__sed} -i -e 's,-Wextra,,' configure.ac
