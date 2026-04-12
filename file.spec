@@ -34,12 +34,13 @@ Summary(uk.UTF-8):	Утиліта для визначення типів фай�
 Summary(zh_CN.UTF-8):	判定文件类型的工具。
 Summary(zh_TW.UTF-8):	用於決定檔案類型的一個工具程式。
 Name:		file
-Version:	5.46
-Release:	2
+Version:	5.47
+Release:	1
 License:	distributable
 Group:		Applications/File
-Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
-# Source0-md5:	459da2d4b534801e2e2861611d823864
+#Source0:	ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
+Source0:	https://distfiles.macports.org/file/%{name}-%{version}.tar.gz
+# Source0-md5:	1023ef52a2fb64acdf80211e469d6939
 Source1:	http://ftp1.pld-linux.org/people/glen/%{name}-non-english-man-pages.tar.bz2
 # Source1-md5:	6a45bcaefd19b94db36a1b2b7c5b806b
 Source2:	%{name}-zisofs.magic
@@ -49,6 +50,7 @@ Patch0:		searchpath.patch
 Patch1:		automake.patch
 Patch2:		%{name}-gettext-no-random-translations.patch
 Patch3:		name-use-count.patch
+Patch4:		%{name}-python-magic-close-fix-whitespace.patch
 URL:		http://www.darwinsys.com/file/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
@@ -290,6 +292,7 @@ Wiązania Pythona 3 do biblioteki libmagic.
 %patch -P 1 -p1
 %patch -P 2 -p1
 %patch -P 3 -p1
+%patch -P 4 -p1
 
 %if "%{_ver_lt '%{cc_version}' '3.4'}" == "1"
 %{__sed} -i -e 's,-Wextra,,' configure.ac
@@ -349,6 +352,8 @@ ln -sf /%{_lib}/$(basename $RPM_BUILD_ROOT/%{_lib}/libmagic.so.*.*.*) \
 cd python
 %py_install
 cd ..
+%py_comp $RPM_BUILD_ROOT%{py_sitescriptdir}
+%py_ocomp $RPM_BUILD_ROOT%{py_sitescriptdir}
 %py_postclean
 %endif
 
@@ -356,6 +361,8 @@ cd ..
 cd py3
 %py3_install
 cd ..
+%py3_comp $RPM_BUILD_ROOT%{py3_sitescriptdir}
+%py3_ocomp $RPM_BUILD_ROOT%{py3_sitescriptdir}
 %endif
 
 awk -f %{SOURCE4} < $RPM_BUILD_ROOT%{_datadir}/misc/magic > $RPM_BUILD_ROOT%{_datadir}/misc/magic.mime
