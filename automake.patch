@@ -13,9 +13,9 @@
 +$(MAGIC_FILES)
 +
 +MAGIC_FILES = \
+ $(MAGIC_FRAGMENT_DIR)/a2ml \
  $(MAGIC_FRAGMENT_DIR)/acorn \
  $(MAGIC_FRAGMENT_DIR)/adi \
- $(MAGIC_FRAGMENT_DIR)/adventure \
 @@ -189,6 +189,7 @@
  $(MAGIC_FRAGMENT_DIR)/modulefile \
  $(MAGIC_FRAGMENT_DIR)/motorola \

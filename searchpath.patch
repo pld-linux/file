@@ -21,7 +21,7 @@ still use ~/.magic by default
 -	static const char hmagic[] = "/.magic/magic.mgc";
 +	static const char hmagic[] = "/.magic";
  	static char *default_magic;
- 	char *home, *hmagicpath;
+ 	char *home, *hmagicpath, *tmp_magic;
  
 --- a/src/apprentice.c
 +++ b/src/apprentice.c
