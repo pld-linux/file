@@ -35,7 +35,7 @@ Summary(zh_CN.UTF-8):	判定文件类型的工具。
 Summary(zh_TW.UTF-8):	用於決定檔案類型的一個工具程式。
 Name:		file
 Version:	5.48
-Release:	2
+Release:	3
 License:	distributable
 Group:		Applications/File
 Source0:	https://astron.com/pub/file/%{name}-%{version}.tar.gz
@@ -49,6 +49,10 @@ Patch0:		searchpath.patch
 Patch1:		automake.patch
 Patch2:		%{name}-gettext-no-random-translations.patch
 Patch3:		name-use-count.patch
+Patch4:		cdf-catalog-loop.patch
+Patch5:		cdf-app-name-nul.patch
+Patch6:		cdf-memory-limit.patch
+Patch7:		pipe2file-umask.patch
 URL:		http://www.darwinsys.com/file/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
@@ -290,6 +294,10 @@ Wiązania Pythona 3 do biblioteki libmagic.
 %patch -P 1 -p1
 %patch -P 2 -p1
 %patch -P 3 -p1
+%patch -P 4 -p1
+%patch -P 5 -p1
+%patch -P 6 -p1
+%patch -P 7 -p1
 
 %if "%{_ver_lt '%{cc_version}' '3.4'}" == "1"
 %{__sed} -i -e 's,-Wextra,,' configure.ac

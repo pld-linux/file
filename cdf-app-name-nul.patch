@@ -1,0 +1,33 @@
+From 029e5bae7362e71671b3e1f316d4f3936d8a7819 Mon Sep 17 00:00:00 2001
+From: Christos Zoulas <christos@zoulas.com>
+Date: Tue, 13 Oct 2026 15:54:12 +0000
+Subject: [PATCH] PR/812: mgl: NUL terminate string passed to cdf_app_to_mime()
+
+---
+ src/readcdf.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/src/readcdf.c b/src/readcdf.c
+index ab2984d74..49f4f844b 100644
+--- a/src/readcdf.c
++++ b/src/readcdf.c
+@@ -397,7 +397,7 @@ cdf_check_summary_info(struct magic_set *ms, const cdf_info_t *info,
+ 	int i;
+ 	const char *str = NULL;
+ 	cdf_directory_t *d;
+-	char name[__arraycount(d->d_name)];
++	char name[__arraycount(d->d_name) + 1];
+ 	size_t j, k;
+ 
+ #ifdef CDF_DEBUG
+@@ -411,8 +411,9 @@ cdf_check_summary_info(struct magic_set *ms, const cdf_info_t *info,
+ 		return i;
+ 	for (j = 0; str == NULL && j < dir->dir_len; j++) {
+ 		d = &dir->dir_tab[j];
+-		for (k = 0; k < sizeof(name); k++)
++		for (k = 0; k < sizeof(name) - 1; k++)
+ 			name[k] = CAST(char, cdf_tole2(d->d_name[k]));
++		name[sizeof(name) - 1] = '\0';
+ 		str = cdf_app_to_mime(name,
+ 				      NOTMIME(ms) ? name2desc : name2mime);
+ 	}

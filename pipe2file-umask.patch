@@ -1,0 +1,33 @@
+From f54b0776b92527be98033f8f73d09faf2d540188 Mon Sep 17 00:00:00 2001
+From: Christos Zoulas <christos@zoulas.com>
+Date: Thu, 22 Oct 2026 15:44:03 +0000
+Subject: [PATCH] PR/183:soma0121: file_pipe2file sets umask(0) around mkstemp
+ and restores it afterwards. umask is process-wide, so in a threaded libmagic
+ consumer any file another thread creates during that window gets no umask
+ applied: open(path, O_CREAT, 0666) under umask 022 comes out 0666. the window
+ opens whenever magic_descriptor is handed a pipe or socket whose data starts
+ with an ELF header (file_tryelf -> file_pipe2file), so whoever supplies that
+ stream can keep reopening it. with one thread identifying a 256-byte ELF
+ header from pipes and another creating files under umask 022, 33715 of 200000
+ files came out 0666; with umask(0177) it is 0 of 200000 and the tests still
+ pass. 0177 also keeps the temporary 0600 on libcs whose mkstemp honours the
+ umask. a file created concurrently can still pick up the temporary mask, but
+ that only makes it more restrictive, never group or world writable.
+
+---
+ src/compress.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/compress.c b/src/compress.c
+index 0296ec3d2..058760c97 100644
+--- a/src/compress.c
++++ b/src/compress.c
+@@ -544,7 +544,7 @@ file_pipe2file(struct magic_set *ms, int fd, const void *startbuf,
+ #else
+ 	{
+ 		int te;
+-		mode_t ou = umask(0);
++		mode_t ou = umask(0177);
+ 		tfd = mkstemp(buf);
+ 		(void)umask(ou);
+ 		te = errno;

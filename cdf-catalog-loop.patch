@@ -1,0 +1,24 @@
+From 4eae60a63cc185f97efb913f0a69cf064488e2a9 Mon Sep 17 00:00:00 2001
+From: Christos Zoulas <christos@zoulas.com>
+Date: Wed, 14 Oct 2026 16:54:08 +0000
+Subject: [PATCH] PR/181: soma0121: fix infinite loop in cdf_unpack_catalog on
+ zero-length record
+
+---
+ src/cdf.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/src/cdf.c b/src/cdf.c
+index 27d4e6b74..ddf7bb546 100644
+--- a/src/cdf.c
++++ b/src/cdf.c
+@@ -1244,6 +1244,9 @@ cdf_unpack_catalog(const cdf_header_t *h, const cdf_stream_t *sst,
+ 		extract_catalog_field(uint64_t, ce_timestamp, 8);
+ 		reclen = cep->ce_namlen;
+ 
++		if (reclen == 0)
++			break;
++
+ 		if (reclen < 14) {
+ 			cep->ce_namlen = 0;
+ 			continue;
